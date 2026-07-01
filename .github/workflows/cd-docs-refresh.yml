@@ -1,0 +1,19 @@
+name: CD Docs Refresh
+
+# Regenerates the roadmap / activity pages and republishes the site. Those
+# pages change with epic activity in vergil-project/.github, not with any
+# change to this repo, so there is no push to rebuild on — this runs nightly
+# and on demand (the "Run workflow" button is the manual "refresh now").
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    uses: vergil-project/vergil-actions/.github/workflows/cd-docs-refresh.yml@v2.1
+    permissions:
+      contents: write
