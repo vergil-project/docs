@@ -14,3 +14,11 @@ docs = true
 
 [dependencies]
 vergil = "v2.1"
+
+# Generated reporting pages — refreshed from GitHub issue/epic data by the
+# roadmap-refresh workflow; exempt from markdownlint (machine-formatted).
+[markdownlint]
+ignore = [
+  "docs/site/docs/roadmap.md",
+  "docs/site/docs/activity.md",
+]

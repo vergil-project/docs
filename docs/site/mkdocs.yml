@@ -1,4 +1,4 @@
-site_name: "docs"
+site_name: "Vergil"
 repo_url: https://github.com/vergil-project/docs
 docs_dir: docs
 strict: true
@@ -45,4 +45,6 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Roadmap: roadmap.md
+  - Activity: activity.md
   - Getting Started: getting-started.md
