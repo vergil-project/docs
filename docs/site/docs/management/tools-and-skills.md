@@ -42,7 +42,7 @@ hands off, and a human takes it across the line.
 
 ### Intake
 
-- `vrg-triage-create` (file an intake issue into `.github`, `--kind triage|idea|research` — the sole sanctioned path)
+- `vrg-triage-create` (file an intake issue into `.github`; `--kind triage|idea|research`)
 
 ### Lifecycle
 
