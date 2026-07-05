@@ -47,6 +47,12 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Management:
+      - management/index.md
+      - Epics & tasks: management/epics-and-tasks.md
+      - Intake: management/intake.md
+      - Workflow: management/workflow.md
+      - Tools & skills: management/tools-and-skills.md
   - Roadmap: roadmap.md
   - Activity: activity.md
   - Getting Started: getting-started.md
