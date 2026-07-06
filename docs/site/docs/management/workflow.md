@@ -32,14 +32,19 @@ epic — filed under the target repository's ad-hoc epic, and done.
 
 ## The four-stage interaction doctrine
 
-The pipeline mixes interactive and automated stages on purpose:
+The four stages are not hand-waving — each is a concrete, reusable **skill**,
+composed from two packages: **Superpowers** (`brainstorming`, `writing-plans`)
+and **PAAD** (`pushback`, `alignment`). They run in a fixed order — brainstorming
+produces the spec, pushback critiques the spec, writing-plans generates the plan,
+and alignment critiques the plan and confirms it matches the spec — and the
+pipeline mixes interactive and automated stages on purpose:
 
-| Stage | Mode | Contract |
+| Skill | Mode | Contract |
 | --- | --- | --- |
-| Brainstorm | **interactive** | Explore intent, one question at a time. |
-| Pushback | **interactive** | The agent surfaces suspicious findings; the human makes the judgment calls. |
-| Writing plans | **automated** | The agent produces the plan; no gating. |
-| Alignment | **interactive** | Agent and human reconcile the plan against the spec. |
+| `superpowers:brainstorming` | **interactive** | Explore intent, one question at a time — produces the spec. |
+| `paad:pushback` | **interactive** | Adversarially critique the spec; the human makes the judgment calls. |
+| `superpowers:writing-plans` | **automated** | Generate the implementation plan; no gating. |
+| `paad:alignment` | **interactive** | Critique the plan and confirm it matches the spec. |
 
 The **human-judgment principle** governs every interactive stage: stop and ask
 *only* for ambiguities or judgment calls that **materially affect** the outcome;

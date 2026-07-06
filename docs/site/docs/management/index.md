@@ -30,12 +30,6 @@ That broke down — a single issue was often complex enough to need many pull
 requests, sometimes across repositories. Splitting work from delivery fixes it:
 the task is small and mechanical, the epic is the meaningful whole.
 
-If this looks like Jira with a layer missing, that is deliberate. Jira would
-slot a *feature* between epic and task; we skip it — "feature" is an overloaded
-label — and let the epic be the first-layer container of tasks. `.github` is our
-one special repository; the `epic` is our one special issue type: the container
-for everything else.
-
 ## Two invariants
 
 Everything in this layer follows from two rules:
@@ -70,16 +64,3 @@ One convention is worth stating up front, because it shapes the whole lifecycle:
 an epic **opens** with a documentation task and does not **close** until you have
 reviewed it, decided what comes next, and confirmed the docs reflect what
 changed. Nothing is ever "done" without asking what comes next.
-
-## Why this lives in the `docs` repo
-
-This documentation is **integrated**. The Management layer spans the tooling
-(`vergil-tooling`) and the CI actions (`vergil-actions`), and the model itself is
-not specific to any one repository — so it lives here, in the org-wide `docs`
-site, the first place to go to understand how the whole thing fits together.
-This site tells the **story** — how the pieces interact, who drives what.
-Individual repositories hold only the dry, *mechanically unique* reference: the
-per-command "man page" for each CLI, what a specific action does. Part of
-building this section is therefore walking the other repositories and trimming
-their documentation back to reference-only, so the org-wide explanation lives in
-exactly one place — here.
