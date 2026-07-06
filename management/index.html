@@ -726,17 +726,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#why-this-lives-in-the-docs-repo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why this lives in the docs repo
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -781,11 +770,6 @@ once you can manage epics, you manage how epics interrelate.</p>
 That broke down — a single issue was often complex enough to need many pull
 requests, sometimes across repositories. Splitting work from delivery fixes it:
 the task is small and mechanical, the epic is the meaningful whole.</p>
-<p>If this looks like Jira with a layer missing, that is deliberate. Jira would
-slot a <em>feature</em> between epic and task; we skip it — "feature" is an overloaded
-label — and let the epic be the first-layer container of tasks. <code>.github</code> is our
-one special repository; the <code>epic</code> is our one special issue type: the container
-for everything else.</p>
 <h2 id="two-invariants">Two invariants<a class="headerlink" href="#two-invariants" title="Permanent link">&para;</a></h2>
 <p>Everything in this layer follows from two rules:</p>
 <ol>
@@ -818,17 +802,6 @@ itself) are self-justifying.</p>
 an epic <strong>opens</strong> with a documentation task and does not <strong>close</strong> until you have
 reviewed it, decided what comes next, and confirmed the docs reflect what
 changed. Nothing is ever "done" without asking what comes next.</p>
-<h2 id="why-this-lives-in-the-docs-repo">Why this lives in the <code>docs</code> repo<a class="headerlink" href="#why-this-lives-in-the-docs-repo" title="Permanent link">&para;</a></h2>
-<p>This documentation is <strong>integrated</strong>. The Management layer spans the tooling
-(<code>vergil-tooling</code>) and the CI actions (<code>vergil-actions</code>), and the model itself is
-not specific to any one repository — so it lives here, in the org-wide <code>docs</code>
-site, the first place to go to understand how the whole thing fits together.
-This site tells the <strong>story</strong> — how the pieces interact, who drives what.
-Individual repositories hold only the dry, <em>mechanically unique</em> reference: the
-per-command "man page" for each CLI, what a specific action does. Part of
-building this section is therefore walking the other repositories and trimming
-their documentation back to reference-only, so the org-wide explanation lives in
-exactly one place — here.</p>
 
 
 

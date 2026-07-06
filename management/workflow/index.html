@@ -851,35 +851,40 @@ epic — filed under the target repository's ad-hoc epic, and done.</p>
    repository where its PR will land.</li>
 </ol>
 <h2 id="the-four-stage-interaction-doctrine">The four-stage interaction doctrine<a class="headerlink" href="#the-four-stage-interaction-doctrine" title="Permanent link">&para;</a></h2>
-<p>The pipeline mixes interactive and automated stages on purpose:</p>
+<p>The four stages are not hand-waving — each is a concrete, reusable <strong>skill</strong>,
+composed from two packages: <strong>Superpowers</strong> (<code>brainstorming</code>, <code>writing-plans</code>)
+and <strong>PAAD</strong> (<code>pushback</code>, <code>alignment</code>). They run in a fixed order — brainstorming
+produces the spec, pushback critiques the spec, writing-plans generates the plan,
+and alignment critiques the plan and confirms it matches the spec — and the
+pipeline mixes interactive and automated stages on purpose:</p>
 <table>
 <thead>
 <tr>
-<th>Stage</th>
+<th>Skill</th>
 <th>Mode</th>
 <th>Contract</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Brainstorm</td>
+<td><code>superpowers:brainstorming</code></td>
 <td><strong>interactive</strong></td>
-<td>Explore intent, one question at a time.</td>
+<td>Explore intent, one question at a time — produces the spec.</td>
 </tr>
 <tr>
-<td>Pushback</td>
+<td><code>paad:pushback</code></td>
 <td><strong>interactive</strong></td>
-<td>The agent surfaces suspicious findings; the human makes the judgment calls.</td>
+<td>Adversarially critique the spec; the human makes the judgment calls.</td>
 </tr>
 <tr>
-<td>Writing plans</td>
+<td><code>superpowers:writing-plans</code></td>
 <td><strong>automated</strong></td>
-<td>The agent produces the plan; no gating.</td>
+<td>Generate the implementation plan; no gating.</td>
 </tr>
 <tr>
-<td>Alignment</td>
+<td><code>paad:alignment</code></td>
 <td><strong>interactive</strong></td>
-<td>Agent and human reconcile the plan against the spec.</td>
+<td>Critique the plan and confirm it matches the spec.</td>
 </tr>
 </tbody>
 </table>

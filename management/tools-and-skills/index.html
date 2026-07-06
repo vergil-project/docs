@@ -637,6 +637,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The tools, by role">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authoring-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authoring &amp; structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intake
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reporting-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reporting &amp; enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull-request flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -793,6 +854,67 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="The tools, by role">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authoring-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authoring &amp; structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#intake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Intake
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reporting-enforcement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reporting &amp; enforcement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull-request flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -874,22 +996,33 @@ irreversible, outward-facing steps.</p>
 <p>An agent never merges and never opens a PR itself: it prepares the change and
 hands off, and a human takes it across the line.</p>
 <h2 id="the-tools-by-role">The tools, by role<a class="headerlink" href="#the-tools-by-role" title="Permanent link">&para;</a></h2>
+<h3 id="authoring-structure">Authoring &amp; structure<a class="headerlink" href="#authoring-structure" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>Authoring &amp; structure</strong> — <code>vrg-epic-create</code> (mint an epic in <code>.github</code>),
-  <code>vrg-adhoc-epic</code> (ensure a repo's ad-hoc epic), <code>vrg-issue-create</code> (a task,
-  born linked under an epic), <code>vrg-epic-link</code> / <code>-move</code> / <code>-unlink</code> (manage the
-  epic↔task relationship).</li>
-<li><strong>Intake</strong> — <code>vrg-triage-create</code> (<code>--kind triage|idea|research</code>), the sole
-  sanctioned path for filing an intake issue into <code>.github</code>.</li>
-<li><strong>Lifecycle</strong> — <code>vrg-epic-rollup</code> (event-driven: closes a finite epic when its
-  last task closes), <code>vrg-finalize-pr</code> (human: merge + post-merge cleanup).</li>
-<li><strong>Reporting &amp; enforcement</strong> — <code>vrg-roadmap</code> (the open-epic roadmap),
-  <code>vrg-epic-audit</code> (drift <em>and</em> invariant violations; read-only, with a
-  human-gated <code>--close</code>), <code>vrg-adhoc-migrate</code> (relocate legacy standing epics;
-  dry-run by default, human-gated <code>--apply</code>).</li>
-<li><strong>Pull-request flow</strong> — <code>vrg-commit</code> (standards-compliant commits),
-  <code>vrg-pr-workflow report-ready</code> (records the PR hand-off), <code>vrg-submit-pr</code>
-  (human-run).</li>
+<li><code>vrg-epic-create</code> (mint an epic in <code>.github</code>)</li>
+<li><code>vrg-adhoc-epic</code> (ensure a repo's ad-hoc epic exists)</li>
+<li><code>vrg-issue-create</code> (create a task, born linked under an epic)</li>
+<li><code>vrg-epic-link</code> / <code>vrg-epic-move</code> / <code>vrg-epic-unlink</code> (manage the epic↔task relationship)</li>
+</ul>
+<h3 id="intake">Intake<a class="headerlink" href="#intake" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>vrg-triage-create</code> (file an intake issue into <code>.github</code>; <code>--kind triage|idea|research</code>)</li>
+</ul>
+<h3 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>vrg-epic-rollup</code> (close a finite epic when its last task closes — event-driven)</li>
+<li><code>vrg-finalize-pr</code> (merge + post-merge cleanup — human)</li>
+</ul>
+<h3 id="reporting-enforcement">Reporting &amp; enforcement<a class="headerlink" href="#reporting-enforcement" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>vrg-roadmap</code> (the open-epic roadmap)</li>
+<li><code>vrg-epic-audit</code> (drift and invariant violations — read-only, with a human-gated <code>--close</code>)</li>
+<li><code>vrg-adhoc-migrate</code> (relocate legacy standing epics — dry-run by default, human-gated <code>--apply</code>)</li>
+</ul>
+<h3 id="pull-request-flow">Pull-request flow<a class="headerlink" href="#pull-request-flow" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>vrg-commit</code> (standards-compliant commits)</li>
+<li><code>vrg-pr-workflow report-ready</code> (records the PR hand-off)</li>
+<li><code>vrg-submit-pr</code> (open the PR — human-run)</li>
 </ul>
 <p>The <code>vrg-gh</code> and <code>vrg-git</code> wrappers sit under all of this, enforcing the
 allow-lists and selecting the right identity; raw <code>git</code>/<code>gh</code> are blocked in agent
