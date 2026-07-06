@@ -33,21 +33,33 @@ hands off, and a human takes it across the line.
 
 ## The tools, by role
 
-- **Authoring & structure** — `vrg-epic-create` (mint an epic in `.github`),
-  `vrg-adhoc-epic` (ensure a repo's ad-hoc epic), `vrg-issue-create` (a task,
-  born linked under an epic), `vrg-epic-link` / `-move` / `-unlink` (manage the
-  epic↔task relationship).
-- **Intake** — `vrg-triage-create` (`--kind triage|idea|research`), the sole
-  sanctioned path for filing an intake issue into `.github`.
-- **Lifecycle** — `vrg-epic-rollup` (event-driven: closes a finite epic when its
-  last task closes), `vrg-finalize-pr` (human: merge + post-merge cleanup).
-- **Reporting & enforcement** — `vrg-roadmap` (the open-epic roadmap),
-  `vrg-epic-audit` (drift *and* invariant violations; read-only, with a
-  human-gated `--close`), `vrg-adhoc-migrate` (relocate legacy standing epics;
-  dry-run by default, human-gated `--apply`).
-- **Pull-request flow** — `vrg-commit` (standards-compliant commits),
-  `vrg-pr-workflow report-ready` (records the PR hand-off), `vrg-submit-pr`
-  (human-run).
+### Authoring & structure
+
+- `vrg-epic-create` (mint an epic in `.github`)
+- `vrg-adhoc-epic` (ensure a repo's ad-hoc epic exists)
+- `vrg-issue-create` (create a task, born linked under an epic)
+- `vrg-epic-link` / `vrg-epic-move` / `vrg-epic-unlink` (manage the epic↔task relationship)
+
+### Intake
+
+- `vrg-triage-create` (file an intake issue into `.github`; `--kind triage|idea|research`)
+
+### Lifecycle
+
+- `vrg-epic-rollup` (close a finite epic when its last task closes — event-driven)
+- `vrg-finalize-pr` (merge + post-merge cleanup — human)
+
+### Reporting & enforcement
+
+- `vrg-roadmap` (the open-epic roadmap)
+- `vrg-epic-audit` (drift and invariant violations — read-only, with a human-gated `--close`)
+- `vrg-adhoc-migrate` (relocate legacy standing epics — dry-run by default, human-gated `--apply`)
+
+### Pull-request flow
+
+- `vrg-commit` (standards-compliant commits)
+- `vrg-pr-workflow report-ready` (records the PR hand-off)
+- `vrg-submit-pr` (open the PR — human-run)
 
 The `vrg-gh` and `vrg-git` wrappers sit under all of this, enforcing the
 allow-lists and selecting the right identity; raw `git`/`gh` are blocked in agent
