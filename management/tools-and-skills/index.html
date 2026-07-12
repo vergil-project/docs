@@ -984,8 +984,12 @@ hands off, and a human takes it across the line.</p>
 <ul>
 <li><code>vrg-roadmap</code> (the open-epic roadmap)</li>
 <li><code>vrg-epic-audit</code> (drift and invariant violations — read-only, with a human-gated <code>--close</code>)</li>
-<li><code>vrg-adhoc-migrate</code> (relocate legacy standing epics — dry-run by default, human-gated <code>--apply</code>)</li>
+<li><code>vrg-adhoc-migrate</code> (the one-time relocation of the legacy <code>standing</code> epics —
+  <strong>complete</strong>; the <code>standing</code> alias is retired, so <code>ad-hoc</code> is the only
+  perpetual variant)</li>
 </ul>
+<p>To relocate a <strong>finite</strong> epic into its correct home (<code>.github</code>), move the issue
+with <code>vrg-gh issue transfer</code> and re-link its tasks with <code>vrg-epic-link</code>.</p>
 <h3 id="pull-request-flow">Pull-request flow<a class="headerlink" href="#pull-request-flow" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>vrg-commit</code> (standards-compliant commits)</li>

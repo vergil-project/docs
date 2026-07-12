@@ -543,6 +543,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#compliance-invariants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compliance invariants
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -796,6 +807,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#compliance-invariants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compliance invariants
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -848,6 +870,9 @@ things — fix a typo in a man page, bump a pin — would clutter the model if e
 demanded its own epic. So every repository has exactly one <strong>ad-hoc epic</strong>:
 <code>Epic (ad hoc): &lt;repo&gt;</code>, labelled <code>epic</code> + <code>ad-hoc</code>, and (like all epics) located
 in <code>.github</code>. Its tasks live in the target repository, linked across.</p>
+<p><code>ad-hoc</code> is the <strong>single</strong> marker for this perpetual variant. An earlier
+<code>standing</code> alias has been retired — removed from the code and the label
+registry — so <code>ad-hoc</code> is the only form the model recognises.</p>
 <p>An ad-hoc epic is <strong>perpetual</strong>: created once, never auto-closed, kept open even
 when empty. That perpetual-ness is the <em>only</em> thing distinguishing it from a
 finite epic. The name does deliberate work — "ad hoc" is the smell a serious
@@ -870,6 +895,24 @@ carries <strong>bookend</strong> tasks:</p>
 close, the closing bookends <em>gate</em> completion. You cannot finish an epic without
 answering "now what?" and confirming the story is documented. Nothing is ever
 done without asking what comes next.</p>
+<h2 id="compliance-invariants">Compliance invariants<a class="headerlink" href="#compliance-invariants" title="Permanent link">&para;</a></h2>
+<p>These guarantees are enforced, not just documented. <code>vrg-epic-audit</code> is a
+read-only sweep (with a human-gated <code>--close</code>) that flags drift and invariant
+violations:</p>
+<ul>
+<li><strong>Epics live in <code>.github</code>.</strong> A public repository's epics belong in the org's
+  <code>.github</code>; an epic that has leaked out is flagged. (A private repository may
+  legitimately home its own epics.)</li>
+<li><strong>No stray <code>.github</code> issues.</strong> The epic home holds only epics, intake, and
+  tasks linked under an epic. An unlinked, non-epic, non-intake issue there is a
+  stray.</li>
+<li><strong>An epic is never closed while a child is open.</strong> Roll-up closes an epic only
+  once <em>all</em> its children are closed; a closed epic with a still-open child is a
+  violation, remediated by reopening it.</li>
+</ul>
+<p>When a <strong>finite epic</strong> is found outside its home, relocate it: move the issue
+into <code>.github</code> with <code>vrg-gh issue transfer</code>, then re-establish its task links
+with <code>vrg-epic-link</code>.</p>
 
 
 
