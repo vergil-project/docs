@@ -42,6 +42,10 @@ demanded its own epic. So every repository has exactly one **ad-hoc epic**:
 `Epic (ad hoc): <repo>`, labelled `epic` + `ad-hoc`, and (like all epics) located
 in `.github`. Its tasks live in the target repository, linked across.
 
+`ad-hoc` is the **single** marker for this perpetual variant. An earlier
+`standing` alias has been retired — removed from the code and the label
+registry — so `ad-hoc` is the only form the model recognises.
+
 An ad-hoc epic is **perpetual**: created once, never auto-closed, kept open even
 when empty. That perpetual-ness is the *only* thing distinguishing it from a
 finite epic. The name does deliberate work — "ad hoc" is the smell a serious
@@ -66,3 +70,23 @@ This rides the roll-up: because the epic cannot close until *all* its tasks
 close, the closing bookends *gate* completion. You cannot finish an epic without
 answering "now what?" and confirming the story is documented. Nothing is ever
 done without asking what comes next.
+
+## Compliance invariants
+
+These guarantees are enforced, not just documented. `vrg-epic-audit` is a
+read-only sweep (with a human-gated `--close`) that flags drift and invariant
+violations:
+
+- **Epics live in `.github`.** A public repository's epics belong in the org's
+  `.github`; an epic that has leaked out is flagged. (A private repository may
+  legitimately home its own epics.)
+- **No stray `.github` issues.** The epic home holds only epics, intake, and
+  tasks linked under an epic. An unlinked, non-epic, non-intake issue there is a
+  stray.
+- **An epic is never closed while a child is open.** Roll-up closes an epic only
+  once *all* its children are closed; a closed epic with a still-open child is a
+  violation, remediated by reopening it.
+
+When a **finite epic** is found outside its home, relocate it: move the issue
+into `.github` with `vrg-gh issue transfer`, then re-establish its task links
+with `vrg-epic-link`.
