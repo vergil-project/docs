@@ -53,7 +53,12 @@ hands off, and a human takes it across the line.
 
 - `vrg-roadmap` (the open-epic roadmap)
 - `vrg-epic-audit` (drift and invariant violations — read-only, with a human-gated `--close`)
-- `vrg-adhoc-migrate` (relocate legacy standing epics — dry-run by default, human-gated `--apply`)
+- `vrg-adhoc-migrate` (the one-time relocation of the legacy `standing` epics —
+  **complete**; the `standing` alias is retired, so `ad-hoc` is the only
+  perpetual variant)
+
+To relocate a **finite** epic into its correct home (`.github`), move the issue
+with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
 
 ### Pull-request flow
 
