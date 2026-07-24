@@ -10,7 +10,7 @@
 Thumbs.db
 
 # Vergil
-.venv-host/
+.venv/
 .worktrees/
 .vergil/
 .superpowers/
