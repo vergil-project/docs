@@ -42,3 +42,6 @@ jobs:
       container-tag: 'latest'
       container-suffix: base
       run-codeql: false
+
+  docs:
+    uses: vergil-project/vergil-actions/.github/workflows/ci-docs.yml@v2.1
