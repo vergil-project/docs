@@ -19,6 +19,14 @@ automatically.
 The **[Activity log](activity.md)** is the by-date record of recently closed work
 across the whole org.
 
+## Supported languages
+
+Vergil validates repositories across a set of first-class, containerized,
+multi-version languages — Python, Go, Java, Rust, C++, and now **TypeScript**
+(Node.js runtime, single canonical `tsc`, npm, Vitest + V8 100% coverage, a
+shareable strict base tsconfig, `node-24` / `node-22` images). See
+**[Supported languages](languages.md)** for the fleet-level summary.
+
 ## Getting started
 
 New here? Start with **[Getting Started](getting-started.md)**.
