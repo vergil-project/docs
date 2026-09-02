@@ -12,7 +12,7 @@
         <link rel="prev" href="../activity/">
       
       
-        <link rel="next" href="../getting-started/">
+        <link rel="next" href="../ci/">
       
       
         
@@ -271,6 +271,25 @@
     
   
   Supported languages
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../ci/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Continuous integration
 
       </a>
     </li>
@@ -714,6 +733,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../getting-started/" class="md-nav__link">
         
   
@@ -794,7 +840,9 @@
 (lint, typecheck, test + coverage, dependency audit). Each language is added the
 same way — a registry entry, a strictness policy, prebuilt container images, and
 reusable CI — so every repository is validated identically regardless of the
-language it is written in.</p>
+language it is written in. The version set each language tests against is stored
+config, not workflow code; see <strong><a href="../ci/">Continuous integration</a></strong> for the
+fleet-wide, version-agnostic CI model.</p>
 <p>This page is the fleet-level summary. The authoritative, per-language <strong>standards</strong>
 (toolchains, strictness rules, naming, testing and coverage) live in
 <code>vergil-tooling</code> and are linked below rather than restated here.</p>

@@ -9,6 +9,10 @@
       
       
       
+        <link rel="prev" href="../languages/">
+      
+      
+        <link rel="next" href="../getting-started/">
       
       
         
@@ -19,7 +23,7 @@
     
     
       
-        <title>Release Notes - Vergil</title>
+        <title>Continuous integration - Vergil</title>
       
     
     
@@ -70,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#release-notes" class="md-skip">
+        <a href="#continuous-integration" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Release Notes
+              Continuous integration
             
           </span>
         </div>
@@ -275,9 +279,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../ci/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -666,10 +672,37 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../ci/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous integration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -685,6 +718,81 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-version-set-lives-only-in-vergiltoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The version set lives only in vergil.toml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thin-caller-ciyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thin-caller ci.yml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-agnostic-evidence-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version-agnostic evidence gates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ciprimary-version-for-single-container-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [ci].primary-version for single-container jobs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nightly-governance-opsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nightly governance (ops.yml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -736,6 +844,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-version-set-lives-only-in-vergiltoml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The version set lives only in vergil.toml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thin-caller-ciyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thin-caller ci.yml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-agnostic-evidence-gates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version-agnostic evidence gates
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ciprimary-version-for-single-container-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        [ci].primary-version for single-container jobs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nightly-governance-opsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nightly governance (ops.yml)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -751,8 +922,70 @@
 
 
 
-<h1 id="release-notes">Release Notes<a class="headerlink" href="#release-notes" title="Permanent link">&para;</a></h1>
-<p>No releases yet.</p>
+<h1 id="continuous-integration">Continuous integration<a class="headerlink" href="#continuous-integration" title="Permanent link">&para;</a></h1>
+<p>Every repository in the fleet runs the <strong>same CI model</strong>, and it is
+<strong>version-agnostic by design</strong>: the set of language versions a repo tests
+against is configuration, not workflow code, and the merge gates never name a
+version. Changing what a repo tests against is a one-line edit; nothing about
+the workflows or the branch protection has to move with it.</p>
+<p>This page is the fleet-level summary. The authoritative mechanics — job names,
+the reusable-workflow inputs, the evidence bundle format — live in
+<code>vergil-tooling</code> and are linked below rather than restated here:</p>
+<ul>
+<li><a href="https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/">CI Architecture</a></li>
+<li><a href="https://vergil-project.github.io/vergil-tooling/guides/ci-evidence-convention/">CI Evidence Convention</a></li>
+</ul>
+<h2 id="the-version-set-lives-only-in-vergiltoml">The version set lives only in <code>vergil.toml</code><a class="headerlink" href="#the-version-set-lives-only-in-vergiltoml" title="Permanent link">&para;</a></h2>
+<p>A repo's CI version matrix is stored in exactly one place: <code>[ci].versions</code> in
+its <code>vergil.toml</code>. It is <strong>not</strong> embedded in <code>ci.yml</code> and <strong>not</strong> passed as a
+workflow input. The <code>vergil-actions</code> reusable workflows read <code>[ci].versions</code>
+from the consuming repo at run time and fan their matrix out over that list —
+a <strong>dynamic matrix</strong>.</p>
+<p>The consequence is that changing what a repo tests against — adding a new
+language version, or dropping an end-of-life one — is a <strong>one-line
+<code>vergil.toml</code> edit</strong>. No <code>ci.yml</code> is hand-edited, so the matrix cannot drift
+from the stored version set.</p>
+<h2 id="thin-caller-ciyml">Thin-caller <code>ci.yml</code><a class="headerlink" href="#thin-caller-ciyml" title="Permanent link">&para;</a></h2>
+<p>A consuming repo's <code>ci.yml</code> is a <strong>thin caller</strong>. Each job simply <code>uses:</code> a
+<code>vergil-actions</code> reusable workflow at the pinned <code>@v2.1</code> tag and passes only
+<code>language:</code> and <code>container-suffix:</code>. It passes <strong>no</strong> version matrix and <strong>no</strong>
+container tag — both resolve dynamically: the matrix from <code>[ci].versions</code>, and
+the single-container jobs' image tag from the primary version (below).</p>
+<p>Because the matrix and the container tag are derived rather than written down,
+the same short workflow serves every repo, and a version change takes effect
+fleet-wide without touching a single <code>ci.yml</code>.</p>
+<h2 id="version-agnostic-evidence-gates">Version-agnostic evidence gates<a class="headerlink" href="#version-agnostic-evidence-gates" title="Permanent link">&para;</a></h2>
+<p>Branch protection requires <strong>stable, version-agnostic aggregate checks</strong>, not
+per-version legs. For each matrixed kind — audit, quality (lint + typecheck),
+and tests — the required check is the <code>&lt;kind&gt; / evidence</code> aggregate the
+reusable workflow emits (<code>audit / evidence</code>, <code>quality / evidence</code>,
+<code>test / evidence</code>), never the individual <code>… / 3.12</code>, <code>… / 3.13</code> legs. Each
+<code>evidence</code> job depends on the whole matrix, so one required context covers
+every version.</p>
+<p>Because the required-check <em>names</em> carry no version, a <strong>matrix change merges
+through the normal gate</strong> — including a matrix <em>reduction</em>. This closes the old
+deadlock, where branch protection required a per-version leg that a reduced
+matrix could never produce, leaving the PR "expected, never reported" and
+permanently blocked with no <code>--admin</code> escape. A version change is now an
+ordinary PR.</p>
+<p>The non-matrixed checks (the security scanners, the version-bump gate, the
+docs build) keep their fixed, version-free names, and they are required too —
+there are no report-only PR gates.</p>
+<h2 id="ciprimary-version-for-single-container-jobs"><code>[ci].primary-version</code> for single-container jobs<a class="headerlink" href="#ciprimary-version-for-single-container-jobs" title="Permanent link">&para;</a></h2>
+<p>Some jobs are not matrixed — they run once in a single container (for example
+the security scan, the version-bump gate, and the docs build). These run on
+the <strong>primary version</strong>: <code>[ci].primary-version</code> if it is set, otherwise the
+<strong>highest</strong> entry of <code>[ci].versions</code> (so <code>3.14</code> for
+<code>["3.12", "3.13", "3.14"]</code>). <code>primary-version</code> is the escape hatch for the rare
+case where the highest version is not the right single-container default.</p>
+<h2 id="nightly-governance-opsyml">Nightly governance (<code>ops.yml</code>)<a class="headerlink" href="#nightly-governance-opsyml" title="Permanent link">&para;</a></h2>
+<p>Keeping this model canonical across the fleet is itself automated. Every
+managed repo carries an <code>ops.yml</code> workflow with a <strong>nightly config-audit
+caller</strong> (a scheduled <code>vergil-actions</code> reusable workflow). It keeps each
+repo's GitHub configuration canonical — reconciling branch protection against
+the derived required-check set, and flagging drift such as a required context
+that no workflow can produce. A repo whose <code>ops.yml</code> is missing or has no
+schedule is treated as non-compliant.</p>
 
 
 
