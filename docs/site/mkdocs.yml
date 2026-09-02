@@ -56,4 +56,5 @@ nav:
       - Roadmap: roadmap.md
       - Activity: activity.md
   - Supported languages: languages.md
+  - Continuous integration: ci.md
   - Getting Started: getting-started.md
