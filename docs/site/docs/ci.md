@@ -38,6 +38,17 @@ Because the matrix and the container tag are derived rather than written down,
 the same short workflow serves every repo, and a version change takes effect
 fleet-wide without touching a single `ci.yml`.
 
+One exception to "pass only `language:` and `container-suffix:`": a repo that
+publishes packages (see [Release packaging](#release-packaging)) must call the
+release workflow with `secrets: inherit`. Its signing secrets are
+**environment** secrets, and an explicit `secrets:` map does not deliver
+environment secrets to a cross-repo reusable workflow — only `inherit` does.
+Semgrep flags `secrets: inherit`, so the line carries an inline suppression:
+
+```yaml
+    secrets: inherit  # nosemgrep: yaml.github-actions.security.secrets-inherit.secrets-inherit
+```
+
 ## Version-agnostic evidence gates
 
 Branch protection requires **stable, version-agnostic aggregate checks**, not
@@ -67,6 +78,39 @@ the **primary version**: `[ci].primary-version` if it is set, otherwise the
 **highest** entry of `[ci].versions` (so `3.14` for
 `["3.12", "3.13", "3.14"]`). `primary-version` is the escape hatch for the rare
 case where the highest version is not the right single-container default.
+
+## Release packaging
+
+A repo whose `vergil.toml` has a `[package]` table also builds signed `.deb` /
+`.rpm` packages and publishes them to the org's
+[package repository](packages.md). Three `vergil-actions` reusable workflows
+carry it; repos without `[package]` call none of the packaging jobs and see no
+change.
+
+- **`ci-package.yml` (PR CI).** Builds every package and install-tests it in a
+  clean container of each target OS, rolling up into the single
+  `package / evidence` gate. It runs one of two tiers: **full** (every build
+  cell and every test cell) for release PRs into `main` and non-PR events, and
+  **reduced** (every build cell, but only one test cell per format — the oldest
+  release, on amd64) for other feature PRs.
+- **`cd-release.yml` (release).** `package-matrix` resolves the cells,
+  `package-build` builds them unsigned, and `package-sign` — in the main-only
+  `package-signing` environment — signs every `.rpm` and attests every artifact.
+  The `release` job then attaches the signed packages and
+  `packages-manifest.json` to the GitHub Release and dispatches to `packages`.
+  Any packaging failure stops the release before it is tagged.
+- **`publish-index.yml` (the `packages` repo).** Rebuilds the apt and dnf
+  index from the product releases. Before indexing anything it verifies every
+  asset's build attestation, **pinned to `cd-release.yml` on
+  `refs/heads/main`**, and every `.rpm`'s signature, then signs the metadata in
+  the develop-only `index-signing` environment and deploys to GitHub Pages.
+
+The release caller needs `secrets: inherit` (see
+[Thin-caller `ci.yml`](#thin-caller-ciyml)). The full mechanics are in
+vergil-tooling's
+[CI Architecture](https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/)
+guide and the
+[Package Config Reference](https://vergil-project.github.io/vergil-tooling/reference/package-config/#ci-and-cd).
 
 ## Nightly governance (`ops.yml`)
 

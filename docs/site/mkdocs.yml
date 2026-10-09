@@ -57,4 +57,5 @@ nav:
       - Activity: activity.md
   - Supported languages: languages.md
   - Continuous integration: ci.md
+  - Package repository: packages.md
   - Getting Started: getting-started.md
