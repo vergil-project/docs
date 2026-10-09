@@ -12,7 +12,7 @@
         <link rel="prev" href="../languages/">
       
       
-        <link rel="next" href="../getting-started/">
+        <link rel="next" href="../packages/">
       
       
         
@@ -290,6 +290,25 @@
     
   
   Continuous integration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../packages/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Package repository
 
       </a>
     </li>
@@ -779,6 +798,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#release-packaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release packaging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#nightly-governance-opsyml" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -793,6 +823,33 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Package repository
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -895,6 +952,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#release-packaging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release packaging
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#nightly-governance-opsyml" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -954,6 +1022,14 @@ the single-container jobs' image tag from the primary version (below).</p>
 <p>Because the matrix and the container tag are derived rather than written down,
 the same short workflow serves every repo, and a version change takes effect
 fleet-wide without touching a single <code>ci.yml</code>.</p>
+<p>One exception to "pass only <code>language:</code> and <code>container-suffix:</code>": a repo that
+publishes packages (see <a href="#release-packaging">Release packaging</a>) must call the
+release workflow with <code>secrets: inherit</code>. Its signing secrets are
+<strong>environment</strong> secrets, and an explicit <code>secrets:</code> map does not deliver
+environment secrets to a cross-repo reusable workflow — only <code>inherit</code> does.
+Semgrep flags <code>secrets: inherit</code>, so the line carries an inline suppression:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">secrets</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inherit</span><span class="w">  </span><span class="c1"># nosemgrep: yaml.github-actions.security.secrets-inherit.secrets-inherit</span>
+</code></pre></div>
 <h2 id="version-agnostic-evidence-gates">Version-agnostic evidence gates<a class="headerlink" href="#version-agnostic-evidence-gates" title="Permanent link">&para;</a></h2>
 <p>Branch protection requires <strong>stable, version-agnostic aggregate checks</strong>, not
 per-version legs. For each matrixed kind — audit, quality (lint + typecheck),
@@ -978,6 +1054,37 @@ the <strong>primary version</strong>: <code>[ci].primary-version</code> if it is
 <strong>highest</strong> entry of <code>[ci].versions</code> (so <code>3.14</code> for
 <code>["3.12", "3.13", "3.14"]</code>). <code>primary-version</code> is the escape hatch for the rare
 case where the highest version is not the right single-container default.</p>
+<h2 id="release-packaging">Release packaging<a class="headerlink" href="#release-packaging" title="Permanent link">&para;</a></h2>
+<p>A repo whose <code>vergil.toml</code> has a <code>[package]</code> table also builds signed <code>.deb</code> /
+<code>.rpm</code> packages and publishes them to the org's
+<a href="../packages/">package repository</a>. Three <code>vergil-actions</code> reusable workflows
+carry it; repos without <code>[package]</code> call none of the packaging jobs and see no
+change.</p>
+<ul>
+<li><strong><code>ci-package.yml</code> (PR CI).</strong> Builds every package and install-tests it in a
+  clean container of each target OS, rolling up into the single
+  <code>package / evidence</code> gate. It runs one of two tiers: <strong>full</strong> (every build
+  cell and every test cell) for release PRs into <code>main</code> and non-PR events, and
+  <strong>reduced</strong> (every build cell, but only one test cell per format — the oldest
+  release, on amd64) for other feature PRs.</li>
+<li><strong><code>cd-release.yml</code> (release).</strong> <code>package-matrix</code> resolves the cells,
+  <code>package-build</code> builds them unsigned, and <code>package-sign</code> — in the main-only
+  <code>package-signing</code> environment — signs every <code>.rpm</code> and attests every artifact.
+  The <code>release</code> job then attaches the signed packages and
+  <code>packages-manifest.json</code> to the GitHub Release and dispatches to <code>packages</code>.
+  Any packaging failure stops the release before it is tagged.</li>
+<li><strong><code>publish-index.yml</code> (the <code>packages</code> repo).</strong> Rebuilds the apt and dnf
+  index from the product releases. Before indexing anything it verifies every
+  asset's build attestation, <strong>pinned to <code>cd-release.yml</code> on
+  <code>refs/heads/main</code></strong>, and every <code>.rpm</code>'s signature, then signs the metadata in
+  the develop-only <code>index-signing</code> environment and deploys to GitHub Pages.</li>
+</ul>
+<p>The release caller needs <code>secrets: inherit</code> (see
+<a href="#thin-caller-ciyml">Thin-caller <code>ci.yml</code></a>). The full mechanics are in
+vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/">CI Architecture</a>
+guide and the
+<a href="https://vergil-project.github.io/vergil-tooling/reference/package-config/#ci-and-cd">Package Config Reference</a>.</p>
 <h2 id="nightly-governance-opsyml">Nightly governance (<code>ops.yml</code>)<a class="headerlink" href="#nightly-governance-opsyml" title="Permanent link">&para;</a></h2>
 <p>Keeping this model canonical across the fleet is itself automated. Every
 managed repo carries an <code>ops.yml</code> workflow with a <strong>nightly config-audit
