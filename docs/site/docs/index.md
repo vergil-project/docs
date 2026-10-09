@@ -40,6 +40,8 @@ New here? Start with **[Getting Started](getting-started.md)**.
 | [`vergil-actions`](https://github.com/vergil-project/vergil-actions) | reusable CI/CD workflows |
 | [`vergil-containers`](https://github.com/vergil-project/vergil-containers) | dev / prod container images |
 | [`vergil-vm`](https://github.com/vergil-project/vergil-vm) | isolated VM environments |
+| [`vergil-python`](https://github.com/vergil-project/vergil-python) | the pinned CPython runtime, packaged as `.deb`/`.rpm` for the Python products |
+| [`packages`](https://github.com/vergil-project/packages) | the signed apt/dnf [package repository](packages.md) and `vergil-archive-keyring` |
 | [`.github`](https://github.com/vergil-project/.github) | epics + org metadata |
 | `docs` | this site |
 
