@@ -73,9 +73,11 @@ with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
 - `vrg-update-deps` (the mechanized dependency update — human-run)
 
 A release ends with an `update-deps` stage, which runs `vrg-update-deps` once
-the release is tagged and published. It opens a `deps/update-<next>` pull
-request labelled `dependency-update`. A green update is merged; a failed one
-leaves its PR open and files a fix task. Any open `dependency-update` PR blocks
+the release is tagged and published. When anything changed, it opens a
+`deps/update-<next>` pull request labelled `dependency-update`, and a green one
+is merged. If validation or the merge fails, the PR stays open and a fix task is
+filed. If an updater itself fails, nothing is pushed and the failure is recorded
+on the release's tracking issue. Any open `dependency-update` PR blocks
 the next release, until its fix task closes as completed — the next
 `vrg-release` then closes the PR and the gate clears. Two flags change this:
 `--allow-pending-deps` lets an urgent release through despite an open PR, and
