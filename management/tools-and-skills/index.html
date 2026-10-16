@@ -718,6 +718,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1018,6 +1029,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#release" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Release
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1097,6 +1119,10 @@ irreversible, outward-facing steps.</p>
 <td>Filing intake, epics, tasks, links</td>
 <td>Write-gated ops: migration <code>--apply</code>, audit <code>--close</code></td>
 </tr>
+<tr>
+<td>Implementing a dependency-update fix task</td>
+<td>Releases (<code>vrg-release</code>) and dependency updates (<code>vrg-update-deps</code>)</td>
+</tr>
 </tbody>
 </table>
 <p>An agent never merges and never opens a PR itself: it prepares the change and
@@ -1134,6 +1160,23 @@ with <code>vrg-gh issue transfer</code> and re-link its tasks with <code>vrg-epi
 <li><code>vrg-pr-workflow report-ready</code> (records the PR hand-off)</li>
 <li><code>vrg-submit-pr</code> (open the PR — human-run)</li>
 </ul>
+<h3 id="release">Release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>vrg-release</code> (cut a release from <code>develop</code> to <code>main</code> — human-run)</li>
+<li><code>vrg-update-deps</code> (the mechanized dependency update — human-run)</li>
+</ul>
+<p>A release ends with an <code>update-deps</code> stage, which runs <code>vrg-update-deps</code> once
+the release is tagged and published. When anything changed, it opens a
+<code>deps/update-&lt;next&gt;</code> pull request labelled <code>dependency-update</code>, and a green one
+is merged. If validation or the merge fails, the PR stays open and a fix task is
+filed. If an updater itself fails, nothing is pushed and the failure is recorded
+on the release's tracking issue. Any open <code>dependency-update</code> PR blocks
+the next release, until its fix task closes as completed — the next
+<code>vrg-release</code> then closes the PR and the gate clears. Two flags change this:
+<code>--allow-pending-deps</code> lets an urgent release through despite an open PR, and
+the bypass is logged on the release's tracking issue; <code>--without-deps</code> skips the
+<code>update-deps</code> stage. The release procedure itself is in vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/guides/releasing/">Releasing guide</a>.</p>
 <p>The <code>vrg-gh</code> and <code>vrg-git</code> wrappers sit under all of this, enforcing the
 allow-lists and selecting the right identity; raw <code>git</code>/<code>gh</code> are blocked in agent
 sessions.</p>
