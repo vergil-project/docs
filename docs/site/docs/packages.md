@@ -75,7 +75,9 @@ back to a `uv` install. See vergil-tooling's
 Packaged Python products depend on the `vergil-python` runtime they were built
 against. The dependency names an exact CPython patch (it is part of the package
 name, `vergil-python3.Y.Z`) with a `>=` floor on the python-build-standalone
-build, so a newer build of the same patch satisfies it.
+build, so a newer build of the same patch satisfies it. The `vergil` updater in
+`vrg-update-deps` bumps that runtime pin to a newer patch automatically, and only
+once every package index the build and install-test read from serves it.
 
 ## Publishing a product
 

@@ -27,6 +27,7 @@ irreversible, outward-facing steps.
 | Commits and PR preparation / hand-off | Reviewing and **merging** |
 | Read-only audits and dry-runs | Post-merge finalize (`vrg-finalize-pr`) |
 | Filing intake, epics, tasks, links | Write-gated ops: migration `--apply`, audit `--close` |
+| Implementing a dependency-update fix task | Releases (`vrg-release`) and dependency updates (`vrg-update-deps`) |
 
 An agent never merges and never opens a PR itself: it prepares the change and
 hands off, and a human takes it across the line.
@@ -65,6 +66,22 @@ with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
 - `vrg-commit` (standards-compliant commits)
 - `vrg-pr-workflow report-ready` (records the PR hand-off)
 - `vrg-submit-pr` (open the PR — human-run)
+
+### Release
+
+- `vrg-release` (cut a release from `develop` to `main` — human-run)
+- `vrg-update-deps` (the mechanized dependency update — human-run)
+
+A release ends with an `update-deps` stage, which runs `vrg-update-deps` once
+the release is tagged and published. It opens a `deps/update-<next>` pull
+request labelled `dependency-update`. A green update is merged; a failed one
+leaves its PR open and files a fix task. Any open `dependency-update` PR blocks
+the next release, until its fix task closes as completed — the next
+`vrg-release` then closes the PR and the gate clears. Two flags change this:
+`--allow-pending-deps` lets an urgent release through despite an open PR, and
+the bypass is logged on the release's tracking issue; `--without-deps` skips the
+`update-deps` stage. The release procedure itself is in vergil-tooling's
+[Releasing guide](https://vergil-project.github.io/vergil-tooling/guides/releasing/).
 
 The `vrg-gh` and `vrg-git` wrappers sit under all of this, enforcing the
 allow-lists and selecting the right identity; raw `git`/`gh` are blocked in agent
