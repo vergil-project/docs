@@ -5,7 +5,6 @@ branching-model = "docs-single-branch"
 release-model = "none"
 
 [ci]
-versions = ["latest"]
 integration-tests = false
 
 [publish]
