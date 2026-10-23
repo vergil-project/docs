@@ -886,8 +886,12 @@
 (lint, typecheck, test + coverage, dependency audit). Each language is added the
 same way — a registry entry, a strictness policy, prebuilt container images, and
 reusable CI — so every repository is validated identically regardless of the
-language it is written in. The version set each language tests against is stored
-config, not workflow code; see <strong><a href="../ci/">Continuous integration</a></strong> for the
+language it is written in. Each language's versions come from its <strong>version
+window</strong>, published by <code>vergil-containers</code> and derived from the upstream
+community's release and end-of-life policy, not from workflow code; see
+vergil-containers'
+<a href="https://vergil-project.github.io/vergil-containers/latest/languages/lifecycle/">Language version lifecycle</a>
+for the per-language policies, and <strong><a href="../ci/">Continuous integration</a></strong> for the
 fleet-wide, version-agnostic CI model.</p>
 <p>This page is the fleet-level summary. The authoritative, per-language <strong>standards</strong>
 (toolchains, strictness rules, naming, testing and coverage) live in
