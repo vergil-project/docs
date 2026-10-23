@@ -72,12 +72,24 @@ fails provisioning if the repository has no matching package; it never falls
 back to a `uv` install. See vergil-tooling's
 [VM spec reference](https://vergil-project.github.io/vergil-tooling/reference/vm-spec/#vergil-tooling-inside-the-vm).
 
-Packaged Python products depend on the `vergil-python` runtime they were built
-against. The dependency names an exact CPython patch (it is part of the package
-name, `vergil-python3.Y.Z`) with a `>=` floor on the python-build-standalone
-build, so a newer build of the same patch satisfies it. The `vergil` updater in
-`vrg-update-deps` bumps that runtime pin to a newer patch automatically, and only
-once every package index the build and install-test read from serves it.
+Packaged Python products depend on the `vergil-python` runtime series they were
+built against. `vergil-python` publishes one package per CPython series,
+`vergil-python<x.y>`, versioned `<cpython>+<pbs_tag>` (for example
+`3.14.8+20261020`), and a product depends on
+`vergil-python<x.y> (>= <cpython>+<pbs_tag>)`, so later patches of the same
+series satisfy it.
+
+The series is derived: it is the newest window version with a published
+runtime. A product can instead pin an exact `x.y.z` with
+`[package.python] runtime`, and then the build fails if the series package
+serves any other patch. For a pinned product, the `vergil` updater in
+`vrg-update-deps` bumps the pin to the patch the series package serves, only
+once every package index the build and install-test read from serves it, and
+never outside the pin's series: a newer series is reported as held back. See
+vergil-tooling's
+[Package Config Reference](https://vergil-project.github.io/vergil-tooling/latest/reference/package-config/)
+and
+[Dependency Update Config](https://vergil-project.github.io/vergil-tooling/latest/reference/dependency-update-config/).
 
 ## Publishing a product
 

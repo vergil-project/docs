@@ -5,8 +5,12 @@ Vergil supports a set of first-class languages under one shared model:
 (lint, typecheck, test + coverage, dependency audit). Each language is added the
 same way — a registry entry, a strictness policy, prebuilt container images, and
 reusable CI — so every repository is validated identically regardless of the
-language it is written in. The version set each language tests against is stored
-config, not workflow code; see **[Continuous integration](ci.md)** for the
+language it is written in. Each language's versions come from its **version
+window**, published by `vergil-containers` and derived from the upstream
+community's release and end-of-life policy, not from workflow code; see
+vergil-containers'
+[Language version lifecycle](https://vergil-project.github.io/vergil-containers/latest/languages/lifecycle/)
+for the per-language policies, and **[Continuous integration](ci.md)** for the
 fleet-wide, version-agnostic CI model.
 
 This page is the fleet-level summary. The authoritative, per-language **standards**

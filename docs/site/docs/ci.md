@@ -3,8 +3,9 @@
 Every repository in the fleet runs the **same CI model**, and it is
 **version-agnostic by design**: the set of language versions a repo tests
 against is configuration, not workflow code, and the merge gates never name a
-version. Changing what a repo tests against is a one-line edit; nothing about
-the workflows or the branch protection has to move with it.
+version. The versions come from a fleet-wide version window, so a new or
+dropped language version reaches every repo without an edit; nothing about the
+workflows or the branch protection has to move with it.
 
 This page is the fleet-level summary. The authoritative mechanics — job names,
 the reusable-workflow inputs, the evidence bundle format — live in
@@ -13,26 +14,52 @@ the reusable-workflow inputs, the evidence bundle format — live in
 - [CI Architecture](https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/)
 - [CI Evidence Convention](https://vergil-project.github.io/vergil-tooling/guides/ci-evidence-convention/)
 
-## The version set lives only in `vergil.toml`
+## The version set comes from the version window
 
-A repo's CI version matrix is stored in exactly one place: `[ci].versions` in
-its `vergil.toml`. It is **not** embedded in `ci.yml` and **not** passed as a
-workflow input. The `vergil-actions` reusable workflows read `[ci].versions`
-from the consuming repo at run time and fan their matrix out over that list —
-a **dynamic matrix**.
+A repo's CI version matrix is **not** embedded in `ci.yml` and **not** passed
+as a workflow input. It comes from the **version window**, the set of language
+versions Vergil supports, through one chain:
 
-The consequence is that changing what a repo tests against — adding a new
-language version, or dropping an end-of-life one — is a **one-line
-`vergil.toml` edit**. No `ci.yml` is hand-edited, so the matrix cannot drift
-from the stored version set.
+1. **The manifest.** `vergil-containers` records each language's window in
+   `docker/versions/manifest.yml`. Every version list in that repo is generated
+   from it.
+2. **The published window.** The generator also writes
+   `docker/versions/window.json`, which consumers read at the `v2.1` ref.
+3. **The resolver.** `vrg-ci-resolve`, in `vergil-tooling`, reads the window
+   and the repo's `vergil.toml` and returns the versions to build. Every CI run
+   uses it, through the `vergil-actions` CI setup, and so does local
+   validation. The matrix fans out over what it returns — a **dynamic
+   matrix**.
+
+What the resolver returns depends on the repo:
+
+- **No pin.** With no `[ci].versions`, a repo follows the window. A `library`
+  (`[project].repository-type`) builds every version in the window. Any other
+  repository type is an app, and builds one version: the newest.
+- **`[ci].versions` is an optional pin.** A pinned version that is not in the
+  window is a fatal error, and so is an app pin with more than one version. A
+  pin is visible technical debt, not the normal way to choose versions.
+
+The window moves on its own. A nightly **lifecycle job** in `vergil-containers`
+compares each language's window with its upstream's release and end-of-life
+data, and opens the add, drop and runtime pull requests that change it (see
+[Nightly governance](#nightly-governance-opsyml)). A repo that does not pin
+picks up the change on its next run, with no edit of its own, and no `ci.yml`
+is hand-edited, so the matrix cannot drift from the window.
+
+The window, the pin rules and the lifecycle rules are documented once, in
+vergil-containers'
+[Language version lifecycle](https://vergil-project.github.io/vergil-containers/latest/languages/lifecycle/)
+page.
 
 ## Thin-caller `ci.yml`
 
 A consuming repo's `ci.yml` is a **thin caller**. Each job simply `uses:` a
 `vergil-actions` reusable workflow at the pinned `@v2.1` tag and passes only
 `language:` and `container-suffix:`. It passes **no** version matrix and **no**
-container tag — both resolve dynamically: the matrix from `[ci].versions`, and
-the single-container jobs' image tag from the primary version (below).
+container tag — both resolve dynamically: the matrix from the version window
+(or from the `[ci].versions` pin, if one is set), and the single-container
+jobs' image tag from the primary version (below).
 
 Because the matrix and the container tag are derived rather than written down,
 the same short workflow serves every repo, and a version change takes effect
@@ -75,9 +102,9 @@ there are no report-only PR gates.
 Some jobs are not matrixed — they run once in a single container (for example
 the security scan, the version-bump gate, and the docs build). These run on
 the **primary version**: `[ci].primary-version` if it is set, otherwise the
-**highest** entry of `[ci].versions` (so `3.14` for
-`["3.12", "3.13", "3.14"]`). `primary-version` is the escape hatch for the rare
-case where the highest version is not the right single-container default.
+**newest** resolved version (for Python, `3.15` today). `primary-version` is
+the escape hatch for the rare case where the newest version is not the right
+single-container default.
 
 ## Release packaging
 
@@ -121,3 +148,28 @@ repo's GitHub configuration canonical — reconciling branch protection against
 the derived required-check set, and flagging drift such as a required context
 that no workflow can produce. A repo whose `ops.yml` is missing or has no
 schedule is treated as non-compliant.
+
+The nightly `ops.yml` in `vergil-containers` also runs the **language
+lifecycle job**, which keeps the version window current. For Python and Go it
+opens one pull request per change: an add, a drop, or (for Python) a runtime
+change that records a newly published `vergil-python` runtime. For the other
+languages it opens an issue instead. It never enables auto-merge: a person
+reviews and merges every lifecycle pull request.
+
+## Python toolchain selection
+
+Vergil owns which Python interpreter runs. A repo's own files may declare only
+a floor, such as `requires-python`:
+
+- **`.python-version` is an error.** It chooses the interpreter version behind
+  Vergil's back, so validation fails until it is deleted.
+- **uv's `python-preference` and `python-downloads` are allowed.** They choose
+  where an interpreter comes from, not which version it is.
+- **Vergil sets the interpreter itself.** Wherever it runs Python, it sets
+  `UV_PYTHON` to the resolved version and `UV_PYTHON_PREFERENCE=only-system`,
+  so uv always uses the image's interpreter.
+
+See rule 13 of the
+[Language version lifecycle](https://vergil-project.github.io/vergil-containers/latest/languages/lifecycle/#the-rules)
+and vergil-tooling's
+[Container Config Reference](https://vergil-project.github.io/vergil-tooling/latest/reference/container-config/).
