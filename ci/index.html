@@ -817,6 +817,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Nightly governance (ops.yml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#report-only-dependabot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Report-only Dependabot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -982,6 +999,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Nightly governance (ops.yml)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#report-only-dependabot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Report-only Dependabot
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1135,19 +1169,50 @@ vergil-tooling's
 guide and the
 <a href="https://vergil-project.github.io/vergil-tooling/reference/package-config/#ci-and-cd">Package Config Reference</a>.</p>
 <h2 id="nightly-governance-opsyml">Nightly governance (<code>ops.yml</code>)<a class="headerlink" href="#nightly-governance-opsyml" title="Permanent link">&para;</a></h2>
-<p>Keeping this model canonical across the fleet is itself automated. Every
-managed repo carries an <code>ops.yml</code> workflow with a <strong>nightly config-audit
-caller</strong> (a scheduled <code>vergil-actions</code> reusable workflow). It keeps each
-repo's GitHub configuration canonical — reconciling branch protection against
-the derived required-check set, and flagging drift such as a required context
-that no workflow can produce. A repo whose <code>ops.yml</code> is missing or has no
-schedule is treated as non-compliant.</p>
+<p>Checking this model across the fleet is itself automated. Every managed repo
+carries an <code>ops.yml</code> workflow that calls the <code>vergil-actions</code> reusable
+workflow <code>ops-github-config.yml</code> on a nightly schedule. A repo whose <code>ops.yml</code>
+is missing or has no schedule is treated as non-compliant. The nightly run has
+three jobs:</p>
+<ul>
+<li><strong>Config audit.</strong> <code>vrg-github-repo-config audit</code> compares the repo's GitHub
+  configuration and its checked-in files against the canonical Vergil
+  configuration. It reports drift, such as branch protection that does not
+  match the derived required-check set or a required context that no workflow
+  can produce, and any drift fails the run. The nightly job only audits; it
+  never changes the configuration. Reconciling a repo (<code>apply</code>) is a human
+  action. See the
+  <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/config-audit/">GitHub Config Audit reference</a>.</li>
+<li><strong>Dependabot audit.</strong> <code>vrg-dependabot-audit</code> fails the run when the repo has
+  any open Dependabot alert, described below.</li>
+<li><strong>Branch sweep.</strong> <code>vrg-branch-sweep</code> deletes branches whose pull-request
+  work is finished. It is the safety net behind the delete-on-merge and
+  delete-on-close rules. See the
+  <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/dev/branch-sweep/">vrg-branch-sweep reference</a>.</li>
+</ul>
 <p>The nightly <code>ops.yml</code> in <code>vergil-containers</code> also runs the <strong>language
 lifecycle job</strong>, which keeps the version window current. For Python and Go it
 opens one pull request per change: an add, a drop, or (for Python) a runtime
 change that records a newly published <code>vergil-python</code> runtime. For the other
 languages it opens an issue instead. It never enables auto-merge: a person
 reviews and merges every lifecycle pull request.</p>
+<h3 id="report-only-dependabot">Report-only Dependabot<a class="headerlink" href="#report-only-dependabot" title="Permanent link">&para;</a></h3>
+<p>Dependabot alerts are on for every repo, and Dependabot never opens a pull
+request. The config audit enforces both settings: alerts on, Dependabot
+security updates off. Every repo also carries a canonical
+<code>.github/dependabot.yml</code> in which every entry sets
+<code>open-pull-requests-limit: 0</code>. <code>vrg-validate</code> rejects an entry without that
+limit, and the config audit flags a missing or non-canonical file. The file
+exists so that the OpenSSF Scorecard Dependency-Update-Tool check passes.</p>
+<p>The nightly <code>dependabot-audit</code> job fails on any open alert, at any severity.
+<code>vrg-dependabot-audit</code> exits 1 when the repo has open alerts and 2 when it
+could not check them, and both fail the run. The log of a public repo shows
+alert counts only. The only way to clear an alert is to fix the dependency or
+dismiss the alert on GitHub; nothing in the repo can suppress one.</p>
+<p>This gate is defense in depth, aimed at dormant repos. The dependency update
+at release time and the language audits that run on every change remain the
+main dependency hygiene. See the
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/dependabot-audit/">Dependabot Alert Audit reference</a>.</p>
 <h2 id="python-toolchain-selection">Python toolchain selection<a class="headerlink" href="#python-toolchain-selection" title="Permanent link">&para;</a></h2>
 <p>Vergil owns which Python interpreter runs. A repo's own files may declare only
 a floor, such as <code>requires-python</code>:</p>
