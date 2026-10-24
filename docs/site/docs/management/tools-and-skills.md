@@ -6,13 +6,15 @@ The Management layer is operated through two surfaces:
   link a task, run the audit), maintained in
   [`vergil-tooling`](https://github.com/vergil-project/vergil-tooling).
 - **Skills** — the agent-facing workflows that *compose* those tools into a
-  process (orchestrate an epic, capture intake, groom the queue), maintained in
+  process (orchestrate an epic, capture intake, review the queue), maintained in
   the Claude Code plugin,
   [`vergil-claude-plugin`](https://github.com/vergil-project/vergil-claude-plugin).
 
 This page explains how they fit together and **who drives what**. The dry,
 per-command reference — every flag of every tool — lives in the repositories
-where the code does; this is the story, not the man page.
+where the code does; this is the story, not the man page. For the issue model's
+mechanics, see vergil-tooling's
+[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/standards/github-issues/).
 
 ## Who drives what
 
@@ -41,9 +43,21 @@ hands off, and a human takes it across the line.
 - `vrg-issue-create` (create a task, born linked under an epic)
 - `vrg-epic-link` / `vrg-epic-move` / `vrg-epic-unlink` (manage the epic↔task relationship)
 
-### Intake
+- `vrg-issue-create --epic adhoc|intake|planning` (target a repository's
+  standing epic by name rather than by number)
 
-- `vrg-triage-create` (file an intake issue into `.github`; `--kind triage|idea|research`)
+### Intake & planning
+
+- `vrg-intake-create` (capture an intake item, linked under its home's intake
+  epic as it is created — no category to choose)
+- `vrg-intake-route` (apply an intake-review route: drop, defer, one-off, split,
+  or planning)
+- `vrg-queue intake|planning` (the read-only view of either queue, oldest
+  first)
+
+An issue still in the intake or planning queue is not buildable:
+`vrg-pr-workflow report-ready` and `vrg-submit-pr` refuse it until it is routed
+out.
 
 ### Lifecycle
 
@@ -53,7 +67,9 @@ hands off, and a human takes it across the line.
 ### Reporting & enforcement
 
 - `vrg-roadmap` (the open-epic roadmap)
-- `vrg-epic-audit` (drift and invariant violations — read-only, with a human-gated `--close`)
+- `vrg-epic-audit` (drift and invariant violations — read-only, with a gated
+  `--close`; under `--close`, run daily by the scheduled sweep, it also runs the
+  **orphan pass** that attaches every unparented issue to its home's intake epic)
 - `vrg-adhoc-migrate` (the one-time relocation of the legacy `standing` epics —
   **complete**; the `standing` alias is retired, so `ad-hoc` is the only
   perpetual variant)
@@ -92,11 +108,12 @@ sessions.
 ## The skills, by role
 
 - **`epic-create`** — the outer orchestrator of the [workflow](workflow.md):
-  brainstorm → epic → spec → pushback → plan → alignment → docs PR → file tasks.
-- **`triage-capture`** — the lossless net: file an [intake](intake.md) issue with
+  brainstorm → epic → spec → pushback → plan → alignment → docs PR → file tasks,
+  always worked through a planning item that records its progress.
+- **`intake-capture`** — the lossless net: file an [intake](intake.md) item with
   near-zero friction.
-- **`triage-review`** — the periodic grooming pass that drains the intake queue
-  into the model.
+- **`intake-review`** — the periodic pass that reviews the intake queue oldest
+  first, in small batches, and routes each item out of it.
 - **`migrate-repo`** — onboard a repository's pre-framework backlog into the
   epic/task model.
 - **`issue-implement`** — the agent implements a single issue end-to-end and
