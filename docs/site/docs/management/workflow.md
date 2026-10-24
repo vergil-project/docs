@@ -14,13 +14,27 @@ is little value in designing something and then walking away from it untracked.
 the design collapses to a trivial, single-PR change, it is a **task**, not an
 epic — filed under the target repository's ad-hoc epic, and done.
 
+Every run is tracked in a **planning item** — an issue in the
+[planning queue](intake.md) that records its own epic creation, with progress
+comments so a session can pause and resume days later:
+
+- **`epic-create <issue>`** starts or resumes that planning item (an intake item
+  is first moved to the planning queue).
+- **`epic-create` with a free-text idea** first turns the idea into a new
+  planning item.
+- **`epic-create`** with no argument summarizes the planning queue and asks
+  which item to work on.
+
+The planning item closes once the epic exists, its docs task has merged, and
+its tasks are filed — "planned as" the epic it became.
+
 ## The pipeline
 
 `epic-create` drives these stages in order:
 
 1. **Brainstorm** — explore intent and converge on an approved design.
 2. **Initialize** — create the epic in `.github` and seed its bookend tasks
-   (documentation first; follow-on-brainstorm and documentation-review last).
+   (documentation first; documentation review and the retrospective last).
 3. **Spec → pushback → review** — write the spec, adversarially critique it,
    and have a human review it.
 4. **Plan → alignment** — write the implementation plan, then reconcile it

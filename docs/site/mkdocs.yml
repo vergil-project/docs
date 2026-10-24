@@ -50,7 +50,7 @@ nav:
   - Management:
       - management/index.md
       - Epics & tasks: management/epics-and-tasks.md
-      - Intake: management/intake.md
+      - Intake & planning: management/intake.md
       - Workflow: management/workflow.md
       - Tools & skills: management/tools-and-skills.md
       - Roadmap: roadmap.md

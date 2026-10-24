@@ -30,29 +30,38 @@ That broke down — a single issue was often complex enough to need many pull
 requests, sometimes across repositories. Splitting work from delivery fixes it:
 the task is small and mechanical, the epic is the meaningful whole.
 
-## Two invariants
+## Three invariants
 
-Everything in this layer follows from two rules:
+Everything in this layer follows from three rules:
 
-1. **All epics live in the organization's `.github` repository** — one place to
-   see every initiative in the org.
-2. **Every other repository holds nothing but single-PR tasks** — each closed by
+1. **Every issue belongs to an epic.** An issue is either an epic (or one of
+   the bookkeeping kinds: a per-quarter archive bucket, a release tracking
+   issue) or it has an epic parent. There is no "unlinked" state — even a
+   one-line idea is captured under the intake epic — and the parent *is* the
+   issue's state: intake, planning, or ready to build.
+2. **All epics live in the organization's `.github` repository** — one place to
+   see every initiative in the org. (A private repository keeps its own, so
+   private work never surfaces in public.)
+3. **Every other repository holds nothing but single-PR tasks** — each closed by
    exactly one pull request in that same repository.
 
-The load-bearing principle behind the second rule is **task↔PR locality**: a task
+The load-bearing principle behind the third rule is **task↔PR locality**: a task
 lives in the repository whose pull request closes it. Cohesion between a task and
 the change that completes it matters more than a pristine issue list. In practice
-the `.github` list reads as "epics only" — you filter by the `epic` label — and
-the few exceptions (the intake queue, and the rare task whose PR edits `.github`
-itself) are self-justifying.
+the `.github` list reads as "epics, and the issues linked under them" — you
+filter by the `epic` label for the initiatives — and the items that live there
+(queue items under the intake and planning epics, and the rare task whose PR
+edits `.github` itself) are linked like everything else.
 
 ## The shape of the model
 
 - **Epics & tasks** — finite epics (in `.github`), plus one perpetual **ad-hoc**
   epic per repository for the small, unplanned work that should never accrete
   into a larger initiative.
-- **Intake** — three lightweight queues (`triage`, `idea`, `research`) that catch
-  raw input the moment it occurs, so nothing is lost before it is planned.
+- **Intake & planning** — two standing queues that catch raw input the moment it
+  occurs and hold it until it is ready: work flows **intake → planning →
+  ready**, and only ready work can be built, so nothing is lost before it is
+  planned.
 - **Workflow** — how an idea becomes an epic becomes shipped tasks: the
   `epic-create` orchestrator and a front-loaded, interactive design pipeline that
   makes implementation near-bulletproof.
