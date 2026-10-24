@@ -532,7 +532,7 @@
   <span class="md-ellipsis">
     
   
-    Intake
+    Intake & planning
   
 
     
@@ -941,12 +941,25 @@ is little value in designing something and then walking away from it untracked.
 <code>epic-create</code> opens <em>into</em> brainstorming and orchestrates the whole sequence. If
 the design collapses to a trivial, single-PR change, it is a <strong>task</strong>, not an
 epic — filed under the target repository's ad-hoc epic, and done.</p>
+<p>Every run is tracked in a <strong>planning item</strong> — an issue in the
+<a href="../intake/">planning queue</a> that records its own epic creation, with progress
+comments so a session can pause and resume days later:</p>
+<ul>
+<li><strong><code>epic-create &lt;issue&gt;</code></strong> starts or resumes that planning item (an intake item
+  is first moved to the planning queue).</li>
+<li><strong><code>epic-create</code> with a free-text idea</strong> first turns the idea into a new
+  planning item.</li>
+<li><strong><code>epic-create</code></strong> with no argument summarizes the planning queue and asks
+  which item to work on.</li>
+</ul>
+<p>The planning item closes once the epic exists, its docs task has merged, and
+its tasks are filed — "planned as" the epic it became.</p>
 <h2 id="the-pipeline">The pipeline<a class="headerlink" href="#the-pipeline" title="Permanent link">&para;</a></h2>
 <p><code>epic-create</code> drives these stages in order:</p>
 <ol>
 <li><strong>Brainstorm</strong> — explore intent and converge on an approved design.</li>
 <li><strong>Initialize</strong> — create the epic in <code>.github</code> and seed its bookend tasks
-   (documentation first; follow-on-brainstorm and documentation-review last).</li>
+   (documentation first; documentation review and the retrospective last).</li>
 <li><strong>Spec → pushback → review</strong> — write the spec, adversarially critique it,
    and have a human review it.</li>
 <li><strong>Plan → alignment</strong> — write the implementation plan, then reconcile it

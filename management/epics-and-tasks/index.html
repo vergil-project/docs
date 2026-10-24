@@ -590,6 +590,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#standing-epics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standing epics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#every-issue-belongs-to-an-epic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Every issue belongs to an epic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-bookend-convention" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -634,7 +656,7 @@
   <span class="md-ellipsis">
     
   
-    Intake
+    Intake & planning
   
 
     
@@ -935,6 +957,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#standing-epics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standing epics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#every-issue-belongs-to-an-epic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Every issue belongs to an epic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-bookend-convention" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -975,14 +1019,15 @@
 
 <h1 id="epics-tasks">Epics &amp; tasks<a class="headerlink" href="#epics-tasks" title="Permanent link">&para;</a></h1>
 <p>The model has exactly two artifacts — the <strong>task</strong> (the unit of work) and the
-<strong>epic</strong> (the unit of delivery) — plus one special-purpose variant of the epic
-for the work that refuses to fit a plan.</p>
+<strong>epic</strong> (the unit of delivery) — plus a family of perpetual <strong>standing epics</strong>
+for the work that is not (or not yet) part of a plan.</p>
 <h2 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Permanent link">&para;</a></h2>
 <p>A <strong>task</strong> is an issue that represents a single, self-contained change:</p>
 <ul>
 <li>It is implemented by <strong>exactly one pull request</strong>, in the repository where
   that PR lands (<strong>task↔PR locality</strong>).</li>
-<li>It is <strong>born linked</strong> to an epic. On GitHub the link is a native
+<li>It is <strong>born linked</strong> to an epic — as is every issue: see
+  <a href="#every-issue-belongs-to-an-epic">Every issue belongs to an epic</a>. On GitHub the link is a native
   <em>sub-issue</em>; on forges without sub-issues it degrades to a portable
   <code>Parent: &lt;owner&gt;/&lt;repo&gt;#&lt;n&gt;</code> line in the task body. Either way, the tooling
   speaks one vocabulary and never the underlying mechanism.</li>
@@ -1017,6 +1062,49 @@ finite epic. The name does deliberate work — "ad hoc" is the smell a serious
 engineer drives toward zero. The long-term goal is for ad-hoc work to become the
 rare exception as real work is increasingly shaped into finite, tidy,
 self-closing epics.</p>
+<p>As its children close they drain into per-quarter archive buckets, so the live
+ad-hoc epic shows only work still in flight.</p>
+<h2 id="standing-epics">Standing epics<a class="headerlink" href="#standing-epics" title="Permanent link">&para;</a></h2>
+<p>The ad-hoc epic is one of three <strong>standing epics</strong> — perpetual umbrellas that
+are created once, reused, and never roll up:</p>
+<table>
+<thead>
+<tr>
+<th>Standing epic</th>
+<th>Holds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Epic (ad hoc): &lt;repo&gt;</code></td>
+<td>ready one-off work for one repository</td>
+</tr>
+<tr>
+<td><code>Epic (intake): &lt;name&gt;</code></td>
+<td>captured, unreviewed items — and every orphan the sweep finds</td>
+</tr>
+<tr>
+<td><code>Epic (planning): &lt;name&gt;</code></td>
+<td>items waiting for (or undergoing) epic creation</td>
+</tr>
+</tbody>
+</table>
+<p>There is one ad-hoc epic per repository. The intake and planning epics come in
+a pair per <strong>queue home</strong>: the org's <code>.github</code> for every public repository, and
+the repository itself for a private one. They are the two queues work passes
+through before it is ready to build — see <a href="../intake/">Intake &amp; planning</a>.</p>
+<h2 id="every-issue-belongs-to-an-epic">Every issue belongs to an epic<a class="headerlink" href="#every-issue-belongs-to-an-epic" title="Permanent link">&para;</a></h2>
+<p>In any managed repository, <strong>every issue is either a legitimate top-level kind
+or has an epic parent.</strong> The top-level kinds are epics (including the standing
+ones), the per-quarter archive buckets, and the release tracking issue a
+release opens for its duration. Everything else — tasks, operational tasks,
+intake and planning items — hangs under an epic.</p>
+<p>There is no opt-out and no "unlinked" state, and the parent is not just
+bookkeeping: it <em>is</em> the issue's state. Under the intake epic it has been
+captured; under the planning epic it awaits a design; under an ad-hoc or finite
+epic it is ready to build. The sanctioned tools create every issue already
+linked, and an issue born outside them is <strong>healed, not rejected</strong> — the daily
+sweep attaches it to its home's intake epic.</p>
 <h2 id="the-bookend-convention">The bookend convention<a class="headerlink" href="#the-bookend-convention" title="Permanent link">&para;</a></h2>
 <p>An epic is never truly "done" the instant its implementation lands, because
 almost no real problem is 100% closed by a single initiative. So every epic
@@ -1024,10 +1112,13 @@ carries <strong>bookend</strong> tasks:</p>
 <ul>
 <li><strong>It opens</strong> with a <strong>documentation task</strong> — the spec and plan, born from
   planning.</li>
-<li><strong>It closes</strong> with two kinds of task: a <strong>follow-on brainstorm</strong> (review what
-  shipped, decide what comes next, and spawn the follow-on epic if there is one)
-  and a <strong>documentation review</strong> (confirm the change is reflected in the docs —
-  especially this site).</li>
+<li><strong>It closes</strong> with two tasks, in order: a <strong>documentation review</strong> (confirm
+  the change is reflected in the docs — especially this site) and then the
+  <strong>retrospective</strong>, the terminal gate — a single backward-looking record that
+  partners the spec and plan and records what comes next. Its docs PR closes
+  the epic.</li>
+<li>A <strong>follow-on brainstorm</strong> is seeded up front only when a known follow-on
+  already exists; otherwise its outcome is captured in the retrospective.</li>
 </ul>
 <p>This rides the roll-up: because the epic cannot close until <em>all</em> its tasks
 close, the closing bookends <em>gate</em> completion. You cannot finish an epic without
@@ -1041,16 +1132,37 @@ violations:</p>
 <li><strong>Epics live in <code>.github</code>.</strong> A public repository's epics belong in the org's
   <code>.github</code>; an epic that has leaked out is flagged. (A private repository may
   legitimately home its own epics.)</li>
-<li><strong>No stray <code>.github</code> issues.</strong> The epic home holds only epics, intake, and
-  tasks linked under an epic. An unlinked, non-epic, non-intake issue there is a
-  stray.</li>
-<li><strong>An epic is never closed while a child is open.</strong> Roll-up closes an epic only
-  once <em>all</em> its children are closed; a closed epic with a still-open child is a
-  violation, remediated by reopening it.</li>
+<li><strong>No stray <code>.github</code> issues.</strong> The epic home holds only epics, the
+  per-quarter archive buckets, and issues linked under an epic — tasks and
+  intake/planning queue items alike. Any other open issue there is a stray.</li>
+<li><strong>An epic is never closed while a child is open.</strong> Roll-up closes a finite
+  epic only once <em>all</em> its children are closed; a closed epic with a still-open
+  child is a violation, remediated by reopening it. (Standing epics never roll
+  up; their closed children drain into archives instead.)</li>
+<li><strong>Every issue has an epic parent.</strong> An <strong>orphan</strong> — an open issue that is
+  neither a top-level kind nor linked under an epic — is reported, along with
+  any issue still carrying the retired <code>triage</code> / <code>idea</code> / <code>research</code> labels.</li>
+<li><strong>No private work under public epics.</strong> Visibility changes are supported in
+  one direction only. <strong>Private → public</strong> is supported: the sweep moves the
+  repository's queue items under the org's <code>.github</code> queues, and its epics are
+  relocated. <strong>Public → private</strong> is <strong>unsupported</strong> — create a new private
+  repository and migrate the code instead. A private repository's issue found
+  under a public <code>.github</code> epic is reported for a human to resolve.</li>
 </ul>
+<p>The daily sweep (<code>vrg-epic-audit --close</code>) does more than report: its <strong>orphan
+pass</strong> auto-heals the model. It converts body-only parent links into native
+ones, strips the retired labels, moves a now-public repository's self-homed
+queue items under <code>.github</code>, and attaches every orphan to its home's intake
+epic. It never closes an item, and it stops loudly — never silently skipping —
+when a queue is too full to accept more.</p>
 <p>When a <strong>finite epic</strong> is found outside its home, relocate it: move the issue
 into <code>.github</code> with <code>vrg-gh issue transfer</code>, then re-establish its task links
 with <code>vrg-epic-link</code>.</p>
+<p>The exact rules and commands are in vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/standards/github-issues/#compliance-invariants">GitHub Issue Standards</a>
+and its
+<a href="https://vergil-project.github.io/vergil-tooling/guides/epic-home-visibility-flip/">Epic home visibility flips</a>
+guide.</p>
 
 
 

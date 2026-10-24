@@ -532,7 +532,7 @@
   <span class="md-ellipsis">
     
   
-    Intake
+    Intake & planning
   
 
     
@@ -811,10 +811,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#two-invariants" class="md-nav__link">
+  <a href="#three-invariants" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Two invariants
+        Three invariants
       
     </span>
   </a>
@@ -876,27 +876,36 @@ once you can manage epics, you manage how epics interrelate.</p>
 That broke down — a single issue was often complex enough to need many pull
 requests, sometimes across repositories. Splitting work from delivery fixes it:
 the task is small and mechanical, the epic is the meaningful whole.</p>
-<h2 id="two-invariants">Two invariants<a class="headerlink" href="#two-invariants" title="Permanent link">&para;</a></h2>
-<p>Everything in this layer follows from two rules:</p>
+<h2 id="three-invariants">Three invariants<a class="headerlink" href="#three-invariants" title="Permanent link">&para;</a></h2>
+<p>Everything in this layer follows from three rules:</p>
 <ol>
+<li><strong>Every issue belongs to an epic.</strong> An issue is either an epic (or one of
+   the bookkeeping kinds: a per-quarter archive bucket, a release tracking
+   issue) or it has an epic parent. There is no "unlinked" state — even a
+   one-line idea is captured under the intake epic — and the parent <em>is</em> the
+   issue's state: intake, planning, or ready to build.</li>
 <li><strong>All epics live in the organization's <code>.github</code> repository</strong> — one place to
-   see every initiative in the org.</li>
+   see every initiative in the org. (A private repository keeps its own, so
+   private work never surfaces in public.)</li>
 <li><strong>Every other repository holds nothing but single-PR tasks</strong> — each closed by
    exactly one pull request in that same repository.</li>
 </ol>
-<p>The load-bearing principle behind the second rule is <strong>task↔PR locality</strong>: a task
+<p>The load-bearing principle behind the third rule is <strong>task↔PR locality</strong>: a task
 lives in the repository whose pull request closes it. Cohesion between a task and
 the change that completes it matters more than a pristine issue list. In practice
-the <code>.github</code> list reads as "epics only" — you filter by the <code>epic</code> label — and
-the few exceptions (the intake queue, and the rare task whose PR edits <code>.github</code>
-itself) are self-justifying.</p>
+the <code>.github</code> list reads as "epics, and the issues linked under them" — you
+filter by the <code>epic</code> label for the initiatives — and the items that live there
+(queue items under the intake and planning epics, and the rare task whose PR
+edits <code>.github</code> itself) are linked like everything else.</p>
 <h2 id="the-shape-of-the-model">The shape of the model<a class="headerlink" href="#the-shape-of-the-model" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Epics &amp; tasks</strong> — finite epics (in <code>.github</code>), plus one perpetual <strong>ad-hoc</strong>
   epic per repository for the small, unplanned work that should never accrete
   into a larger initiative.</li>
-<li><strong>Intake</strong> — three lightweight queues (<code>triage</code>, <code>idea</code>, <code>research</code>) that catch
-  raw input the moment it occurs, so nothing is lost before it is planned.</li>
+<li><strong>Intake &amp; planning</strong> — two standing queues that catch raw input the moment it
+  occurs and hold it until it is ready: work flows <strong>intake → planning →
+  ready</strong>, and only ready work can be built, so nothing is lost before it is
+  planned.</li>
 <li><strong>Workflow</strong> — how an idea becomes an epic becomes shipped tasks: the
   <code>epic-create</code> orchestrator and a front-loaded, interactive design pipeline that
   makes implementation near-bulletproof.</li>
