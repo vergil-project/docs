@@ -17,3 +17,9 @@ jobs:
     uses: vergil-project/vergil-actions/.github/workflows/cd-docs-refresh.yml@v2.1
     permissions:
       contents: write
+    with:
+      # Multi-page activity log: a day x repo summary table (activity/index.md)
+      # linking to a page per day and a page per repo.
+      pre-deploy-command: >-
+        vrg-roadmap > docs/site/docs/roadmap.md &&
+        vrg-activity-log --out-dir docs/site/docs/activity
