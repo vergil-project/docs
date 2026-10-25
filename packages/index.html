@@ -974,8 +974,8 @@
 fleet-level summary. The full install commands live in the
 <a href="https://github.com/vergil-project/packages#readme"><code>packages</code> README</a>, and the
 build side lives in vergil-tooling's
-<a href="https://vergil-project.github.io/vergil-tooling/reference/package-config/">Package Config Reference</a>
-and <a href="https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/">CI Architecture</a>
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/package-config/">Package Config Reference</a>
+and <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/">CI Architecture</a>
 guide.</p>
 <h2 id="where-it-lives">Where it lives<a class="headerlink" href="#where-it-lives" title="Permanent link">&para;</a></h2>
 <p>The repository is served from GitHub Pages at
@@ -1060,7 +1060,7 @@ are an extra layer on top of the signatures, never the trust root.</p>
 <p>On a VM, <code>vrg-vm</code> pins <code>vergil-tooling</code> to the identity's resolved version and
 fails provisioning if the repository has no matching package; it never falls
 back to a <code>uv</code> install. See vergil-tooling's
-<a href="https://vergil-project.github.io/vergil-tooling/reference/vm-spec/#vergil-tooling-inside-the-vm">VM spec reference</a>.</p>
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/vm-spec/#vergil-tooling-inside-the-vm">VM spec reference</a>.</p>
 <p>Packaged Python products depend on the <code>vergil-python</code> runtime series they were
 built against. <code>vergil-python</code> publishes one package per CPython series,
 <code>vergil-python&lt;x.y&gt;</code>, versioned <code>&lt;cpython&gt;+&lt;pbs_tag&gt;</code> (for example
@@ -1084,7 +1084,7 @@ vendor, summary, smoke test, and target selection). With it present, PR CI
 builds and install-tests the packages, and a release builds, signs, attests
 and attaches them to the GitHub Release, then notifies <code>packages</code> to re-index.
 Without it, nothing changes. The keys are documented in the
-<a href="https://vergil-project.github.io/vergil-tooling/reference/package-config/">Package Config Reference</a>;
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/package-config/">Package Config Reference</a>;
 the pipeline is summarized under
 <a href="../ci/#release-packaging">Release packaging</a>.</p>
 
