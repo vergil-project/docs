@@ -19,12 +19,12 @@ This page is the fleet-level summary. The authoritative, per-language **standard
 
 | Language | Standards |
 | --- | --- |
-| Python | [Python standards](https://vergil-project.github.io/vergil-tooling/standards/development/python/overview/) |
-| Go | [Go standards](https://vergil-project.github.io/vergil-tooling/standards/development/go/overview/) |
-| Java | [Java standards](https://vergil-project.github.io/vergil-tooling/standards/development/java/overview/) |
-| Rust | [Rust standards](https://vergil-project.github.io/vergil-tooling/standards/development/rust/overview/) |
-| C++ | [C++ standards](https://vergil-project.github.io/vergil-tooling/standards/development/cpp/overview/) |
-| TypeScript _(new)_ | [TypeScript standards](https://vergil-project.github.io/vergil-tooling/standards/development/typescript/overview/) |
+| Python | [Python standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/python/overview/) |
+| Go | [Go standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/go/overview/) |
+| Java | [Java standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/java/overview/) |
+| Rust | [Rust standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/rust/overview/) |
+| C++ | [C++ standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/cpp/overview/) |
+| TypeScript _(new)_ | [TypeScript standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/typescript/overview/) |
 
 ## TypeScript
 
@@ -54,9 +54,9 @@ multi-version pattern as the rest of the fleet. The v1 shape:
   target); CommonJS and plain untyped JavaScript are out of scope for v1.
 
 For the full toolchain, strictness rules, and testing policy, see the
-[TypeScript standards](https://vergil-project.github.io/vergil-tooling/standards/development/typescript/overview/)
+[TypeScript standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/typescript/overview/)
 in `vergil-tooling`:
 
-- [Toolchain and strictness](https://vergil-project.github.io/vergil-tooling/standards/development/typescript/toolchain-and-strictness/)
-- [Testing and coverage](https://vergil-project.github.io/vergil-tooling/standards/development/typescript/testing-and-coverage/)
-- [Naming conventions](https://vergil-project.github.io/vergil-tooling/standards/development/typescript/naming-conventions/)
+- [Toolchain and strictness](https://vergil-project.github.io/vergil-tooling/latest/standards/development/typescript/toolchain-and-strictness/)
+- [Testing and coverage](https://vergil-project.github.io/vergil-tooling/latest/standards/development/typescript/testing-and-coverage/)
+- [Naming conventions](https://vergil-project.github.io/vergil-tooling/latest/standards/development/typescript/naming-conventions/)

@@ -11,8 +11,8 @@ This page is the fleet-level summary. The authoritative mechanics — job names,
 the reusable-workflow inputs, the evidence bundle format — live in
 `vergil-tooling` and are linked below rather than restated here:
 
-- [CI Architecture](https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/)
-- [CI Evidence Convention](https://vergil-project.github.io/vergil-tooling/guides/ci-evidence-convention/)
+- [CI Architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/)
+- [CI Evidence Convention](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-evidence-convention/)
 
 ## The version set comes from the version window
 
@@ -135,9 +135,9 @@ change.
 The release caller needs `secrets: inherit` (see
 [Thin-caller `ci.yml`](#thin-caller-ciyml)). The full mechanics are in
 vergil-tooling's
-[CI Architecture](https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/)
+[CI Architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/)
 guide and the
-[Package Config Reference](https://vergil-project.github.io/vergil-tooling/reference/package-config/#ci-and-cd).
+[Package Config Reference](https://vergil-project.github.io/vergil-tooling/latest/reference/package-config/#ci-and-cd).
 
 ## Nightly governance (`ops.yml`)
 

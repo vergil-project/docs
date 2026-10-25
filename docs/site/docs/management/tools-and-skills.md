@@ -14,7 +14,7 @@ This page explains how they fit together and **who drives what**. The dry,
 per-command reference — every flag of every tool — lives in the repositories
 where the code does; this is the story, not the man page. For the issue model's
 mechanics, see vergil-tooling's
-[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/standards/github-issues/).
+[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/).
 
 ## Who drives what
 
@@ -99,7 +99,7 @@ the next release, until its fix task closes as completed — the next
 `--allow-pending-deps` lets an urgent release through despite an open PR, and
 the bypass is logged on the release's tracking issue; `--without-deps` skips the
 `update-deps` stage. The release procedure itself is in vergil-tooling's
-[Releasing guide](https://vergil-project.github.io/vergil-tooling/guides/releasing/).
+[Releasing guide](https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/).
 
 The `vrg-gh` and `vrg-git` wrappers sit under all of this, enforcing the
 allow-lists and selecting the right identity; raw `git`/`gh` are blocked in agent

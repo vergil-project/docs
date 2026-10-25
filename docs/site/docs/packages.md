@@ -5,8 +5,8 @@ Vergil products are published as signed OS packages — `.deb` for Ubuntu and
 fleet-level summary. The full install commands live in the
 [`packages` README](https://github.com/vergil-project/packages#readme), and the
 build side lives in vergil-tooling's
-[Package Config Reference](https://vergil-project.github.io/vergil-tooling/reference/package-config/)
-and [CI Architecture](https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/)
+[Package Config Reference](https://vergil-project.github.io/vergil-tooling/latest/reference/package-config/)
+and [CI Architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/)
 guide.
 
 ## Where it lives
@@ -70,7 +70,7 @@ are an extra layer on top of the signatures, never the trust root.
 On a VM, `vrg-vm` pins `vergil-tooling` to the identity's resolved version and
 fails provisioning if the repository has no matching package; it never falls
 back to a `uv` install. See vergil-tooling's
-[VM spec reference](https://vergil-project.github.io/vergil-tooling/reference/vm-spec/#vergil-tooling-inside-the-vm).
+[VM spec reference](https://vergil-project.github.io/vergil-tooling/latest/reference/vm-spec/#vergil-tooling-inside-the-vm).
 
 Packaged Python products depend on the `vergil-python` runtime series they were
 built against. `vergil-python` publishes one package per CPython series,
@@ -98,6 +98,6 @@ vendor, summary, smoke test, and target selection). With it present, PR CI
 builds and install-tests the packages, and a release builds, signs, attests
 and attaches them to the GitHub Release, then notifies `packages` to re-index.
 Without it, nothing changes. The keys are documented in the
-[Package Config Reference](https://vergil-project.github.io/vergil-tooling/reference/package-config/);
+[Package Config Reference](https://vergil-project.github.io/vergil-tooling/latest/reference/package-config/);
 the pipeline is summarized under
 [Release packaging](ci.md#release-packaging).
