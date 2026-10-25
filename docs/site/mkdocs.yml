@@ -54,7 +54,7 @@ nav:
       - Workflow: management/workflow.md
       - Tools & skills: management/tools-and-skills.md
       - Roadmap: roadmap.md
-      - Activity: activity.md
+      - Activity: activity/index.md
   - Supported languages: languages.md
   - Continuous integration: ci.md
   - Package repository: packages.md

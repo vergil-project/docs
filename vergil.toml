@@ -19,5 +19,5 @@ vergil = "v2.1"
 [markdownlint]
 ignore = [
   "docs/site/docs/roadmap.md",
-  "docs/site/docs/activity.md",
+  "docs/site/docs/activity",
 ]

@@ -16,7 +16,7 @@ automatically.
 
 ## What's shipping
 
-The **[Activity log](activity.md)** is the by-date record of recently closed work
+The **[Activity log](activity/index.md)** is the by-date record of recently closed work
 across the whole org.
 
 ## Supported languages
