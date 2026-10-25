@@ -97,7 +97,7 @@ human to resolve.
 The commands and their exact behavior — `vrg-intake-create`,
 `vrg-intake-route`, `vrg-queue`, the orphan pass, and the queue-home rules —
 are documented in vergil-tooling's
-[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/standards/github-issues/#intake-and-planning-queues)
+[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#intake-and-planning-queues)
 and
-[Epic home visibility flips](https://vergil-project.github.io/vergil-tooling/guides/epic-home-visibility-flip/)
+[Epic home visibility flips](https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/)
 guide.

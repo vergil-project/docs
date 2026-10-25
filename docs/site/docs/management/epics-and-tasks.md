@@ -147,7 +147,7 @@ into `.github` with `vrg-gh issue transfer`, then re-establish its task links
 with `vrg-epic-link`.
 
 The exact rules and commands are in vergil-tooling's
-[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/standards/github-issues/#compliance-invariants)
+[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#compliance-invariants)
 and its
-[Epic home visibility flips](https://vergil-project.github.io/vergil-tooling/guides/epic-home-visibility-flip/)
+[Epic home visibility flips](https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/)
 guide.

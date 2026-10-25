@@ -10,6 +10,19 @@ This file provides guidance to Claude Code when working in this repository.
 vrg-container-run -- vrg-validate
 ```
 
+## Links to other Vergil docs sites
+
+The vergil-tooling, vergil-containers and vergil-actions docs sites are
+versioned with mike, so every page lives under a version segment. A link
+without one returns 404. Always link through `/latest/`:
+
+- Correct: `https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/`
+- Wrong (404): `https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/`
+
+The same applies to any other Vergil site published with mike. Before
+adding or changing such a link, check that the target (and any `#anchor`)
+resolves. No validator enforces this yet, so this rule is the guard.
+
 <!-- vergil:template:claude-md:begin -->
 ## Memory management
 
