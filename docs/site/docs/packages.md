@@ -73,11 +73,13 @@ back to a `uv` install. See vergil-tooling's
 [VM spec reference](https://vergil-project.github.io/vergil-tooling/latest/reference/vm-spec/#vergil-tooling-inside-the-vm).
 
 Packaged Python products depend on the `vergil-python` runtime series they were
-built against. `vergil-python` publishes one package per CPython series,
-`vergil-python<x.y>`, versioned `<cpython>+<pbs_tag>` (for example
-`3.14.8+20261020`), and a product depends on
-`vergil-python<x.y> (>= <cpython>+<pbs_tag>)`, so later patches of the same
-series satisfy it.
+built against. `vergil-python` publishes one package per listed CPython
+series, `vergil-python<x.y>`, and every release publishes every listed series.
+A package's version is `<cpython>+<pbs_tag>.<release>`, where `<release>` is
+the vergil-python release that built it (for example `3.15.1+20261021.1.0.4`);
+releases before v1.0.4 lack the `.<release>` suffix. A product depends on
+`vergil-python<x.y> (>= <installed version>)`, the runtime version it was
+built against, so later patches and rebuilds of the same series satisfy it.
 
 The series is derived: it is the newest window version with a published
 runtime. A product can instead pin an exact `x.y.z` with
