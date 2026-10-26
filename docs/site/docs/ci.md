@@ -79,12 +79,22 @@ Semgrep flags `secrets: inherit`, so the line carries an inline suppression:
 ## Version-agnostic evidence gates
 
 Branch protection requires **stable, version-agnostic aggregate checks**, not
-per-version legs. For each matrixed kind — audit, quality (lint + typecheck),
-and tests — the required check is the `<kind> / evidence` aggregate the
-reusable workflow emits (`audit / evidence`, `quality / evidence`,
-`test / evidence`), never the individual `… / 3.12`, `… / 3.13` legs. Each
-`evidence` job depends on the whole matrix, so one required context covers
-every version.
+per-version legs. For each matrixed kind — audit, quality, and tests — the
+required check is the `<kind> / evidence` aggregate the reusable workflow emits
+(`audit / evidence`, `quality / evidence`, `test / evidence`), never the
+individual `… / 3.12`, `… / 3.13` legs. Each `evidence` job depends on the
+whole matrix, so one required context covers every version.
+
+`quality / evidence` also covers the quality workflow's two single-container
+jobs: it aggregates `quality / common` (the common checks), `quality / custom`
+(the repo's custom validator), and the matrixed lint and typecheck legs. It
+runs even when one of them fails, so any failure fails the gate. It is required
+in every repo's CI-gates ruleset, whatever the language; `quality / common` is
+no longer required on its own.
+
+The custom validator (`scripts/bin/validate-custom`) therefore runs in PR CI as
+well as in local `vrg-validate`, and a failing validator blocks the merge. A
+repo with no custom validator gets a passing no-op `quality / custom` job.
 
 Because the required-check *names* carry no version, a **matrix change merges
 through the normal gate** — including a matrix *reduction*. This closes the old
