@@ -60,6 +60,10 @@ pipeline mixes interactive and automated stages on purpose:
 | `superpowers:writing-plans` | **automated** | Generate the implementation plan; no gating. |
 | `paad:alignment` | **interactive** | Critique the plan and confirm it matches the spec. |
 
+How the workflow uses PAAD, and every place it deviates from the PAAD authors'
+recommendations, is recorded in the
+[paad usage policy](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md).
+
 The **human-judgment principle** governs every interactive stage: stop and ask
 *only* for ambiguities or judgment calls that **materially affect** the outcome;
 handle minor, obvious corrections by **batching them to the end** as a single
