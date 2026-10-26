@@ -1115,12 +1115,20 @@ Semgrep flags <code>secrets: inherit</code>, so the line carries an inline suppr
 </code></pre></div>
 <h2 id="version-agnostic-evidence-gates">Version-agnostic evidence gates<a class="headerlink" href="#version-agnostic-evidence-gates" title="Permanent link">&para;</a></h2>
 <p>Branch protection requires <strong>stable, version-agnostic aggregate checks</strong>, not
-per-version legs. For each matrixed kind — audit, quality (lint + typecheck),
-and tests — the required check is the <code>&lt;kind&gt; / evidence</code> aggregate the
-reusable workflow emits (<code>audit / evidence</code>, <code>quality / evidence</code>,
-<code>test / evidence</code>), never the individual <code>… / 3.12</code>, <code>… / 3.13</code> legs. Each
-<code>evidence</code> job depends on the whole matrix, so one required context covers
-every version.</p>
+per-version legs. For each matrixed kind — audit, quality, and tests — the
+required check is the <code>&lt;kind&gt; / evidence</code> aggregate the reusable workflow emits
+(<code>audit / evidence</code>, <code>quality / evidence</code>, <code>test / evidence</code>), never the
+individual <code>… / 3.12</code>, <code>… / 3.13</code> legs. Each <code>evidence</code> job depends on the
+whole matrix, so one required context covers every version.</p>
+<p><code>quality / evidence</code> also covers the quality workflow's two single-container
+jobs: it aggregates <code>quality / common</code> (the common checks), <code>quality / custom</code>
+(the repo's custom validator), and the matrixed lint and typecheck legs. It
+runs even when one of them fails, so any failure fails the gate. It is required
+in every repo's CI-gates ruleset, whatever the language; <code>quality / common</code> is
+no longer required on its own.</p>
+<p>The custom validator (<code>scripts/bin/validate-custom</code>) therefore runs in PR CI as
+well as in local <code>vrg-validate</code>, and a failing validator blocks the merge. A
+repo with no custom validator gets a passing no-op <code>quality / custom</code> job.</p>
 <p>Because the required-check <em>names</em> carry no version, a <strong>matrix change merges
 through the normal gate</strong> — including a matrix <em>reduction</em>. This closes the old
 deadlock, where branch protection required a per-version leg that a reduced
