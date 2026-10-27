@@ -656,7 +656,7 @@
   <span class="md-ellipsis">
     
   
-    Intake & planning
+    Intake, planning & deferred
   
 
     
@@ -1065,7 +1065,7 @@ self-closing epics.</p>
 <p>As its children close they drain into per-quarter archive buckets, so the live
 ad-hoc epic shows only work still in flight.</p>
 <h2 id="standing-epics">Standing epics<a class="headerlink" href="#standing-epics" title="Permanent link">&para;</a></h2>
-<p>The ad-hoc epic is one of three <strong>standing epics</strong> — perpetual umbrellas that
+<p>The ad-hoc epic is one of four <strong>standing epics</strong> — perpetual umbrellas that
 are created once, reused, and never roll up:</p>
 <table>
 <thead>
@@ -1087,22 +1087,28 @@ are created once, reused, and never roll up:</p>
 <td><code>Epic (planning): &lt;name&gt;</code></td>
 <td>items waiting for (or undergoing) epic creation</td>
 </tr>
+<tr>
+<td><code>Epic (deferred): &lt;name&gt;</code></td>
+<td>evaluated items parked until their revival conditions are met</td>
+</tr>
 </tbody>
 </table>
-<p>There is one ad-hoc epic per repository. The intake and planning epics come in
-a pair per <strong>queue home</strong>: the org's <code>.github</code> for every public repository, and
-the repository itself for a private one. They are the two queues work passes
-through before it is ready to build — see <a href="../intake/">Intake &amp; planning</a>.</p>
+<p>There is one ad-hoc epic per repository. The intake, planning and deferred
+epics come as a set per <strong>queue home</strong>: the org's <code>.github</code> for every public
+repository, and the repository itself for a private one. They are the three
+queues that hold work before it is ready to build — see
+<a href="../intake/">Intake, planning &amp; deferred</a>.</p>
 <h2 id="every-issue-belongs-to-an-epic">Every issue belongs to an epic<a class="headerlink" href="#every-issue-belongs-to-an-epic" title="Permanent link">&para;</a></h2>
 <p>In any managed repository, <strong>every issue is either a legitimate top-level kind
 or has an epic parent.</strong> The top-level kinds are epics (including the standing
 ones), the per-quarter archive buckets, and the release tracking issue a
 release opens for its duration. Everything else — tasks, operational tasks,
-intake and planning items — hangs under an epic.</p>
+intake, planning and deferred items — hangs under an epic.</p>
 <p>There is no opt-out and no "unlinked" state, and the parent is not just
 bookkeeping: it <em>is</em> the issue's state. Under the intake epic it has been
-captured; under the planning epic it awaits a design; under an ad-hoc or finite
-epic it is ready to build. The sanctioned tools create every issue already
+captured; under the planning epic it awaits a design; under the deferred epic it
+waits for its revival conditions; under an ad-hoc or finite epic it is ready to
+build. The sanctioned tools create every issue already
 linked, and an issue born outside them is <strong>healed, not rejected</strong> — the daily
 sweep attaches it to its home's intake epic.</p>
 <h2 id="the-bookend-convention">The bookend convention<a class="headerlink" href="#the-bookend-convention" title="Permanent link">&para;</a></h2>
@@ -1134,7 +1140,7 @@ violations:</p>
   legitimately home its own epics.)</li>
 <li><strong>No stray <code>.github</code> issues.</strong> The epic home holds only epics, the
   per-quarter archive buckets, and issues linked under an epic — tasks and
-  intake/planning queue items alike. Any other open issue there is a stray.</li>
+  intake, planning and deferred queue items alike. Any other open issue there is a stray.</li>
 <li><strong>An epic is never closed while a child is open.</strong> Roll-up closes a finite
   epic only once <em>all</em> its children are closed; a closed epic with a still-open
   child is a violation, remediated by reopening it. (Standing epics never roll

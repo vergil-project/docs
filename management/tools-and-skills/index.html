@@ -532,7 +532,7 @@
   <span class="md-ellipsis">
     
   
-    Intake & planning
+    Intake, planning & deferred
   
 
     
@@ -675,10 +675,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intake-planning" class="md-nav__link">
+  <a href="#intake-planning-deferred" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intake &amp; planning
+        Intake, planning &amp; deferred
       
     </span>
   </a>
@@ -986,10 +986,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#intake-planning" class="md-nav__link">
+  <a href="#intake-planning-deferred" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Intake &amp; planning
+        Intake, planning &amp; deferred
       
     </span>
   </a>
@@ -1143,23 +1143,27 @@ hands off, and a human takes it across the line.</p>
   standing epic by name rather than by number)</p>
 </li>
 </ul>
-<h3 id="intake-planning">Intake &amp; planning<a class="headerlink" href="#intake-planning" title="Permanent link">&para;</a></h3>
+<h3 id="intake-planning-deferred">Intake, planning &amp; deferred<a class="headerlink" href="#intake-planning-deferred" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>vrg-intake-create</code> (capture an intake item, linked under its home's intake
   epic as it is created — no category to choose)</li>
-<li><code>vrg-intake-route</code> (apply an intake-review route: drop, defer, one-off, split,
-  or planning; a <code>security</code> item keeps its advisory link when it is
+<li><code>vrg-intake-route</code> (apply a review's route: drop, defer, one-off, split, or
+  planning out of intake; defer or drop out of planning; and out of deferred,
+  revive to intake, planning or one-off, refresh, drop, or split. Defer
+  requires <code>--reason</code> and <code>--revisit-when</code>, and is the only way into or out of
+  the deferred queue. A <code>security</code> item keeps its advisory link when it is
   transferred, recreated, or split)</li>
-<li><code>vrg-queue intake|planning</code> (the read-only view of either queue, oldest
-  first; a planning item that a security advisory still tracks is held at
-  in-progress until the advisory is retargeted to the fix tasks)</li>
+<li><code>vrg-queue intake|planning|deferred</code> (the read-only view of one queue — intake
+  oldest first, deferred least recently deferred first — or of all three with a
+  bare <code>vrg-queue</code>; a planning item that a security advisory still tracks is
+  held at in-progress until the advisory is retargeted to the fix tasks)</li>
 <li><code>vrg-security-record</code> (record a security finding as a private draft advisory
   in <code>&lt;org&gt;/.github</code>, paired with a neutral <code>security</code>-labelled intake issue;
   <code>create</code>, <code>list</code>, <code>show</code>, <code>retarget</code> — see vergil-tooling's
   <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/">Security Records</a>
   guide)</li>
 </ul>
-<p>An issue still in the intake or planning queue is not buildable:
+<p>An issue still in the intake, planning or deferred queue is not buildable:
 <code>vrg-pr-workflow report-ready</code> and <code>vrg-submit-pr</code> refuse it until it is routed
 out.</p>
 <h3 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permanent link">&para;</a></h3>
@@ -1215,7 +1219,14 @@ sessions.</p>
 <li><strong><code>intake-capture</code></strong> — the lossless net: file an <a href="../intake/">intake</a> item with
   near-zero friction.</li>
 <li><strong><code>intake-review</code></strong> — the periodic pass that reviews the intake queue oldest
-  first, in small batches, and routes each item out of it.</li>
+  first, in small batches, and routes each item out of it: drop, defer,
+  one-off, split, or planning.</li>
+<li><strong><code>planning-review</code></strong> — ranks the planning queue with the human by priority
+  and importance, hands the item(s) to plan next to <code>epic-create</code>, and defers,
+  drops, or leaves the rest.</li>
+<li><strong><code>deferred-review</code></strong> — the periodic pass over the deferred queue: it checks
+  each item's <code>Revisit when:</code> conditions against their real sources and
+  recommends keep, refresh, revive, or drop.</li>
 <li><strong><code>migrate-repo</code></strong> — onboard a repository's pre-framework backlog into the
   epic/task model.</li>
 <li><strong><code>issue-implement</code></strong> — the agent implements a single issue end-to-end and

@@ -532,7 +532,7 @@
   <span class="md-ellipsis">
     
   
-    Intake & planning
+    Intake, planning & deferred
   
 
     
@@ -883,7 +883,7 @@ the task is small and mechanical, the epic is the meaningful whole.</p>
    the bookkeeping kinds: a per-quarter archive bucket, a release tracking
    issue) or it has an epic parent. There is no "unlinked" state — even a
    one-line idea is captured under the intake epic — and the parent <em>is</em> the
-   issue's state: intake, planning, or ready to build.</li>
+   issue's state: intake, planning, deferred, or ready to build.</li>
 <li><strong>All epics live in the organization's <code>.github</code> repository</strong> — one place to
    see every initiative in the org. (A private repository keeps its own, so
    private work never surfaces in public.)</li>
@@ -895,17 +895,18 @@ lives in the repository whose pull request closes it. Cohesion between a task an
 the change that completes it matters more than a pristine issue list. In practice
 the <code>.github</code> list reads as "epics, and the issues linked under them" — you
 filter by the <code>epic</code> label for the initiatives — and the items that live there
-(queue items under the intake and planning epics, and the rare task whose PR
+(queue items under the intake, planning and deferred epics, and the rare task whose PR
 edits <code>.github</code> itself) are linked like everything else.</p>
 <h2 id="the-shape-of-the-model">The shape of the model<a class="headerlink" href="#the-shape-of-the-model" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Epics &amp; tasks</strong> — finite epics (in <code>.github</code>), plus one perpetual <strong>ad-hoc</strong>
   epic per repository for the small, unplanned work that should never accrete
   into a larger initiative.</li>
-<li><strong>Intake &amp; planning</strong> — two standing queues that catch raw input the moment it
-  occurs and hold it until it is ready: work flows <strong>intake → planning →
-  ready</strong>, and only ready work can be built, so nothing is lost before it is
-  planned.</li>
+<li><strong>Intake, planning &amp; deferred</strong> — three standing queues that catch raw input
+  the moment it occurs and hold it until it is ready: work flows <strong>intake →
+  planning → ready</strong>, an evaluated item that cannot move yet waits in
+  <strong>deferred</strong> with the conditions that will bring it back, and only ready work
+  can be built, so nothing is lost before it is planned.</li>
 <li><strong>Workflow</strong> — how an idea becomes an epic becomes shipped tasks: the
   <code>epic-create</code> orchestrator and a front-loaded, interactive design pipeline that
   makes implementation near-bulletproof.</li>
