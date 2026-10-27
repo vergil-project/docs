@@ -67,6 +67,13 @@ per-quarter archive buckets, so the live queues show only open work.
    *in progress*, or *completed* — closed as "planned as" the epic it became,
    or with the reason it is not worth doing.
 
+A `security` item — the neutral issue half of a security record — is routed
+like any other and keeps its advisory link through every move: the advisory is
+retargeted when the item is transferred, recreated, or split. See
+vergil-tooling's
+[Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#when-the-issue-moves)
+guide.
+
 The queues are meant to stay drained: a growing intake queue is a signal to
 review it, not a place for work to live.
 
