@@ -1148,9 +1148,16 @@ hands off, and a human takes it across the line.</p>
 <li><code>vrg-intake-create</code> (capture an intake item, linked under its home's intake
   epic as it is created — no category to choose)</li>
 <li><code>vrg-intake-route</code> (apply an intake-review route: drop, defer, one-off, split,
-  or planning)</li>
+  or planning; a <code>security</code> item keeps its advisory link when it is
+  transferred, recreated, or split)</li>
 <li><code>vrg-queue intake|planning</code> (the read-only view of either queue, oldest
-  first)</li>
+  first; a planning item that a security advisory still tracks is held at
+  in-progress until the advisory is retargeted to the fix tasks)</li>
+<li><code>vrg-security-record</code> (record a security finding as a private draft advisory
+  in <code>&lt;org&gt;/.github</code>, paired with a neutral <code>security</code>-labelled intake issue;
+  <code>create</code>, <code>list</code>, <code>show</code>, <code>retarget</code> — see vergil-tooling's
+  <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/">Security Records</a>
+  guide)</li>
 </ul>
 <p>An issue still in the intake or planning queue is not buildable:
 <code>vrg-pr-workflow report-ready</code> and <code>vrg-submit-pr</code> refuse it until it is routed
@@ -1165,7 +1172,9 @@ out.</p>
 <li><code>vrg-roadmap</code> (the open-epic roadmap)</li>
 <li><code>vrg-epic-audit</code> (drift and invariant violations — read-only, with a gated
   <code>--close</code>; under <code>--close</code>, run daily by the scheduled sweep, it also runs the
-  <strong>orphan pass</strong> that attaches every unparented issue to its home's intake epic)</li>
+  <strong>orphan pass</strong> that attaches every unparented issue to its home's intake
+  epic, then the <strong>security-records pass</strong> that syncs each advisory's state to
+  its issues and reports broken pairs)</li>
 <li><code>vrg-adhoc-migrate</code> (the one-time relocation of the legacy <code>standing</code> epics —
   <strong>complete</strong>; the <code>standing</code> alias is retired, so <code>ad-hoc</code> is the only
   perpetual variant)</li>
