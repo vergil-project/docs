@@ -1,4 +1,4 @@
-# Intake & planning
+# Intake, planning & deferred
 
 The formal path — brainstorm, spec, epic, tasks — is the preferred on-ramp, but
 most work does not arrive that way. It arrives as a dog-walk epiphany, a "we
@@ -24,23 +24,28 @@ epic says where it stands, so no label has to restate it:
 | --- | --- | --- |
 | **Intake** — captured, not yet reviewed | the intake epic | no |
 | **Planning** — judged to need a full epic | the planning epic | no |
+| **Deferred** — evaluated, but waiting on something before it can move | the deferred epic | no |
 | **Ready** — a one-off, or part of a planned initiative | a repository's ad-hoc epic, or a finite epic | yes |
 
-Work moves **intake → planning → ready**, and only ready work can be built: the
-pull-request tooling refuses an issue that still sits in the intake or planning
-queue, and says which step to take first.
+Work moves **intake → planning → ready**. An item that has been evaluated but
+cannot move yet — it waits on an upstream release, another issue, a date, or
+capacity — steps aside into the **deferred** queue until its revival conditions
+are met. Only ready work can be built: the pull-request tooling refuses an issue
+that still sits in the intake, planning or deferred queue, and says which step
+to take first.
 
 ## The standing queues
 
-The intake and planning queues are **standing epics** — perpetual, like a
-repository's ad-hoc epic: created once, reused, never auto-closed.
+The three queues are **standing epics** — perpetual, like a repository's ad-hoc
+epic: created once, reused, never auto-closed.
 `Epic (intake): <name>` holds captured, unreviewed items;
 `Epic (planning): <name>` holds items waiting for (or undergoing) epic
-creation.
+creation; `Epic (deferred): <name>` holds evaluated items parked until their
+revival conditions are met.
 
-There is one pair per **queue home**. Every public repository shares the org's
-pair in `.github`, so the whole org-wide queue is one view rather than something
-scattered across repositories. A **private** repository keeps its own pair, so
+There is one set per **queue home**. Every public repository shares the org's
+set in `.github`, so the whole org-wide queue is one view rather than something
+scattered across repositories. A **private** repository keeps its own set, so
 private work never surfaces in a public issue. Closed items drain into
 per-quarter archive buckets, so the live queues show only open work.
 
@@ -55,17 +60,29 @@ per-quarter archive buckets, so the live queues show only open work.
    batches. For each item the agent checks its current state and recommends a
    route; the human confirms the batch. There are five routes:
    - **Drop** — close it with a reason (not planned). It stays searchable.
-   - **Defer** — leave it, with a dated note; it keeps its age and comes up
-     first next time.
+   - **Defer** — move it into the deferred queue, recording why it waits and
+     what to check before it can come back.
    - **One-off** — move it into its target repository as a ready task under
      that repository's ad-hoc epic (or a named epic).
    - **Split** — replace it with several ready tasks and close it.
    - **Planning** — it needs a real design, so it moves to the planning queue.
-3. **Plan.** A planning item is the record of its own epic creation:
-   `epic-create` always works through one, and leaves progress comments so a
-   session can pause and resume days later. A planning item is *waiting*,
-   *in progress*, or *completed* — closed as "planned as" the epic it became,
-   or with the reason it is not worth doing.
+3. **Plan.** A planning review ranks the planning queue by priority and
+   importance and picks only what will be implemented soon, since a plan left
+   sitting goes stale; each item is picked, deferred, dropped, or left. A
+   planning item is the record of its own epic creation: `epic-create` always
+   works through one, and leaves progress comments so a session can pause and
+   resume days later. A planning item is *waiting*, *in progress*, or
+   *completed* — closed as "planned as" the epic it became, or with the reason
+   it is not worth doing.
+4. **Revisit.** A deferred item is never forgotten, because every deferral
+   records a reason and the conditions to check (`Revisit when:`). On a
+   periodic deferred review, the agent actually checks each item's conditions
+   against their real sources — a release page, an issue's state, a date — and
+   recommends one outcome: **keep** it (not yet), **refresh** its record,
+   **revive** it (back to intake, to planning, or as a one-off), or **drop**
+   it. Only an item in a queue or an ad-hoc epic can be deferred; a task in a
+   finite epic cannot, since parking one task would in effect suspend its
+   whole epic.
 
 A `security` item — the neutral issue half of a security record — is routed
 like any other and keeps its advisory link through every move: the advisory is
@@ -74,8 +91,10 @@ vergil-tooling's
 [Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#when-the-issue-moves)
 guide.
 
-The queues are meant to stay drained: a growing intake queue is a signal to
-review it, not a place for work to live.
+The intake and planning queues are meant to stay drained: a growing one is a
+signal to review it, not a place for work to live. The deferred queue is not
+drained but re-checked — an item stays there exactly as long as its revival
+conditions are unmet.
 
 ## Nothing escapes
 
@@ -102,9 +121,11 @@ human to resolve.
 ## Mechanics
 
 The commands and their exact behavior — `vrg-intake-create`,
-`vrg-intake-route`, `vrg-queue`, the orphan pass, and the queue-home rules —
-are documented in vergil-tooling's
-[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#intake-and-planning-queues)
-and
+`vrg-intake-route`, `vrg-queue`, the deferral record, the orphan pass, and the
+queue-home rules — are documented in vergil-tooling's
+[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#intake-planning-and-deferred-queues)
+(see
+[The deferred queue](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#the-deferred-queue)
+for deferring and reviving) and
 [Epic home visibility flips](https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/)
 guide.

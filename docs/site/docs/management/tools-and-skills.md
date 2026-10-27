@@ -46,23 +46,27 @@ hands off, and a human takes it across the line.
 - `vrg-issue-create --epic adhoc|intake|planning` (target a repository's
   standing epic by name rather than by number)
 
-### Intake & planning
+### Intake, planning & deferred
 
 - `vrg-intake-create` (capture an intake item, linked under its home's intake
   epic as it is created — no category to choose)
-- `vrg-intake-route` (apply an intake-review route: drop, defer, one-off, split,
-  or planning; a `security` item keeps its advisory link when it is
+- `vrg-intake-route` (apply a review's route: drop, defer, one-off, split, or
+  planning out of intake; defer or drop out of planning; and out of deferred,
+  revive to intake, planning or one-off, refresh, drop, or split. Defer
+  requires `--reason` and `--revisit-when`, and is the only way into or out of
+  the deferred queue. A `security` item keeps its advisory link when it is
   transferred, recreated, or split)
-- `vrg-queue intake|planning` (the read-only view of either queue, oldest
-  first; a planning item that a security advisory still tracks is held at
-  in-progress until the advisory is retargeted to the fix tasks)
+- `vrg-queue intake|planning|deferred` (the read-only view of one queue — intake
+  oldest first, deferred least recently deferred first — or of all three with a
+  bare `vrg-queue`; a planning item that a security advisory still tracks is
+  held at in-progress until the advisory is retargeted to the fix tasks)
 - `vrg-security-record` (record a security finding as a private draft advisory
   in `<org>/.github`, paired with a neutral `security`-labelled intake issue;
   `create`, `list`, `show`, `retarget` — see vergil-tooling's
   [Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/)
   guide)
 
-An issue still in the intake or planning queue is not buildable:
+An issue still in the intake, planning or deferred queue is not buildable:
 `vrg-pr-workflow report-ready` and `vrg-submit-pr` refuse it until it is routed
 out.
 
@@ -122,7 +126,14 @@ sessions.
 - **`intake-capture`** — the lossless net: file an [intake](intake.md) item with
   near-zero friction.
 - **`intake-review`** — the periodic pass that reviews the intake queue oldest
-  first, in small batches, and routes each item out of it.
+  first, in small batches, and routes each item out of it: drop, defer,
+  one-off, split, or planning.
+- **`planning-review`** — ranks the planning queue with the human by priority
+  and importance, hands the item(s) to plan next to `epic-create`, and defers,
+  drops, or leaves the rest.
+- **`deferred-review`** — the periodic pass over the deferred queue: it checks
+  each item's `Revisit when:` conditions against their real sources and
+  recommends keep, refresh, revive, or drop.
 - **`migrate-repo`** — onboard a repository's pre-framework backlog into the
   epic/task model.
 - **`issue-implement`** — the agent implements a single issue end-to-end and

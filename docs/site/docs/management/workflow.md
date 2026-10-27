@@ -18,12 +18,16 @@ Every run is tracked in a **planning item** — an issue in the
 [planning queue](intake.md) that records its own epic creation, with progress
 comments so a session can pause and resume days later:
 
-- **`epic-create <issue>`** starts or resumes that planning item (an intake item
-  is first moved to the planning queue).
+- **`epic-create <issue>`** starts or resumes that planning item (an intake or
+  deferred item is first moved to the planning queue).
 - **`epic-create` with a free-text idea** first turns the idea into a new
   planning item.
 - **`epic-create`** with no argument summarizes the planning queue and asks
   which item to work on.
+
+Which item to plan next is decided in **`planning-review`**: the human ranks the
+planning queue by priority and importance and picks only what will be
+implemented soon, since a plan left sitting goes stale.
 
 The planning item closes once the epic exists, its docs task has merged, and
 its tasks are filed — "planned as" the epic it became.

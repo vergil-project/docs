@@ -38,7 +38,7 @@ Everything in this layer follows from three rules:
    the bookkeeping kinds: a per-quarter archive bucket, a release tracking
    issue) or it has an epic parent. There is no "unlinked" state — even a
    one-line idea is captured under the intake epic — and the parent *is* the
-   issue's state: intake, planning, or ready to build.
+   issue's state: intake, planning, deferred, or ready to build.
 2. **All epics live in the organization's `.github` repository** — one place to
    see every initiative in the org. (A private repository keeps its own, so
    private work never surfaces in public.)
@@ -50,7 +50,7 @@ lives in the repository whose pull request closes it. Cohesion between a task an
 the change that completes it matters more than a pristine issue list. In practice
 the `.github` list reads as "epics, and the issues linked under them" — you
 filter by the `epic` label for the initiatives — and the items that live there
-(queue items under the intake and planning epics, and the rare task whose PR
+(queue items under the intake, planning and deferred epics, and the rare task whose PR
 edits `.github` itself) are linked like everything else.
 
 ## The shape of the model
@@ -58,10 +58,11 @@ edits `.github` itself) are linked like everything else.
 - **Epics & tasks** — finite epics (in `.github`), plus one perpetual **ad-hoc**
   epic per repository for the small, unplanned work that should never accrete
   into a larger initiative.
-- **Intake & planning** — two standing queues that catch raw input the moment it
-  occurs and hold it until it is ready: work flows **intake → planning →
-  ready**, and only ready work can be built, so nothing is lost before it is
-  planned.
+- **Intake, planning & deferred** — three standing queues that catch raw input
+  the moment it occurs and hold it until it is ready: work flows **intake →
+  planning → ready**, an evaluated item that cannot move yet waits in
+  **deferred** with the conditions that will bring it back, and only ready work
+  can be built, so nothing is lost before it is planned.
 - **Workflow** — how an idea becomes an epic becomes shipped tasks: the
   `epic-create` orchestrator and a front-loaded, interactive design pipeline that
   makes implementation near-bulletproof.
