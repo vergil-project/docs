@@ -59,7 +59,7 @@ ad-hoc epic shows only work still in flight.
 
 ## Standing epics
 
-The ad-hoc epic is one of three **standing epics** — perpetual umbrellas that
+The ad-hoc epic is one of four **standing epics** — perpetual umbrellas that
 are created once, reused, and never roll up:
 
 | Standing epic | Holds |
@@ -67,11 +67,13 @@ are created once, reused, and never roll up:
 | `Epic (ad hoc): <repo>` | ready one-off work for one repository |
 | `Epic (intake): <name>` | captured, unreviewed items — and every orphan the sweep finds |
 | `Epic (planning): <name>` | items waiting for (or undergoing) epic creation |
+| `Epic (deferred): <name>` | evaluated items parked until their revival conditions are met |
 
-There is one ad-hoc epic per repository. The intake and planning epics come in
-a pair per **queue home**: the org's `.github` for every public repository, and
-the repository itself for a private one. They are the two queues work passes
-through before it is ready to build — see [Intake & planning](intake.md).
+There is one ad-hoc epic per repository. The intake, planning and deferred
+epics come as a set per **queue home**: the org's `.github` for every public
+repository, and the repository itself for a private one. They are the three
+queues that hold work before it is ready to build — see
+[Intake, planning & deferred](intake.md).
 
 ## Every issue belongs to an epic
 
@@ -79,12 +81,13 @@ In any managed repository, **every issue is either a legitimate top-level kind
 or has an epic parent.** The top-level kinds are epics (including the standing
 ones), the per-quarter archive buckets, and the release tracking issue a
 release opens for its duration. Everything else — tasks, operational tasks,
-intake and planning items — hangs under an epic.
+intake, planning and deferred items — hangs under an epic.
 
 There is no opt-out and no "unlinked" state, and the parent is not just
 bookkeeping: it *is* the issue's state. Under the intake epic it has been
-captured; under the planning epic it awaits a design; under an ad-hoc or finite
-epic it is ready to build. The sanctioned tools create every issue already
+captured; under the planning epic it awaits a design; under the deferred epic it
+waits for its revival conditions; under an ad-hoc or finite epic it is ready to
+build. The sanctioned tools create every issue already
 linked, and an issue born outside them is **healed, not rejected** — the daily
 sweep attaches it to its home's intake epic.
 
@@ -120,7 +123,7 @@ violations:
   legitimately home its own epics.)
 - **No stray `.github` issues.** The epic home holds only epics, the
   per-quarter archive buckets, and issues linked under an epic — tasks and
-  intake/planning queue items alike. Any other open issue there is a stray.
+  intake, planning and deferred queue items alike. Any other open issue there is a stray.
 - **An epic is never closed while a child is open.** Roll-up closes a finite
   epic only once *all* its children are closed; a closed epic with a still-open
   child is a violation, remediated by reopening it. (Standing epics never roll
