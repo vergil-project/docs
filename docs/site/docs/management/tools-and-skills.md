@@ -51,9 +51,16 @@ hands off, and a human takes it across the line.
 - `vrg-intake-create` (capture an intake item, linked under its home's intake
   epic as it is created — no category to choose)
 - `vrg-intake-route` (apply an intake-review route: drop, defer, one-off, split,
-  or planning)
+  or planning; a `security` item keeps its advisory link when it is
+  transferred, recreated, or split)
 - `vrg-queue intake|planning` (the read-only view of either queue, oldest
-  first)
+  first; a planning item that a security advisory still tracks is held at
+  in-progress until the advisory is retargeted to the fix tasks)
+- `vrg-security-record` (record a security finding as a private draft advisory
+  in `<org>/.github`, paired with a neutral `security`-labelled intake issue;
+  `create`, `list`, `show`, `retarget` — see vergil-tooling's
+  [Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/)
+  guide)
 
 An issue still in the intake or planning queue is not buildable:
 `vrg-pr-workflow report-ready` and `vrg-submit-pr` refuse it until it is routed
@@ -69,7 +76,9 @@ out.
 - `vrg-roadmap` (the open-epic roadmap)
 - `vrg-epic-audit` (drift and invariant violations — read-only, with a gated
   `--close`; under `--close`, run daily by the scheduled sweep, it also runs the
-  **orphan pass** that attaches every unparented issue to its home's intake epic)
+  **orphan pass** that attaches every unparented issue to its home's intake
+  epic, then the **security-records pass** that syncs each advisory's state to
+  its issues and reports broken pairs)
 - `vrg-adhoc-migrate` (the one-time relocation of the legacy `standing` epics —
   **complete**; the `standing` alias is retired, so `ad-hoc` is the only
   perpetual variant)

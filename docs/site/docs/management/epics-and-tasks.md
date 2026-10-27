@@ -142,6 +142,14 @@ queue items under `.github`, and attaches every orphan to its home's intake
 epic. It never closes an item, and it stops loudly — never silently skipping —
 when a queue is too full to accept more.
 
+After the orphan pass, the sweep runs a **security-records pass** over the
+private draft advisories in the org's `.github`. Each advisory follows the
+neutral `security` issues it tracks — closed once every one of them is closed,
+a draft while any is open — and broken pairs are reported for a human to
+resolve, never repaired. See vergil-tooling's
+[Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#managing-a-record-through-its-issue)
+guide.
+
 When a **finite epic** is found outside its home, relocate it: move the issue
 into `.github` with `vrg-gh issue transfer`, then re-establish its task links
 with `vrg-epic-link`.
