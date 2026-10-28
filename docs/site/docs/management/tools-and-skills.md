@@ -54,12 +54,14 @@ hands off, and a human takes it across the line.
   planning out of intake; defer or drop out of planning; and out of deferred,
   revive to intake, planning or one-off, refresh, drop, or split. Defer
   requires `--reason` and `--revisit-when`, and is the only way into or out of
-  the deferred queue. A `security` item keeps its advisory link when it is
-  transferred, recreated, or split)
+  the deferred queue. A `security` item keeps its advisory links when it is
+  transferred, recreated, or split; a split of an item naming several
+  advisories is refused)
 - `vrg-queue intake|planning|deferred` (the read-only view of one queue — intake
   oldest first, deferred least recently deferred first — or of all three with a
-  bare `vrg-queue`; a planning item that a security advisory still tracks is
-  held at in-progress until the advisory is retargeted to the fix tasks)
+  bare `vrg-queue`; a planning item that any security advisory still tracks is
+  held at in-progress until each advisory it names is retargeted to the task or
+  tasks that fix it)
 - `vrg-security-record` (record a security finding as a private draft advisory
   in `<org>/.github`, paired with a neutral `security`-labelled intake issue;
   `create`, `list`, `show`, `retarget` — see vergil-tooling's

@@ -85,8 +85,12 @@ per-quarter archive buckets, so the live queues show only open work.
    whole epic.
 
 A `security` item — the neutral issue half of a security record — is routed
-like any other and keeps its advisory link through every move: the advisory is
-retargeted when the item is transferred, recreated, or split. See
+like any other and keeps its advisory links through every move: every advisory
+it names is retargeted when the item is transferred or recreated, and its one
+advisory is retargeted when it is split. A split of an item naming several
+advisories is refused, since which advisory goes to which task can't be
+inferred; retarget each by hand with `vrg-security-record retarget`, then
+split. See
 vergil-tooling's
 [Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#when-the-issue-moves)
 guide.
