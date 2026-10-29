@@ -24,7 +24,7 @@ irreversible, outward-facing steps.
 
 | Driven by the **agent** (runs as the `user` identity) | Driven by the **human** |
 | --- | --- |
-| Participating in brainstorm / pushback / alignment | The judgment calls *inside* those interactive stages |
+| Participating in the brainstorm; running the design-review rounds | The judgment calls in the brainstorm, and the decision on each design-review finding and each further round |
 | Authoring specs and plans; implementing tasks | Submitting the pull request (`vrg-submit-pr`) |
 | Commits and PR preparation / hand-off | Reviewing and **merging** |
 | Read-only audits and dry-runs | Post-merge finalize (`vrg-finalize-pr`) |
@@ -123,7 +123,8 @@ sessions.
 ## The skills, by role
 
 - **`epic-create`** — the outer orchestrator of the [workflow](workflow.md):
-  brainstorm → epic → spec → pushback → plan → alignment → docs PR → file tasks,
+  brainstorm → epic → spec → spec pushback rounds → plan → plan pushback
+  rounds → alignment rounds → docs PR → file tasks,
   always worked through a planning item that records its progress.
 - **`intake-capture`** — the lossless net: file an [intake](intake.md) item with
   near-zero friction.
