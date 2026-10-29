@@ -635,10 +635,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-four-stage-interaction-doctrine" class="md-nav__link">
+  <a href="#the-interaction-doctrine" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The four-stage interaction doctrine
+        The interaction doctrine
       
     </span>
   </a>
@@ -902,10 +902,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-four-stage-interaction-doctrine" class="md-nav__link">
+  <a href="#the-interaction-doctrine" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The four-stage interaction doctrine
+        The interaction doctrine
       
     </span>
   </a>
@@ -963,26 +963,31 @@ its tasks are filed — "planned as" the epic it became.</p>
 <li><strong>Brainstorm</strong> — explore intent and converge on an approved design.</li>
 <li><strong>Initialize</strong> — create the epic in <code>.github</code> and seed its bookend tasks
    (documentation first; documentation review and the retrospective last).</li>
-<li><strong>Spec → pushback → review</strong> — write the spec, adversarially critique it,
-   and have a human review it.</li>
-<li><strong>Plan → alignment</strong> — write the implementation plan, then reconcile it
-   against the spec.</li>
+<li><strong>Spec → spec pushback rounds → human review</strong> — write the spec, critique
+   it adversarially in spec pushback rounds, and have a human review it.</li>
+<li><strong>Plan → plan pushback rounds → alignment rounds</strong> — write the
+   implementation plan in one automated pass, critique it in plan pushback
+   rounds, then reconcile the spec and the plan in alignment rounds, which may
+   change both.</li>
 <li><strong>Docs PR</strong> — land the spec and plan as a single documentation PR (which
    closes the documentation bookend).</li>
 <li><strong>File tasks</strong> — create the implementation tasks from the plan, each in the
    repository where its PR will land.</li>
 </ol>
-<h2 id="the-four-stage-interaction-doctrine">The four-stage interaction doctrine<a class="headerlink" href="#the-four-stage-interaction-doctrine" title="Permanent link">&para;</a></h2>
-<p>The four stages are not hand-waving — each is a concrete, reusable <strong>skill</strong>,
+<p>The review steps in stages 3 and 4 run in <strong>human-gated rounds</strong>, described
+below.</p>
+<h2 id="the-interaction-doctrine">The interaction doctrine<a class="headerlink" href="#the-interaction-doctrine" title="Permanent link">&para;</a></h2>
+<p>The design and review steps are not hand-waving — each runs a concrete,
+reusable <strong>skill</strong>,
 composed from two packages: <strong>Superpowers</strong> (<code>brainstorming</code>, <code>writing-plans</code>)
-and <strong>PAAD</strong> (<code>pushback</code>, <code>alignment</code>). They run in a fixed order — brainstorming
-produces the spec, pushback critiques the spec, writing-plans generates the plan,
-and alignment critiques the plan and confirms it matches the spec — and the
-pipeline mixes interactive and automated stages on purpose:</p>
+and <strong>PAAD</strong> (<code>pushback</code>, <code>alignment</code>). Brainstorming produces the spec,
+pushback critiques the spec, writing-plans generates the plan, pushback
+critiques the plan, and alignment confirms the spec and the plan match. The
+pipeline mixes interactive, human-gated and automated stages on purpose:</p>
 <table>
 <thead>
 <tr>
-<th>Skill</th>
+<th>Stage</th>
 <th>Mode</th>
 <th>Contract</th>
 </tr>
@@ -994,30 +999,34 @@ pipeline mixes interactive and automated stages on purpose:</p>
 <td>Explore intent, one question at a time — produces the spec.</td>
 </tr>
 <tr>
-<td><code>paad:pushback</code></td>
-<td><strong>interactive</strong></td>
-<td>Adversarially critique the spec; the human makes the judgment calls.</td>
+<td>Design review (pushback on the spec, pushback on the plan, alignment)</td>
+<td><strong>human-gated rounds</strong></td>
+<td>A fresh review-only subagent per round. The main session walks the human through the findings, and the human decides every further round.</td>
 </tr>
 <tr>
 <td><code>superpowers:writing-plans</code></td>
 <td><strong>automated</strong></td>
-<td>Generate the implementation plan; no gating.</td>
-</tr>
-<tr>
-<td><code>paad:alignment</code></td>
-<td><strong>interactive</strong></td>
-<td>Critique the plan and confirm it matches the spec.</td>
+<td>Generate the implementation plan in one pass; no gating.</td>
 </tr>
 </tbody>
 </table>
-<p>How the workflow uses PAAD, and every place it deviates from the PAAD authors'
+<p>Each design-review round reviews the whole document, and the main session
+records it as a comment on the planning item. The human decides every finding
+and whether to run another round of the stage. The rules are in the
+<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#2-mode-1-human-gated-design-review">paad review doctrine, mode 1</a>.
+How the workflow uses PAAD, and every place it deviates from the PAAD authors'
 recommendations, is recorded in the
 <a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md">paad usage policy</a>.</p>
-<p>The <strong>human-judgment principle</strong> governs every interactive stage: stop and ask
-<em>only</em> for ambiguities or judgment calls that <strong>materially affect</strong> the outcome;
-handle minor, obvious corrections by <strong>batching them to the end</strong> as a single
+<p>The <strong>human-judgment principle</strong> governs brainstorming: stop and ask <em>only</em> for
+ambiguities or judgment calls that <strong>materially affect</strong> the outcome; handle
+minor, obvious corrections by <strong>batching them to the end</strong> as a single
 "here are the no-brainers — correct me if I'm wrong" review, rather than gating
 each one.</p>
+<p><strong>Design review</strong> walks the findings one at a time, in severity order, except
+for one batch at the end: low findings, each with its own decision, and known
+findings, which keep their earlier decision unless the human pulls one out
+(<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#22-one-round">doctrine §2.2</a>,
+step 4).</p>
 <p>The goal of all this front-loading is blunt: plans that just work — on the order
 of 90–99% of tasks green on first implementation. Real-world misses still happen
 and get patched, but the more upfront refinement, the higher the success rate,
