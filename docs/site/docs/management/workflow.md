@@ -39,40 +39,52 @@ its tasks are filed — "planned as" the epic it became.
 1. **Brainstorm** — explore intent and converge on an approved design.
 2. **Initialize** — create the epic in `.github` and seed its bookend tasks
    (documentation first; documentation review and the retrospective last).
-3. **Spec → pushback → review** — write the spec, adversarially critique it,
-   and have a human review it.
-4. **Plan → alignment** — write the implementation plan, then reconcile it
-   against the spec.
+3. **Spec → spec pushback rounds → human review** — write the spec, critique
+   it adversarially in spec pushback rounds, and have a human review it.
+4. **Plan → plan pushback rounds → alignment rounds** — write the
+   implementation plan in one automated pass, critique it in plan pushback
+   rounds, then reconcile the spec and the plan in alignment rounds, which may
+   change both.
 5. **Docs PR** — land the spec and plan as a single documentation PR (which
    closes the documentation bookend).
 6. **File tasks** — create the implementation tasks from the plan, each in the
    repository where its PR will land.
 
-## The four-stage interaction doctrine
+The review steps in stages 3 and 4 run in **human-gated rounds**, described
+below.
 
-The four stages are not hand-waving — each is a concrete, reusable **skill**,
+## The interaction doctrine
+
+The stages are not hand-waving — each is a concrete, reusable **skill**,
 composed from two packages: **Superpowers** (`brainstorming`, `writing-plans`)
-and **PAAD** (`pushback`, `alignment`). They run in a fixed order — brainstorming
-produces the spec, pushback critiques the spec, writing-plans generates the plan,
-and alignment critiques the plan and confirms it matches the spec — and the
-pipeline mixes interactive and automated stages on purpose:
+and **PAAD** (`pushback`, `alignment`). Brainstorming produces the spec,
+pushback critiques the spec, writing-plans generates the plan, pushback
+critiques the plan, and alignment confirms the spec and the plan match. The
+pipeline mixes interactive, human-gated and automated stages on purpose:
 
-| Skill | Mode | Contract |
+| Stage | Mode | Contract |
 | --- | --- | --- |
 | `superpowers:brainstorming` | **interactive** | Explore intent, one question at a time — produces the spec. |
-| `paad:pushback` | **interactive** | Adversarially critique the spec; the human makes the judgment calls. |
-| `superpowers:writing-plans` | **automated** | Generate the implementation plan; no gating. |
-| `paad:alignment` | **interactive** | Critique the plan and confirm it matches the spec. |
+| Design review (pushback on the spec, pushback on the plan, alignment) | **human-gated rounds** | A fresh review-only subagent per round. The main session walks the human through the findings, and the human decides every further round. |
+| `superpowers:writing-plans` | **automated** | Generate the implementation plan in one pass; no gating. |
 
+Each design-review round reviews the whole document, and the main session
+records it as a comment on the planning item. The human decides every finding
+and whether to run another round of the stage. The rules are in the
+[paad review doctrine, mode 1](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#2-mode-1-human-gated-design-review).
 How the workflow uses PAAD, and every place it deviates from the PAAD authors'
 recommendations, is recorded in the
 [paad usage policy](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md).
 
-The **human-judgment principle** governs every interactive stage: stop and ask
-*only* for ambiguities or judgment calls that **materially affect** the outcome;
-handle minor, obvious corrections by **batching them to the end** as a single
+The **human-judgment principle** governs brainstorming: stop and ask *only* for
+ambiguities or judgment calls that **materially affect** the outcome; handle
+minor, obvious corrections by **batching them to the end** as a single
 "here are the no-brainers — correct me if I'm wrong" review, rather than gating
 each one.
+
+**Design review** walks the findings one at a time, in severity order. Low
+findings, and known findings with their earlier decision cited, are presented
+together as one batch at the end; each still gets its own decision.
 
 The goal of all this front-loading is blunt: plans that just work — on the order
 of 90–99% of tasks green on first implementation. Real-world misses still happen

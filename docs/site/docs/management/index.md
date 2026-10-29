@@ -64,8 +64,8 @@ edits `.github` itself) are linked like everything else.
   **deferred** with the conditions that will bring it back, and only ready work
   can be built, so nothing is lost before it is planned.
 - **Workflow** — how an idea becomes an epic becomes shipped tasks: the
-  `epic-create` orchestrator and a front-loaded, interactive design pipeline that
-  makes implementation near-bulletproof.
+  `epic-create` orchestrator and a front-loaded design pipeline with human-gated
+  review rounds that makes implementation near-bulletproof.
 - **Tools & skills** — how the `vrg-*` commands and the skills fit together: what
   each does at the story level, and which are driven by a human versus an agent.
   The per-command reference lives in the repositories where the code does.
