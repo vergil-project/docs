@@ -55,7 +55,8 @@ below.
 
 ## The interaction doctrine
 
-The stages are not hand-waving — each is a concrete, reusable **skill**,
+The design and review steps are not hand-waving — each runs a concrete,
+reusable **skill**,
 composed from two packages: **Superpowers** (`brainstorming`, `writing-plans`)
 and **PAAD** (`pushback`, `alignment`). Brainstorming produces the spec,
 pushback critiques the spec, writing-plans generates the plan, pushback
@@ -82,9 +83,11 @@ minor, obvious corrections by **batching them to the end** as a single
 "here are the no-brainers — correct me if I'm wrong" review, rather than gating
 each one.
 
-**Design review** walks the findings one at a time, in severity order. Low
-findings, and known findings with their earlier decision cited, are presented
-together as one batch at the end; each still gets its own decision.
+**Design review** walks the findings one at a time, in severity order, except
+for one batch at the end: low findings, each with its own decision, and known
+findings, which keep their earlier decision unless the human pulls one out
+([doctrine §2.2](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#22-one-round),
+step 4).
 
 The goal of all this front-loading is blunt: plans that just work — on the order
 of 90–99% of tasks green on first implementation. Real-world misses still happen
