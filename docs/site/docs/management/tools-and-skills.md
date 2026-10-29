@@ -138,8 +138,10 @@ sessions.
   recommends keep, refresh, revive, or drop.
 - **`migrate-repo`** — onboard a repository's pre-framework backlog into the
   epic/task model.
-- **`issue-implement`** — the agent implements a single issue end-to-end and
-  hands the PR off.
+- **`issue-implement`** — the agent implements a single issue end-to-end,
+  runs the advisory agentic-review gate
+  ([paad review doctrine](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#3-mode-2-agentic-review-in-issue-implement)),
+  and hands the PR off.
 - **`pr-watch`** — the agent monitors an open PR through CI and review,
   reconciling until it is mergeable.
 
