@@ -1023,6 +1023,10 @@ of 90–99% of tasks green on first implementation. Real-world misses still happ
 and get patched, but the more upfront refinement, the higher the success rate,
 and the more mechanical work can eventually be forked off and trusted to run on
 its own.</p>
+<p>Each task is then implemented with the <code>issue-implement</code> skill, which runs an
+<strong>agentic-review gate</strong> before it hands the PR off. The gate is advisory: when
+it pauses, the human can accept the branch as it stands. The rules are in the
+<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#3-mode-2-agentic-review-in-issue-implement">paad review doctrine</a>.</p>
 
 
 
