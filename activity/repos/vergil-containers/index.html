@@ -1,0 +1,1078 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Activity log: vergil-containers - Vergil</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#activity-log-vergil-containers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Vergil" class="md-header__button md-logo" aria-label="Vergil" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vergil
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Activity log: vergil-containers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vergil-project/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../management/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Management
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../languages/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Supported languages
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../ci/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Continuous integration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../packages/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Package repository
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Vergil" class="md-nav__button md-logo" aria-label="Vergil" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Vergil
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vergil-project/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../management/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Management
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Management
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/epics-and-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epics & tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/intake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intake, planning & deferred
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/tools-and-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools & skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Activity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supported languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Package repository
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-30" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-30
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-28
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-26
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-25
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-24
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-23
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-22
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-21
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-17
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-10-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-10-16
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="activity-log-vergil-containers">Activity log: vergil-containers<a class="headerlink" href="#activity-log-vergil-containers" title="Permanent link">&para;</a></h1>
+<p><em>66 issue(s) closed in the last 30 days. Generated; do not edit.</em></p>
+<h2 id="2026-10-30">2026-10-30<a class="headerlink" href="#2026-10-30" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/744">vergil-project/vergil-containers#744</a> lifecycle check failing for cpp-clang</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/747">vergil-project/vergil-containers#747</a> CLAUDE.md: sync the template's build/ exception line</li>
+</ul>
+<h2 id="2026-10-28">2026-10-28<a class="headerlink" href="#2026-10-28" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/725">vergil-project/vergil-containers#725</a> lifecycle check failing for cpp-clang</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/726">vergil-project/vergil-containers#726</a> docs(claude-md): steering and settings sweep (epic 558)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/731">vergil-project/vergil-containers#731</a> fix(cd): nightly prod publishes fail: the workflow from develop calls scripts missing on main</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/732">vergil-project/vergil-containers#732</a> fix(images): nightly dev publishes blocked by new Trivy CRITICAL/HIGH findings</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/738">vergil-project/vergil-containers#738</a> chore(gitignore): sync the vergil-managed .gitignore block</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/742">vergil-project/vergil-containers#742</a> lifecycle check failing for cpp-clang</li>
+</ul>
+<h2 id="2026-10-26">2026-10-26<a class="headerlink" href="#2026-10-26" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/508">vergil-project/vergil-containers#508</a> T0 (Stage 0): cold-build timing baseline harness</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/509">vergil-project/vergil-containers#509</a> T1 (Stage A): languages.yml manifest + consistency gate</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/511">vergil-project/vergil-containers#511</a> T3 (Stage A): full-mode matrix generator + build.sh rewire</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/512">vergil-project/vergil-containers#512</a> T4 (Stage A): CD + nightly consume full manifest matrix (parity)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/516">vergil-project/vergil-containers#516</a> T8 (Stage D1, GATED on T0): shared common-tools layer</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/693">vergil-project/vergil-containers#693</a> Run the tool bumps through vrg-upstream-refresh</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/713">vergil-project/vergil-containers#713</a> Move the upstream refresh from bump-tools.yml into ops.yml</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/715">vergil-project/vergil-containers#715</a> Drop the quality / pins job now that the custom stage runs in PR CI</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/716">vergil-project/vergil-containers#716</a> Validate the custom stage passes in PR CI</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/717">vergil-project/vergil-containers#717</a> docs: python language page still says vergil-python builds one series</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/720">vergil-project/vergil-containers#720</a> Require quality / evidence (not quality / common) in the develop ruleset</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/721">vergil-project/vergil-containers#721</a> fix(cd): distinguish a Trivy scan error from CRITICAL/HIGH findings in the publish gate</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/723">vergil-project/vergil-containers#723</a> chore(gitignore): sync the vergil-managed .gitignore block</li>
+</ul>
+<h2 id="2026-10-25">2026-10-25<a class="headerlink" href="#2026-10-25" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/652">vergil-project/vergil-containers#652</a> fix: package-cleanup fails intermittently on GitHub API rate limits (429)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/657">vergil-project/vergil-containers#657</a> fix: a failed NodeSource setup silently falls back to Ubuntu's nodejs (wrong Node, no npm)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/662">vergil-project/vergil-containers#662</a> fix: local vrg-validate does not run the docker/pins tests that CI's pins job runs</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/671">vergil-project/vergil-containers#671</a> docs: fix stale tool versions, command names and package grants in README and CLAUDE.md</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/681">vergil-project/vergil-containers#681</a> [archived] Add a per-family merge switch and App-authored lifecycle commits</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/682">vergil-project/vergil-containers#682</a> [archived] Keep release image publishes out of the nightly rebuild's cancel group</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/683">vergil-project/vergil-containers#683</a> [archived] Run the unattended lifecycle chain after the lifecycle check, behind a live switch</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/684">vergil-project/vergil-containers#684</a> [archived] Deploy: release vergil-containers and vergil-python, attest preconditions, go live</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/685">vergil-project/vergil-containers#685</a> [archived] Validate: the first unattended chain run, backfilling Python 3.12 and 3.13</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/686">vergil-project/vergil-containers#686</a> [archived] Validate: fixture-driven dry run of a GA add and an EOL drop</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/687">vergil-project/vergil-containers#687</a> fix(lifecycle): file lifecycle-check issues under the containers ad-hoc epic, not as orphans swept into intake</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/688">vergil-project/vergil-containers#688</a> chore(docs): stop tracking generated changelog/releases docs (needed for local vrg-container-docs after vergil-tooling#3439)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/689">vergil-project/vergil-containers#689</a> feat(java): ship pinned osv-scanner in the dev-java images (needed by vergil-tooling#3554)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/692">vergil-project/vergil-containers#692</a> Add rpm to every dev image, as the peer of dpkg</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/697">vergil-project/vergil-containers#697</a> fix(ci): separate dev and prod Trivy image scans in code scanning (prefix the SARIF category)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/699">vergil-project/vergil-containers#699</a> docs(architecture): correct the nightly rebuild time and scope</li>
+</ul>
+<h2 id="2026-10-24">2026-10-24<a class="headerlink" href="#2026-10-24" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/655">vergil-project/vergil-containers#655</a> fix: CD and the nightly rebuild share a cancel-in-progress concurrency group and cancel each other</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/677">vergil-project/vergil-containers#677</a> fix(images): unblock the nightly publish gate on npm's bundled undici (CVE-2026-109869)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/678">vergil-project/vergil-containers#678</a> chore(images): return the npm pin to npm@latest now that latest is 12.2.1</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/690">vergil-project/vergil-containers#690</a> chore(gitignore): sync the vergil-managed .gitignore block</li>
+</ul>
+<h2 id="2026-10-23">2026-10-23<a class="headerlink" href="#2026-10-23" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/610">vergil-project/vergil-containers#610</a> Documentation review: language version lifecycle</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/622">vergil-project/vergil-containers#622</a> Validate the first automated adds: Python 3.15 and Go 1.27</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/637">vergil-project/vergil-containers#637</a> Remove the #622 merge hold from the lifecycle PR automation</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/673">vergil-project/vergil-containers#673</a> Fill in the upstream ga/eol dates for the seeded manifest versions</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/675">vergil-project/vergil-containers#675</a> fix(ts-node): clear the 13 Dependabot alerts in the smoke fixture's npm lockfile</li>
+</ul>
+<h2 id="2026-10-22">2026-10-22<a class="headerlink" href="#2026-10-22" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/654">vergil-project/vergil-containers#654</a> fix: lifecycle tests are built on the live manifest, so every add/drop PR fails its own CI</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/656">vergil-project/vergil-containers#656</a> fix: pins report tests assert live image versions, so a lifecycle drop PR would fail its own CI</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/664">vergil-project/vergil-containers#664</a> chore(dependabot): add the report-only dependabot.yml</li>
+</ul>
+<h2 id="2026-10-21">2026-10-21<a class="headerlink" href="#2026-10-21" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/611">vergil-project/vergil-containers#611</a> chore(claude): turn off Claude Code co-author attribution</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/613">vergil-project/vergil-containers#613</a> Generate every version list from one version manifest</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/614">vergil-project/vergil-containers#614</a> Write the per-language support policies</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/615">vergil-project/vergil-containers#615</a> Add the lifecycle check core with the Python and Go adapters</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/616">vergil-project/vergil-containers#616</a> Add the report-only lifecycle adapters (Rust, Java, Node, Clang, GCC)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/617">vergil-project/vergil-containers#617</a> Run the lifecycle check from ops.yml, with issues for gaps and failures</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/618">vergil-project/vergil-containers#618</a> Open add and drop PRs for Python and Go</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/619">vergil-project/vergil-containers#619</a> Drop Ruby and GCC 13 from the image matrix</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/620">vergil-project/vergil-containers#620</a> Release vergil-containers so window.json is published at v2.1</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/621">vergil-project/vergil-containers#621</a> Record the published vergil-python runtime in the version manifest</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/624">vergil-project/vergil-containers#624</a> Clear the image publish Trivy gate (Go stdlib CVE-2026-111943, x/text CVE-2026-56851)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/629">vergil-project/vergil-containers#629</a> Re-audit .trivyignore against fresh scans of the current image matrix</li>
+</ul>
+<h2 id="2026-10-17">2026-10-17<a class="headerlink" href="#2026-10-17" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/599">vergil-project/vergil-containers#599</a> Review, update and merge the leading-edge tool bump PR (#445)</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/606">vergil-project/vergil-containers#606</a> Fix the dev-go image builds: latest govulncheck and go-test-coverage need a newer Go than the image ships</li>
+</ul>
+<h2 id="2026-10-16">2026-10-16<a class="headerlink" href="#2026-10-16" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/602">vergil-project/vergil-containers#602</a> Verify hadolint against checksums.sha256: 2.15.1 dropped per-binary .sha256 files and breaks every image build</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/604">vergil-project/vergil-containers#604</a> Install vergil-tooling before the image Trivy scan: vrg-sarif-filter is missing, so SARIF upload fails</li>
+<li><a href="https://github.com/vergil-project/vergil-containers/issues/605">vergil-project/vergil-containers#605</a> Clear the image publish Trivy gate: ten fixed HIGH CVEs block every image since 2026-09-02</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.top", "content.code.copy", "search.highlight", "search.suggest"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>
