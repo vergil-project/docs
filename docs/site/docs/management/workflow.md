@@ -79,8 +79,9 @@ recommendations, is recorded in the
 
 Every review round, here and in the agentic-review gate below, needs paad's
 unattended runner, `paad:paad-delegate`. Only a Lima session started with the
-fleet's paad checkout loaded through the `--plugin-dir` override has it, and a
-session without it runs no review round
+fleet's paad checkout loaded through the `--plugin-dir` override has it. A
+session without it runs no review round: `epic-create` stops and tells the
+human to start a Lima session with the override
 ([paad usage policy §10](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-unattended-mode-and-the-fleet-checkout);
 [paad review rounds: what a session needs](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs)).
 

@@ -128,8 +128,9 @@ sessions.
   always worked through a planning item that records its progress. Its
   design-review rounds need paad's unattended runner, `paad:paad-delegate`,
   which only a Lima session started with the fleet's paad checkout loaded
-  through the `--plugin-dir` override has; a session without it runs no
-  review round
+  through the `--plugin-dir` override has. A session without it runs no
+  review round: `epic-create` stops and tells the human to start a Lima
+  session with the override
   ([paad usage policy §10](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-unattended-mode-and-the-fleet-checkout);
   [paad review rounds: what a session needs](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs)).
 - **`intake-capture`** — the lossless net: file an [intake](intake.md) item with
