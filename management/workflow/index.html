@@ -1001,7 +1001,7 @@ pipeline mixes interactive, human-gated and automated stages on purpose:</p>
 <tr>
 <td>Design review (pushback on the spec, pushback on the plan, alignment)</td>
 <td><strong>human-gated rounds</strong></td>
-<td>A fresh review-only subagent per round. The main session walks the human through the findings, and the human decides every further round.</td>
+<td>A fresh review-only subagent per round, run by paad's unattended runner. The main session walks the human through the findings, and the human decides every further round.</td>
 </tr>
 <tr>
 <td><code>superpowers:writing-plans</code></td>
@@ -1017,6 +1017,13 @@ and whether to run another round of the stage. The rules are in the
 How the workflow uses PAAD, and every place it deviates from the PAAD authors'
 recommendations, is recorded in the
 <a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md">paad usage policy</a>.</p>
+<p>Every review round, here and in the agentic-review gate below, needs paad's
+unattended runner, <code>paad:paad-delegate</code>. Only a Lima session started with the
+fleet's paad checkout loaded through the <code>--plugin-dir</code> override has it. A
+session without it runs no review round: <code>epic-create</code> stops and tells the
+human to start a Lima session with the override
+(<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-unattended-mode-and-the-fleet-checkout">paad usage policy §10</a>;
+<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs">paad review rounds: what a session needs</a>).</p>
 <p>The <strong>human-judgment principle</strong> governs brainstorming: stop and ask <em>only</em> for
 ambiguities or judgment calls that <strong>materially affect</strong> the outcome; handle
 minor, obvious corrections by <strong>batching them to the end</strong> as a single
@@ -1034,7 +1041,9 @@ and the more mechanical work can eventually be forked off and trusted to run on
 its own.</p>
 <p>Each task is then implemented with the <code>issue-implement</code> skill, which runs an
 <strong>agentic-review gate</strong> before it hands the PR off. The gate is advisory: when
-it pauses, the human can accept the branch as it stands. The rules are in the
+it pauses, the human can accept the branch as it stands. Its rounds need the
+same Lima session as design review: without the delegate, <code>issue-implement</code>
+stops in Preflight and tells the human to start one. The rules are in the
 <a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#3-mode-2-agentic-review-in-issue-implement">paad review doctrine</a>.</p>
 
 

@@ -1218,7 +1218,14 @@ sessions.</p>
 <li><strong><code>epic-create</code></strong> — the outer orchestrator of the <a href="../workflow/">workflow</a>:
   brainstorm → epic → spec → spec pushback rounds → plan → plan pushback
   rounds → alignment rounds → docs PR → file tasks,
-  always worked through a planning item that records its progress.</li>
+  always worked through a planning item that records its progress. Its
+  design-review rounds need paad's unattended runner, <code>paad:paad-delegate</code>,
+  which only a Lima session started with the fleet's paad checkout loaded
+  through the <code>--plugin-dir</code> override has. A session without it runs no
+  review round: <code>epic-create</code> stops and tells the human to start a Lima
+  session with the override
+  (<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-unattended-mode-and-the-fleet-checkout">paad usage policy §10</a>;
+  <a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs">paad review rounds: what a session needs</a>).</li>
 <li><strong><code>intake-capture</code></strong> — the lossless net: file an <a href="../intake/">intake</a> item with
   near-zero friction.</li>
 <li><strong><code>intake-review</code></strong> — the periodic pass that reviews the intake queue oldest
@@ -1235,7 +1242,11 @@ sessions.</p>
 <li><strong><code>issue-implement</code></strong> — the agent implements a single issue end-to-end,
   runs the advisory agentic-review gate
   (<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#3-mode-2-agentic-review-in-issue-implement">paad review doctrine</a>),
-  and hands the PR off.</li>
+  and hands the PR off. The gate's rounds need the same Lima session as
+  <code>epic-create</code>'s design review; without the delegate, <code>issue-implement</code>
+  stops in Preflight and tells the human to start one
+  (<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-unattended-mode-and-the-fleet-checkout">paad usage policy §10</a>;
+  <a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs">paad review rounds: what a session needs</a>).</li>
 <li><strong><code>pr-watch</code></strong> — the agent monitors an open PR through CI and review,
   reconciling until it is mergeable.</li>
 </ul>
