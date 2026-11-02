@@ -142,7 +142,12 @@ sessions.
 - **`issue-implement`** — the agent implements a single issue end-to-end,
   runs the advisory agentic-review gate
   ([paad review doctrine](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#3-mode-2-agentic-review-in-issue-implement)),
-  and hands the PR off.
+  and hands the PR off. The gate's rounds need paad's unattended runner,
+  `paad:paad-delegate`, which only a Lima session started with the fleet's
+  paad checkout loaded through the `--plugin-dir` override has; without it,
+  `issue-implement` stops in Preflight and tells the human to start one
+  ([paad usage policy §10](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-unattended-mode-and-the-fleet-checkout);
+  [paad review rounds: what a session needs](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs)).
 - **`pr-watch`** — the agent monitors an open PR through CI and review,
   reconciling until it is mergeable.
 
