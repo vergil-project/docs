@@ -77,12 +77,14 @@ How the workflow uses PAAD, and every place it deviates from the PAAD authors'
 recommendations, is recorded in the
 [paad usage policy](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md).
 
-Every review round, here and in the agentic-review gate below, needs paad's
-unattended runner, `paad:paad-delegate`. Only a Lima session started with the
-fleet's paad checkout loaded through the `--plugin-dir` override has it. A
-session without it runs no review round: `epic-create` stops and tells the
-human to start a Lima session with the override
-([paad usage policy §10](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-unattended-mode-and-the-fleet-checkout);
+Every design-review round needs paad's unattended runner,
+`paad:paad-delegate`. Every box, the host, Lima VMs and cloud VMs alike,
+installs paad from the vergil fork through the ordinary plugin refresh, so
+every session has the delegate. A session without it is on a misconfigured
+box and runs no review round: `epic-create` stops and tells the human how
+to fix the box
+([paad usage policy §10](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-from-the-fork);
+[doctrine §1.8](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#18-the-delegate-requirement);
 [paad review rounds: what a session needs](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs)).
 
 The **human-judgment principle** governs brainstorming: stop and ask *only* for
@@ -103,9 +105,8 @@ and get patched, but the more upfront refinement, the higher the success rate,
 and the more mechanical work can eventually be forked off and trusted to run on
 its own.
 
-Each task is then implemented with the `issue-implement` skill, which runs an
-**agentic-review gate** before it hands the PR off. The gate is advisory: when
-it pauses, the human can accept the branch as it stands. Its rounds need the
-same Lima session as design review: without the delegate, `issue-implement`
-stops in Preflight and tells the human to start one. The rules are in the
-[paad review doctrine](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-review-doctrine.md#3-mode-2-agentic-review-in-issue-implement).
+Each task is then implemented with the `issue-implement` skill, which
+implements the issue, validates it to green and hands the PR off to the
+human. It runs no paad review of its own, so it works the same in a Lima or
+a cloud session; paad's review rounds belong to design review in
+`epic-create`.
