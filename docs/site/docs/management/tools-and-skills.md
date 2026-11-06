@@ -41,7 +41,7 @@ hands off, and a human takes it across the line.
 - `vrg-epic-create` (mint an epic in `.github`)
 - `vrg-adhoc-epic` (ensure a repo's ad-hoc epic exists)
 - `vrg-issue-create` (create a task, born linked under an epic)
-- `vrg-epic-link` / `vrg-epic-move` / `vrg-epic-unlink` (manage the epic↔task relationship)
+- `vrg-epic-link` / `vrg-epic-move` (manage the epic↔task relationship)
 
 - `vrg-issue-create --epic adhoc|intake|planning` (target a repository's
   standing epic by name rather than by number)
@@ -85,9 +85,6 @@ out.
   **orphan pass** that attaches every unparented issue to its home's intake
   epic, then the **security-records pass** that syncs each advisory's state to
   its issues and reports broken pairs)
-- `vrg-adhoc-migrate` (the one-time relocation of the legacy `standing` epics —
-  **complete**; the `standing` alias is retired, so `ad-hoc` is the only
-  perpetual variant)
 
 To relocate a **finite** epic into its correct home (`.github`), move the issue
 with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
@@ -144,8 +141,6 @@ sessions.
 - **`deferred-review`** — the periodic pass over the deferred queue: it checks
   each item's `Revisit when:` conditions against their real sources and
   recommends keep, refresh, revive, or drop.
-- **`migrate-repo`** — onboard a repository's pre-framework backlog into the
-  epic/task model.
 - **`issue-implement`** — the agent implements a single issue end-to-end,
   validates it to green and hands the PR off, in a Lima or a cloud session
   alike
