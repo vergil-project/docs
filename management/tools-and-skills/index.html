@@ -1136,7 +1136,7 @@ hands off, and a human takes it across the line.</p>
 <li><code>vrg-adhoc-epic</code> (ensure a repo's ad-hoc epic exists)</li>
 <li><code>vrg-issue-create</code> (create a task, born linked under an epic)</li>
 <li>
-<p><code>vrg-epic-link</code> / <code>vrg-epic-move</code> / <code>vrg-epic-unlink</code> (manage the epic↔task relationship)</p>
+<p><code>vrg-epic-link</code> / <code>vrg-epic-move</code> (manage the epic↔task relationship)</p>
 </li>
 <li>
 <p><code>vrg-issue-create --epic adhoc|intake|planning</code> (target a repository's
@@ -1181,9 +1181,6 @@ out.</p>
   <strong>orphan pass</strong> that attaches every unparented issue to its home's intake
   epic, then the <strong>security-records pass</strong> that syncs each advisory's state to
   its issues and reports broken pairs)</li>
-<li><code>vrg-adhoc-migrate</code> (the one-time relocation of the legacy <code>standing</code> epics —
-  <strong>complete</strong>; the <code>standing</code> alias is retired, so <code>ad-hoc</code> is the only
-  perpetual variant)</li>
 </ul>
 <p>To relocate a <strong>finite</strong> epic into its correct home (<code>.github</code>), move the issue
 with <code>vrg-gh issue transfer</code> and re-link its tasks with <code>vrg-epic-link</code>.</p>
@@ -1237,8 +1234,6 @@ sessions.</p>
 <li><strong><code>deferred-review</code></strong> — the periodic pass over the deferred queue: it checks
   each item's <code>Revisit when:</code> conditions against their real sources and
   recommends keep, refresh, revive, or drop.</li>
-<li><strong><code>migrate-repo</code></strong> — onboard a repository's pre-framework backlog into the
-  epic/task model.</li>
 <li><strong><code>issue-implement</code></strong> — the agent implements a single issue end-to-end,
   validates it to green and hands the PR off, in a Lima or a cloud session
   alike
