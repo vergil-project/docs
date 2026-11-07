@@ -106,8 +106,11 @@ The `merge-review` skill's tools, run by the agent between a green
   clean, green run at `HEAD`)
 - `vrg-merge-review-check` (check a stored reviewer result against its
   request; the skill acts only on a result that passes)
-- `vrg-change-class` (print a branch's change class, `docs-only` or `code`;
-  a `docs-only` change is reviewed only for merge quality)
+
+The request builder decides the change class itself, `docs-only` or `code`;
+a `docs-only` change is reviewed only for merge quality.
+`vrg-change-class` is not part of the loop: it prints the class a branch
+will get, for humans and debugging.
 
 A repository lists its documentation paths for the change class in the
 `[merge-review] docs-paths` key of `vergil.toml`, read as committed at the
