@@ -96,6 +96,26 @@ with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
 - `vrg-pr-workflow report-ready` (records the PR hand-off)
 - `vrg-submit-pr` (open the PR — human-run)
 
+### Merge review
+
+The `merge-review` skill's tools, run by the agent between a green
+`vrg-validate` and `report-ready`:
+
+- `vrg-merge-review-request` (build a review or check request in the task's
+  private directory; it refuses unless the last `vrg-validate` was a full,
+  clean, green run at `HEAD`)
+- `vrg-merge-review-check` (check a stored reviewer result against its
+  request; the skill acts only on a result that passes)
+- `vrg-change-class` (print a branch's change class, `docs-only` or `code`;
+  a `docs-only` change is reviewed only for merge quality)
+
+A repository lists its documentation paths for the change class in the
+`[merge-review] docs-paths` key of `vergil.toml`, read as committed at the
+branch's merge base. The loop, the records and these tools are in
+vergil-tooling's
+[Merge Review](https://vergil-project.github.io/vergil-tooling/latest/guides/merge-review/)
+guide.
+
 ### Review decisions
 
 When a review of a task's change needs the human's decision, the decision
@@ -108,8 +128,9 @@ travels as an authenticated comment on the task issue:
 - `vrg-ruling-reply` (post the human's reply to a request, as the human —
   human-run in the human's own shell, like `vrg-submit-pr`)
 
-No skill uses them yet; they are available tools. The protocol, its checks and
-recovery are in vergil-tooling's
+The `merge-review` skill sends every stop for the human through them, and
+`epic-implement` drafts the human's replies to those stops. The protocol, its
+checks and recovery are in vergil-tooling's
 [Human Replies](https://vergil-project.github.io/vergil-tooling/latest/guides/human-replies/)
 guide.
 
@@ -160,9 +181,16 @@ sessions.
   each item's `Revisit when:` conditions against their real sources and
   recommends keep, refresh, revive, or drop.
 - **`issue-implement`** — the agent implements a single issue end-to-end,
-  validates it to green and hands the PR off, in a Lima or a cloud session
+  validates it to green, runs `merge-review` and hands the PR off with the
+  merge review's eligibility line in its notes, in a Lima or a cloud session
   alike
   ([issue-implement](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#issue-implement)).
+- **`merge-review`** — the pre-PR judgement check `issue-implement` runs
+  once validation is green: one review by the read-only `merge-reviewer`
+  agent, at most one fix and check, every stop for the human through
+  `vrg-ruling`, every raised item closed before hand-off, and an eligibility
+  line for the PR notes
+  ([merge-review](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#merge-review)).
 - **`pr-watch`** — the agent monitors an open PR through CI and review,
   reconciling until it is mergeable.
 
