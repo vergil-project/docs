@@ -1043,9 +1043,17 @@ and the more mechanical work can eventually be forked off and trusted to run on
 its own.</p>
 <p>Each task is then implemented with the <code>issue-implement</code> skill, which
 implements the issue, validates it to green and hands the PR off to the
-human. It runs no paad review of its own, so it works the same in a Lima or
-a cloud session; paad's review rounds belong to design review in
-<code>epic-create</code>.</p>
+human. Between a green <code>vrg-validate</code> and the hand-off with <code>report-ready</code>,
+it runs the <strong><code>merge-review</code></strong> skill: one review of the change by the
+read-only <code>merge-reviewer</code> agent, at most one fix and a check of that fix,
+and every stop for the human through an authenticated <code>vrg-ruling</code> request
+on the task issue. Its eligibility line goes into the PR notes. The detail
+is in vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/merge-review/">Merge Review</a>
+guide.</p>
+<p>Merge review is not paad: <code>issue-implement</code> runs no paad review of its own,
+so it works the same in a Lima or a cloud session; paad's review rounds
+belong to design review in <code>epic-create</code>.</p>
 
 
 

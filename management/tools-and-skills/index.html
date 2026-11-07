@@ -719,6 +719,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#merge-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#review-decisions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1041,6 +1052,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#merge-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge review
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#review-decisions" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1216,6 +1238,26 @@ with <code>vrg-gh issue transfer</code> and re-link its tasks with <code>vrg-epi
 <li><code>vrg-pr-workflow report-ready</code> (records the PR hand-off)</li>
 <li><code>vrg-submit-pr</code> (open the PR — human-run)</li>
 </ul>
+<h3 id="merge-review">Merge review<a class="headerlink" href="#merge-review" title="Permanent link">&para;</a></h3>
+<p>The <code>merge-review</code> skill's tools, run by the agent between a green
+<code>vrg-validate</code> and <code>report-ready</code>:</p>
+<ul>
+<li><code>vrg-merge-review-request</code> (build a review or check request in the task's
+  private directory; it refuses unless the last <code>vrg-validate</code> was a full,
+  clean, green run at <code>HEAD</code>)</li>
+<li><code>vrg-merge-review-check</code> (check a stored reviewer result against its
+  request; the skill acts only on a result that passes)</li>
+</ul>
+<p>The request builder decides the change class itself, <code>docs-only</code> or <code>code</code>;
+a <code>docs-only</code> change is reviewed only for merge quality.
+<code>vrg-change-class</code> is not part of the loop: it prints the class a branch
+will get, for humans and debugging.</p>
+<p>A repository lists its documentation paths for the change class in the
+<code>[merge-review] docs-paths</code> key of <code>vergil.toml</code>, read as committed at the
+branch's merge base. The loop, the records and these tools are in
+vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/merge-review/">Merge Review</a>
+guide.</p>
 <h3 id="review-decisions">Review decisions<a class="headerlink" href="#review-decisions" title="Permanent link">&para;</a></h3>
 <p>When a review of a task's change needs the human's decision, the decision
 travels as an authenticated comment on the task issue:</p>
@@ -1227,8 +1269,9 @@ travels as an authenticated comment on the task issue:</p>
 <li><code>vrg-ruling-reply</code> (post the human's reply to a request, as the human —
   human-run in the human's own shell, like <code>vrg-submit-pr</code>)</li>
 </ul>
-<p>No skill uses them yet; they are available tools. The protocol, its checks and
-recovery are in vergil-tooling's
+<p>The <code>merge-review</code> skill sends every stop for the human through them, and
+<code>epic-implement</code> drafts the human's replies to those stops. The protocol, its
+checks and recovery are in vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/human-replies/">Human Replies</a>
 guide.</p>
 <h3 id="release">Release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
@@ -1276,9 +1319,16 @@ sessions.</p>
   each item's <code>Revisit when:</code> conditions against their real sources and
   recommends keep, refresh, revive, or drop.</li>
 <li><strong><code>issue-implement</code></strong> — the agent implements a single issue end-to-end,
-  validates it to green and hands the PR off, in a Lima or a cloud session
+  validates it to green, runs <code>merge-review</code> and hands the PR off with the
+  merge review's eligibility line in its notes, in a Lima or a cloud session
   alike
   (<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#issue-implement">issue-implement</a>).</li>
+<li><strong><code>merge-review</code></strong> — the pre-PR judgement check <code>issue-implement</code> runs
+  once validation is green: one review by the read-only <code>merge-reviewer</code>
+  agent, at most one fix and check, every stop for the human through
+  <code>vrg-ruling</code>, every raised item closed before hand-off, and an eligibility
+  line for the PR notes
+  (<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#merge-review">merge-review</a>).</li>
 <li><strong><code>pr-watch</code></strong> — the agent monitors an open PR through CI and review,
   reconciling until it is mergeable.</li>
 </ul>
