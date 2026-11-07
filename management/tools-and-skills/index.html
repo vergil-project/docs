@@ -719,6 +719,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#review-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review decisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#release" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1030,6 +1041,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#review-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review decisions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#release" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1125,6 +1147,10 @@ irreversible, outward-facing steps.</p>
 <td>Implementing a dependency-update fix task</td>
 <td>Releases (<code>vrg-release</code>) and dependency updates (<code>vrg-update-deps</code>)</td>
 </tr>
+<tr>
+<td>Requesting a review decision, drafting the human's reply and reading it (<code>vrg-ruling</code>)</td>
+<td>Replying to a review-decision request, as themselves (<code>vrg-ruling-reply</code>)</td>
+</tr>
 </tbody>
 </table>
 <p>An agent never merges and never opens a PR itself: it prepares the change and
@@ -1190,6 +1216,21 @@ with <code>vrg-gh issue transfer</code> and re-link its tasks with <code>vrg-epi
 <li><code>vrg-pr-workflow report-ready</code> (records the PR hand-off)</li>
 <li><code>vrg-submit-pr</code> (open the PR — human-run)</li>
 </ul>
+<h3 id="review-decisions">Review decisions<a class="headerlink" href="#review-decisions" title="Permanent link">&para;</a></h3>
+<p>When a review of a task's change needs the human's decision, the decision
+travels as an authenticated comment on the task issue:</p>
+<ul>
+<li><code>vrg-ruling</code> (the agent's side, run as the <code>user</code> identity: <code>request</code> posts
+  a review-decision request, <code>draft</code> relays the reply it drafts for the human,
+  <code>read</code> reads the human's reply with turn checks, and <code>respond</code> posts the
+  response)</li>
+<li><code>vrg-ruling-reply</code> (post the human's reply to a request, as the human —
+  human-run in the human's own shell, like <code>vrg-submit-pr</code>)</li>
+</ul>
+<p>No skill uses them yet; they are available tools. The protocol, its checks and
+recovery are in vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/human-replies/">Human Replies</a>
+guide.</p>
 <h3 id="release">Release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>vrg-release</code> (cut a release from <code>develop</code> to <code>main</code> — human-run)</li>
