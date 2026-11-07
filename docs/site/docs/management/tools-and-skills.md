@@ -30,6 +30,7 @@ irreversible, outward-facing steps.
 | Read-only audits and dry-runs | Post-merge finalize (`vrg-finalize-pr`) |
 | Filing intake, epics, tasks, links | Write-gated ops: migration `--apply`, audit `--close` |
 | Implementing a dependency-update fix task | Releases (`vrg-release`) and dependency updates (`vrg-update-deps`) |
+| Requesting a review decision, drafting the human's reply and reading it (`vrg-ruling`) | Replying to a review-decision request, as themselves (`vrg-ruling-reply`) |
 
 An agent never merges and never opens a PR itself: it prepares the change and
 hands off, and a human takes it across the line.
@@ -94,6 +95,23 @@ with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
 - `vrg-commit` (standards-compliant commits)
 - `vrg-pr-workflow report-ready` (records the PR hand-off)
 - `vrg-submit-pr` (open the PR — human-run)
+
+### Review decisions
+
+When a review of a task's change needs the human's decision, the decision
+travels as an authenticated comment on the task issue:
+
+- `vrg-ruling` (the agent's side, run as the `user` identity: `request` posts
+  a review-decision request, `draft` relays the reply it drafts for the human,
+  `read` reads the human's reply with turn checks, and `respond` posts the
+  response)
+- `vrg-ruling-reply` (post the human's reply to a request, as the human —
+  human-run in the human's own shell, like `vrg-submit-pr`)
+
+No skill uses them yet; they are available tools. The protocol, its checks and
+recovery are in vergil-tooling's
+[Human Replies](https://vergil-project.github.io/vergil-tooling/latest/guides/human-replies/)
+guide.
 
 ### Release
 
