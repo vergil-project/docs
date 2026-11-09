@@ -22,7 +22,7 @@ across the whole org.
 ## Supported languages
 
 Vergil validates repositories across a set of first-class, containerized,
-multi-version languages — Python, Go, Java, Rust, C++, and now **TypeScript**
+multi-version languages — Python, Go, Rust, C++, and now **TypeScript**
 (Node.js runtime, single canonical `tsc`, npm, Vitest + V8 100% coverage, a
 shareable strict base tsconfig, `node-24` / `node-22` images). See
 **[Supported languages](languages.md)** for the fleet-level summary.

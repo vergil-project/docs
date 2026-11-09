@@ -21,7 +21,6 @@ This page is the fleet-level summary. The authoritative, per-language **standard
 | --- | --- |
 | Python | [Python standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/python/overview/) |
 | Go | [Go standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/go/overview/) |
-| Java | [Java standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/java/overview/) |
 | Rust | [Rust standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/rust/overview/) |
 | C++ | [C++ standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/cpp/overview/) |
 | TypeScript _(new)_ | [TypeScript standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/typescript/overview/) |
