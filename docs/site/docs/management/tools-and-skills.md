@@ -1,0 +1,202 @@
+# Tools & skills
+
+The Management layer is operated through two surfaces:
+
+- **`vrg-*` command-line tools** — the mechanical operations (create an epic,
+  link a task, run the audit), maintained in
+  [`vergil-tooling`](https://github.com/vergil-project/vergil-tooling).
+- **Skills** — the agent-facing workflows that *compose* those tools into a
+  process (orchestrate an epic, capture intake, review the queue), maintained in
+  the Claude Code plugin,
+  [`vergil-claude-plugin`](https://github.com/vergil-project/vergil-claude-plugin).
+
+This page explains how they fit together and **who drives what**. The dry,
+per-command reference — every flag of every tool — lives in the repositories
+where the code does; this is the story, not the man page. For the issue model's
+mechanics, see vergil-tooling's
+[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/).
+
+## Who drives what
+
+The dividing line is accountability. **The speed limit is human comprehension,
+not code generation** — so agents do the development, and humans own the
+irreversible, outward-facing steps.
+
+| Driven by the **agent** (runs as the `user` identity) | Driven by the **human** |
+| --- | --- |
+| Participating in the brainstorm; running the design-review rounds | The judgment calls in the brainstorm, and the decision on each design-review finding and each further round |
+| Authoring specs and plans; implementing tasks | Submitting the pull request (`vrg-submit-pr`) |
+| Commits and PR preparation / hand-off | Reviewing and **merging** |
+| Read-only audits and dry-runs | Post-merge finalize (`vrg-finalize-pr`) |
+| Filing intake, epics, tasks, links | Write-gated ops: migration `--apply`, audit `--close` |
+| Implementing a dependency-update fix task | Releases (`vrg-release`) and dependency updates (`vrg-update-deps`) |
+| Requesting a review decision, drafting the human's reply and reading it (`vrg-ruling`) | Replying to a review-decision request, as themselves (`vrg-ruling-reply`) |
+
+An agent never merges and never opens a PR itself: it prepares the change and
+hands off, and a human takes it across the line.
+
+## The tools, by role
+
+### Authoring & structure
+
+- `vrg-epic-create` (mint an epic in `.github`)
+- `vrg-adhoc-epic` (ensure a repo's ad-hoc epic exists)
+- `vrg-issue-create` (create a task, born linked under an epic)
+- `vrg-epic-link` / `vrg-epic-move` (manage the epic↔task relationship)
+
+- `vrg-issue-create --epic adhoc|intake|planning` (target a repository's
+  standing epic by name rather than by number)
+
+### Intake, planning & deferred
+
+- `vrg-intake-create` (capture an intake item, linked under its home's intake
+  epic as it is created — no category to choose)
+- `vrg-intake-route` (apply a review's route: drop, defer, one-off, split, or
+  planning out of intake; defer or drop out of planning; and out of deferred,
+  revive to intake, planning or one-off, refresh, drop, or split. Defer
+  requires `--reason` and `--revisit-when`, and is the only way into or out of
+  the deferred queue. A `security` item keeps its advisory links when it is
+  transferred, recreated, or split; a split of an item naming several
+  advisories is refused)
+- `vrg-queue intake|planning|deferred` (the read-only view of one queue — intake
+  oldest first, deferred least recently deferred first — or of all three with a
+  bare `vrg-queue`; a planning item that any security advisory still tracks is
+  held at in-progress until each advisory it names is retargeted to the task or
+  tasks that fix it)
+- `vrg-security-record` (record a security finding as a private draft advisory
+  in `<org>/.github`, paired with a neutral `security`-labelled intake issue;
+  `create`, `list`, `show`, `retarget` — see vergil-tooling's
+  [Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/)
+  guide)
+
+An issue still in the intake, planning or deferred queue is not buildable:
+`vrg-pr-workflow report-ready` and `vrg-submit-pr` refuse it until it is routed
+out.
+
+### Lifecycle
+
+- `vrg-epic-rollup` (close a finite epic when its last task closes — event-driven)
+- `vrg-finalize-pr` (merge + post-merge cleanup — human)
+
+### Reporting & enforcement
+
+- `vrg-roadmap` (the open-epic roadmap)
+- `vrg-epic-audit` (drift and invariant violations — read-only, with a gated
+  `--close`; under `--close`, run daily by the scheduled sweep, it also runs the
+  **orphan pass** that attaches every unparented issue to its home's intake
+  epic, then the **security-records pass** that syncs each advisory's state to
+  its issues and reports broken pairs)
+
+To relocate a **finite** epic into its correct home (`.github`), move the issue
+with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
+
+### Pull-request flow
+
+- `vrg-commit` (standards-compliant commits)
+- `vrg-pr-workflow report-ready` (records the PR hand-off)
+- `vrg-submit-pr` (open the PR — human-run)
+
+### Merge review
+
+The `merge-review` skill's tools, run by the agent between a green
+`vrg-validate` and `report-ready`:
+
+- `vrg-merge-review-request` (build a review or check request in the task's
+  private directory; it refuses unless the last `vrg-validate` was a full,
+  clean, green run at `HEAD`)
+- `vrg-merge-review-check` (check a stored reviewer result against its
+  request; the skill acts only on a result that passes)
+
+The request builder decides the change class itself, `docs-only` or `code`;
+a `docs-only` change is reviewed only for merge quality.
+`vrg-change-class` is not part of the loop: it prints the class a branch
+will get, for humans and debugging.
+
+A repository lists its documentation paths for the change class in the
+`[merge-review] docs-paths` key of `vergil.toml`, read as committed at the
+branch's merge base. The loop, the records and these tools are in
+vergil-tooling's
+[Merge Review](https://vergil-project.github.io/vergil-tooling/latest/guides/merge-review/)
+guide.
+
+### Review decisions
+
+When a review of a task's change needs the human's decision, the decision
+travels as an authenticated comment on the task issue:
+
+- `vrg-ruling` (the agent's side, run as the `user` identity: `request` posts
+  a review-decision request, `draft` relays the reply it drafts for the human,
+  `read` reads the human's reply with turn checks, and `respond` posts the
+  response)
+- `vrg-ruling-reply` (post the human's reply to a request, as the human —
+  human-run in the human's own shell, like `vrg-submit-pr`)
+
+The `merge-review` skill sends every stop for the human through them, and
+`epic-implement` drafts the human's replies to those stops. The protocol, its
+checks and recovery are in vergil-tooling's
+[Human Replies](https://vergil-project.github.io/vergil-tooling/latest/guides/human-replies/)
+guide.
+
+### Release
+
+- `vrg-release` (cut a release from `develop` to `main` — human-run)
+- `vrg-update-deps` (the mechanized dependency update — human-run)
+
+A release ends with an `update-deps` stage, which runs `vrg-update-deps` once
+the release is tagged and published. When anything changed, it opens a
+`deps/update-<next>` pull request labelled `dependency-update`, and a green one
+is merged. If validation or the merge fails, the PR stays open and a fix task is
+filed. If an updater itself fails, nothing is pushed and the failure is recorded
+on the release's tracking issue. Any open `dependency-update` PR blocks
+the next release, until its fix task closes as completed — the next
+`vrg-release` then closes the PR and the gate clears. Two flags change this:
+`--allow-pending-deps` lets an urgent release through despite an open PR, and
+the bypass is logged on the release's tracking issue; `--without-deps` skips the
+`update-deps` stage. The release procedure itself is in vergil-tooling's
+[Releasing guide](https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/).
+
+The `vrg-gh` and `vrg-git` wrappers sit under all of this, enforcing the
+allow-lists and selecting the right identity; raw `git`/`gh` are blocked in agent
+sessions.
+
+## The skills, by role
+
+- **`epic-create`** — the outer orchestrator of the [workflow](workflow.md):
+  brainstorm → epic → spec → spec pushback rounds → plan → plan pushback
+  rounds → alignment rounds → docs PR → file tasks,
+  always worked through a planning item that records its progress. Its
+  design-review rounds need paad's unattended runner, `paad:paad-delegate`,
+  which every box, Lima or cloud, gets by installing paad from the vergil
+  fork through the ordinary plugin refresh. A session without it is on a
+  misconfigured box and runs no review round: `epic-create` stops and tells
+  the human how to fix the box
+  ([paad usage policy §10](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/paad-policy.md#10-paad-from-the-fork);
+  [paad review rounds: what a session needs](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs)).
+- **`intake-capture`** — the lossless net: file an [intake](intake.md) item with
+  near-zero friction.
+- **`intake-review`** — the periodic pass that reviews the intake queue oldest
+  first, in small batches, and routes each item out of it: drop, defer,
+  one-off, split, or planning.
+- **`planning-review`** — ranks the planning queue with the human by priority
+  and importance, hands the item(s) to plan next to `epic-create`, and defers,
+  drops, or leaves the rest.
+- **`deferred-review`** — the periodic pass over the deferred queue: it checks
+  each item's `Revisit when:` conditions against their real sources and
+  recommends keep, refresh, revive, or drop.
+- **`issue-implement`** — the agent implements a single issue end-to-end,
+  validates it to green, runs `merge-review` and hands the PR off with the
+  merge review's eligibility line in its notes, in a Lima or a cloud session
+  alike
+  ([issue-implement](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#issue-implement)).
+- **`merge-review`** — the pre-PR judgement check `issue-implement` runs
+  once validation is green: one review by the read-only `merge-reviewer`
+  agent, at most one fix and check, every stop for the human through
+  `vrg-ruling`, every raised item closed before hand-off, and an eligibility
+  line for the PR notes
+  ([merge-review](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#merge-review)).
+- **`pr-watch`** — the agent monitors an open PR through CI and review,
+  reconciling until it is mergeable.
+
+Together, the tools give the mechanical guarantees and the skills give the
+process on top of them — which is exactly why the *story* belongs here, in one
+place, while each tool's and action's mechanical detail stays in its own repo.

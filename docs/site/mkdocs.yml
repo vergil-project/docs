@@ -1,4 +1,4 @@
-site_name: "docs"
+site_name: "Vergil"
 repo_url: https://github.com/vergil-project/docs
 docs_dir: docs
 strict: true
@@ -7,13 +7,15 @@ edit_uri: ""
 theme:
   name: material
   palette:
-    - scheme: default
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: indigo
       accent: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - scheme: slate
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
       primary: indigo
       accent: indigo
       toggle:
@@ -45,4 +47,15 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Management:
+      - management/index.md
+      - Epics & tasks: management/epics-and-tasks.md
+      - Intake, planning & deferred: management/intake.md
+      - Workflow: management/workflow.md
+      - Tools & skills: management/tools-and-skills.md
+      - Roadmap: roadmap.md
+      - Activity: activity/index.md
+  - Supported languages: languages.md
+  - Continuous integration: ci.md
+  - Package repository: packages.md
   - Getting Started: getting-started.md
