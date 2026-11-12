@@ -1051,6 +1051,16 @@ on the task issue. Its eligibility line goes into the PR notes. The detail
 is in vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/merge-review/">Merge Review</a>
 guide.</p>
+<p>Given a list of small issues of one epic in one repository, <code>issue-implement</code>
+implements them as one <strong>batch</strong>: one branch, one commit per issue, each
+issue validated and merge-reviewed on its own, and one hand-off that becomes
+one PR with a <code>Closes</code> line per issue. <code>epic-implement</code> may batch
+independent small ready tasks the same way. What may be batched, and how a
+batch is stopped or resumed, is in the plugin's
+<a href="https://vergil-project.github.io/vergil-claude-plugin/latest/skills/#issue-implement"><code>issue-implement</code></a>
+reference and the skill's
+<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/skills/issue-implement/SKILL.md#batch-mode--a-list-of-issues">Batch mode</a>
+section.</p>
 <p>Merge review is not paad: <code>issue-implement</code> runs no paad review of its own,
 so it works the same in a Lima or a cloud session; paad's review rounds
 belong to design review in <code>epic-create</code>.</p>

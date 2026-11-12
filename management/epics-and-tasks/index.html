@@ -1038,6 +1038,13 @@ for the work that is not (or not yet) part of a plan.</p>
 <p>Because a task is exactly one PR, "done" is unambiguous: once the change is in
 the trunk, the task is finished. Any later change is a <em>new</em> task, never a
 reopening.</p>
+<p>Several small tasks of one epic in one repository may share a <strong>batch PR</strong>:
+up to 8 of them (4 by default) on one branch, each still its own commit and
+its own <code>Closes</code> line. The batch PR is rebase-merged, not squashed, so each
+task keeps its own commit and changelog entry on the trunk and still closes
+when the PR merges. A single-task PR is squash-merged as before. The
+<a href="https://github.com/vergil-project/vergil-tooling/blob/develop/docs/specs/worktree-convention.md#batches">worktree convention</a>
+names a batch's worktree and branch.</p>
 <h2 id="finite-epics">Finite epics<a class="headerlink" href="#finite-epics" title="Permanent link">&para;</a></h2>
 <p>A <strong>finite epic</strong> is a cross-cutting initiative with an end — a real project made
 of related tasks, often spanning several repositories. It carries the <code>epic</code>
