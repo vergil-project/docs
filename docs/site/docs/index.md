@@ -45,6 +45,11 @@ New here? Start with **[Getting Started](getting-started.md)**.
 | [`.github`](https://github.com/vergil-project/.github) | epics + org metadata |
 | `docs` | this site |
 
+Ubuntu 24.04 is the shared base platform of the containers, agent VMs and CI
+runners. vergil-containers'
+[OS usage](https://vergil-project.github.io/vergil-containers/latest/operations/os-usage/)
+table lists every place an OS is chosen and why.
+
 ---
 
 _The Roadmap and Activity pages are generated from GitHub issue/epic data — do

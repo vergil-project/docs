@@ -64,7 +64,7 @@ are an extra layer on top of the signatures, never the trust root.
 | Environment | How vergil-tooling is installed |
 | --- | --- |
 | Agent VMs (Lima and cloud) | From the package repository, with `apt` |
-| Dev containers | `uv tool install` (the container cache) |
+| Dev containers | From the package repository, with `apt`, for a release pin; `uv tool install` from git for a dev ref (see [CI architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/)) |
 | macOS host | `uv tool install` |
 
 On a VM, `vrg-vm` pins `vergil-tooling` to the identity's resolved version and
