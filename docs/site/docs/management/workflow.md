@@ -116,6 +116,17 @@ is in vergil-tooling's
 [Merge Review](https://vergil-project.github.io/vergil-tooling/latest/guides/merge-review/)
 guide.
 
+Given a list of small issues of one epic in one repository, `issue-implement`
+implements them as one **batch**: one branch, one commit per issue, each
+issue validated and merge-reviewed on its own, and one hand-off that becomes
+one PR with a `Closes` line per issue. `epic-implement` may batch
+independent small ready tasks the same way. What may be batched, and how a
+batch is stopped or resumed, is in the plugin's
+[`issue-implement`](https://vergil-project.github.io/vergil-claude-plugin/latest/skills/#issue-implement)
+reference and the skill's
+[Batch mode](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/skills/issue-implement/SKILL.md#batch-mode--a-list-of-issues)
+section.
+
 Merge review is not paad: `issue-implement` runs no paad review of its own,
 so it works the same in a Lima or a cloud session; paad's review rounds
 belong to design review in `epic-create`.
