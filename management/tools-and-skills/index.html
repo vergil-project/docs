@@ -1309,15 +1309,18 @@ sessions.</p>
   <a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs">paad review rounds: what a session needs</a>).</li>
 <li><strong><code>intake-capture</code></strong> — the lossless net: file an <a href="../intake/">intake</a> item with
   near-zero friction.</li>
-<li><strong><code>intake-review</code></strong> — the periodic pass that reviews the intake queue oldest
-  first, in small batches, and routes each item out of it: drop, defer,
-  one-off, split, or planning.</li>
-<li><strong><code>planning-review</code></strong> — ranks the planning queue with the human by priority
-  and importance, hands the item(s) to plan next to <code>epic-create</code>, and defers,
-  drops, or leaves the rest.</li>
-<li><strong><code>deferred-review</code></strong> — the periodic pass over the deferred queue: it checks
-  each item's <code>Revisit when:</code> conditions against their real sources and
-  recommends keep, refresh, revive, or drop.</li>
+<li><strong><code>epic-review</code></strong> — the periodic pass over one queue, in small batches,
+  with a mode per queue:</li>
+<li><strong><code>epic-review intake</code></strong> works the intake queue oldest first and routes
+    each item out of it: drop, defer, one-off, split, or planning, or leaves
+    it for now.</li>
+<li><strong><code>epic-review planning</code></strong> keeps the planning queue correct, oldest
+    first: each item is left (most are), deferred, dropped, or, unusually,
+    sent to a repo's ad-hoc epic as a one-off. It prunes and never picks:
+    the human chooses what to plan next and runs <code>epic-create</code> on it.</li>
+<li><strong><code>epic-review deferred</code></strong> checks each deferred item's <code>Revisit when:</code>
+    conditions against their real sources and recommends keep, refresh,
+    revive, or drop.</li>
 <li><strong><code>issue-implement</code></strong> — the agent implements a single issue end-to-end,
   validates it to green, runs <code>merge-review</code> and hands the PR off with the
   merge review's eligibility line in its notes, in a Lima or a cloud session

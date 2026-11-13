@@ -1077,9 +1077,11 @@ per-quarter archive buckets, so the live queues show only open work.</p>
      that repository's ad-hoc epic (or a named epic).</li>
 <li><strong>Split</strong> — replace it with several ready tasks and close it.</li>
 <li><strong>Planning</strong> — it needs a real design, so it moves to the planning queue.</li>
-<li><strong>Plan.</strong> A planning review ranks the planning queue by priority and
-   importance and picks only what will be implemented soon, since a plan left
-   sitting goes stale; each item is picked, deferred, dropped, or left. A
+<li><strong>Plan.</strong> A planning review keeps the planning queue correct, oldest
+   first: each item is left (most are), deferred, dropped, or, unusually,
+   sent to a repository's ad-hoc epic as a one-off. It never picks. The human
+   chooses what to plan next and runs <code>epic-create</code> on it, picking only what
+   will be implemented soon, since a plan left sitting goes stale. A
    planning item is the record of its own epic creation: <code>epic-create</code> always
    works through one, and leaves progress comments so a session can pause and
    resume days later. A planning item is <em>waiting</em>, <em>in progress</em>, or
