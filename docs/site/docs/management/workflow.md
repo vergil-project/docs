@@ -25,9 +25,12 @@ comments so a session can pause and resume days later:
 - **`epic-create`** with no argument summarizes the planning queue and asks
   which item to work on.
 
-Which item to plan next is decided in **`planning-review`**: the human ranks the
-planning queue by priority and importance and picks only what will be
-implemented soon, since a plan left sitting goes stale.
+Choosing which item to plan next is the human's act: they pick it and run
+**`epic-create`** on it, picking only what will be implemented soon, since a
+plan left sitting goes stale. **`epic-review planning`** does not choose; it
+keeps the planning queue correct. Each item that is still valid stays, and the
+rest are deferred, dropped or, unusually, sent to a repo's ad-hoc epic as a
+one-off. The pass ends by listing the surviving queue to help the human choose.
 
 The planning item closes once the epic exists, its docs task has merged, and
 its tasks are filed — "planned as" the epic it became.
