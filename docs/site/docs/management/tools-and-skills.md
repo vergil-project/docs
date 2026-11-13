@@ -174,15 +174,18 @@ sessions.
   [paad review rounds: what a session needs](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#paad-review-rounds-what-a-session-needs)).
 - **`intake-capture`** — the lossless net: file an [intake](intake.md) item with
   near-zero friction.
-- **`intake-review`** — the periodic pass that reviews the intake queue oldest
-  first, in small batches, and routes each item out of it: drop, defer,
-  one-off, split, or planning.
-- **`planning-review`** — ranks the planning queue with the human by priority
-  and importance, hands the item(s) to plan next to `epic-create`, and defers,
-  drops, or leaves the rest.
-- **`deferred-review`** — the periodic pass over the deferred queue: it checks
-  each item's `Revisit when:` conditions against their real sources and
-  recommends keep, refresh, revive, or drop.
+- **`epic-review`** — the periodic pass over one queue, in small batches,
+  with a mode per queue:
+  - **`epic-review intake`** works the intake queue oldest first and routes
+    each item out of it: drop, defer, one-off, split, or planning, or leaves
+    it for now.
+  - **`epic-review planning`** keeps the planning queue correct, oldest
+    first: each item is left (most are), deferred, dropped, or, unusually,
+    sent to a repo's ad-hoc epic as a one-off. It prunes and never picks:
+    the human chooses what to plan next and runs `epic-create` on it.
+  - **`epic-review deferred`** checks each deferred item's `Revisit when:`
+    conditions against their real sources and recommends keep, refresh,
+    revive, or drop.
 - **`issue-implement`** — the agent implements a single issue end-to-end,
   validates it to green, runs `merge-review` and hands the PR off with the
   merge review's eligibility line in its notes, in a Lima or a cloud session
