@@ -170,8 +170,8 @@ sessions.
 ## The skills, by role
 
 - **`epic-create`** — the outer orchestrator of the [workflow](workflow.md):
-  brainstorm → epic → spec → spec pushback rounds → plan → plan pushback
-  rounds → alignment rounds → docs PR → file tasks,
+  brainstorm → epic → spec → spec pushback rounds → human spec review →
+  plan → plan pushback rounds → alignment rounds → docs PR → file tasks,
   always worked through a planning item that records its progress. Its
   design-review rounds need paad's unattended runner, `paad:paad-delegate`,
   which every box, Lima or cloud, gets by installing paad from the vergil
