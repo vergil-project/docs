@@ -6,7 +6,7 @@ name: CD Docs Refresh
 # and on demand (the "Run workflow" button is the manual "refresh now").
 on:
   schedule:
-    - cron: "17 6 * * *"
+    - cron: "17 1 * * *"
   workflow_dispatch:
 
 permissions:
