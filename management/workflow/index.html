@@ -645,6 +645,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#working-the-ad-hoc-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working the ad-hoc tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -912,6 +923,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#working-the-ad-hoc-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working the ad-hoc tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1067,6 +1089,35 @@ section.</p>
 <p>Merge review is not paad: <code>issue-implement</code> runs no paad review of its own,
 so it works the same in a Lima or a cloud session; paad's review rounds
 belong to design review in <code>epic-create</code>.</p>
+<h2 id="working-the-ad-hoc-tasks">Working the ad-hoc tasks<a class="headerlink" href="#working-the-ad-hoc-tasks" title="Permanent link">&para;</a></h2>
+<p>Not every ready task belongs to a planned epic: a one-off routed out of a
+queue, or a design that collapsed to a single PR, is a task under its
+repository's ad-hoc epic. Those tasks are worked with <strong><code>epic-implement</code></strong> in
+its <code>adhoc</code> mode — org-wide with <code>/vergil:epic-implement adhoc</code>, or for one
+repository with <code>adhoc --repo &lt;owner&gt;/&lt;repo&gt;</code> or that repository's ad-hoc epic
+ref.</p>
+<ol>
+<li><strong>Collect.</strong> It gathers the open tasks under the ad-hoc epics with
+   <code>vrg-queue adhoc</code> and summarizes them by repository. A task already handed
+   off or worked elsewhere (an open PR, a report-ready record, a remote
+   branch) is left alone; one that stopped on this machine is resumed the way
+   the development path resumes a task.</li>
+<li><strong>Propose a strategy.</strong> There is no plan to set an order, so it proposes
+   one: which tasks to batch together per repository, which to run alone,
+   which to leave for later, and the order, oldest first unless there is a
+   reason to differ. Ad-hoc tasks are filed one at a time and rarely say what
+   they depend on, so the strategy judges overlap explicitly — tasks that
+   touch the same files are batched or run one after another — and names
+   which tasks run at the same time.</li>
+<li><strong>One confirmation.</strong> The human confirms the whole strategy once.</li>
+<li><strong>Dispatch and gate.</strong> It dispatches the tasks under the same gates, ruling
+   relay and batching rules as a development epic, brings everything that
+   needs the human to one gate, and stops. Its records go on the ad-hoc epic of
+   the repository concerned.</li>
+</ol>
+<p>The <code>adhoc</code> mode reads no plan and drafts no retrospective: an ad-hoc epic has
+no plan and never closes. Like the development path, it is stateless, so
+re-running it re-derives where things stand from GitHub.</p>
 
 
 

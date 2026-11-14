@@ -1207,6 +1207,14 @@ hands off, and a human takes it across the line.</p>
   bare <code>vrg-queue</code>; a planning item that any security advisory still tracks is
   held at in-progress until each advisory it names is retargeted to the task or
   tasks that fix it)</li>
+<li><code>vrg-queue adhoc</code> (the read-only view of the ready one-off work: the open
+  tasks under every live ad-hoc epic, grouped by repository and oldest first
+  within each, each with its state — <code>ready</code>, <code>blocked</code> by an open
+  <code>Blocked-by:</code> dependency, or <code>in-flight</code> with the marks that show it, such as
+  an open PR, a report-ready record, a feature branch, a worktree or a
+  merge-review directory. <code>--repo</code> narrows it to one repository's ad-hoc epic.
+  It is not a review queue, so it is shown only when named, never by a bare
+  <code>vrg-queue</code>)</li>
 <li><code>vrg-security-record</code> (record a security finding as a private draft advisory
   in <code>&lt;org&gt;/.github</code>, paired with a neutral <code>security</code>-labelled intake issue;
   <code>create</code>, <code>list</code>, <code>show</code>, <code>retarget</code> — see vergil-tooling's
@@ -1321,6 +1329,17 @@ sessions.</p>
 <li><strong><code>epic-review deferred</code></strong> checks each deferred item's <code>Revisit when:</code>
     conditions against their real sources and recommends keep, refresh,
     revive, or drop.</li>
+<li><strong><code>epic-implement</code></strong> — the driver above the <code>issue-*</code> skills, run as often
+  as needed between <code>epic-create</code> and <code>epic-retrospective</code>. On the development
+  path it resumes an epic from its issue and plan, dispatches every runnable
+  task to <code>issue-implement</code>, <code>issue-validate</code> or <code>issue-deploy</code> (in parallel
+  sub-agents where that helps, batching small independent code tasks), brings
+  everything that needs the human to one gate, and stops. Its <strong><code>adhoc</code></strong> mode
+  works the ad-hoc tasks instead: org-wide with <code>/vergil:epic-implement adhoc</code>,
+  or for one repository with <code>adhoc --repo &lt;owner&gt;/&lt;repo&gt;</code> or that
+  repository's ad-hoc epic ref. Given an intake, planning or deferred queue it
+  refuses and points to <code>epic-review</code>, which is how a queue is worked
+  (<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#epic-implement">epic-implement</a>).</li>
 <li><strong><code>issue-implement</code></strong> — the agent implements a single issue end-to-end,
   validates it to green, runs <code>merge-review</code> and hands the PR off with the
   merge review's eligibility line in its notes, in a Lima or a cloud session
