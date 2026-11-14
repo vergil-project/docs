@@ -65,6 +65,11 @@ self-closing epics.
 As its children close they drain into per-quarter archive buckets, so the live
 ad-hoc epic shows only work still in flight.
 
+Ready ad-hoc tasks are worked with `epic-implement` in its `adhoc` mode, which
+collects them across every ad-hoc epic with `vrg-queue adhoc` and proposes one
+strategy for the human to confirm; see
+[Working the ad-hoc tasks](workflow.md#working-the-ad-hoc-tasks).
+
 ## Standing epics
 
 The ad-hoc epic is one of four **standing epics** — perpetual umbrellas that

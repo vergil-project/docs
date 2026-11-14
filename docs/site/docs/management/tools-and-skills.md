@@ -63,6 +63,14 @@ hands off, and a human takes it across the line.
   bare `vrg-queue`; a planning item that any security advisory still tracks is
   held at in-progress until each advisory it names is retargeted to the task or
   tasks that fix it)
+- `vrg-queue adhoc` (the read-only view of the ready one-off work: the open
+  tasks under every live ad-hoc epic, grouped by repository and oldest first
+  within each, each with its state — `ready`, `blocked` by an open
+  `Blocked-by:` dependency, or `in-flight` with the marks that show it, such as
+  an open PR, a report-ready record, a feature branch, a worktree or a
+  merge-review directory. `--repo` narrows it to one repository's ad-hoc epic.
+  It is not a review queue, so it is shown only when named, never by a bare
+  `vrg-queue`)
 - `vrg-security-record` (record a security finding as a private draft advisory
   in `<org>/.github`, paired with a neutral `security`-labelled intake issue;
   `create`, `list`, `show`, `retarget` — see vergil-tooling's
@@ -186,6 +194,17 @@ sessions.
   - **`epic-review deferred`** checks each deferred item's `Revisit when:`
     conditions against their real sources and recommends keep, refresh,
     revive, or drop.
+- **`epic-implement`** — the driver above the `issue-*` skills, run as often
+  as needed between `epic-create` and `epic-retrospective`. On the development
+  path it resumes an epic from its issue and plan, dispatches every runnable
+  task to `issue-implement`, `issue-validate` or `issue-deploy` (in parallel
+  sub-agents where that helps, batching small independent code tasks), brings
+  everything that needs the human to one gate, and stops. Its **`adhoc`** mode
+  works the ad-hoc tasks instead: org-wide with `/vergil:epic-implement adhoc`,
+  or for one repository with `adhoc --repo <owner>/<repo>` or that
+  repository's ad-hoc epic ref. Given an intake, planning or deferred queue it
+  refuses and points to `epic-review`, which is how a queue is worked
+  ([epic-implement](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#epic-implement)).
 - **`issue-implement`** — the agent implements a single issue end-to-end,
   validates it to green, runs `merge-review` and hands the PR off with the
   merge review's eligibility line in its notes, in a Lima or a cloud session

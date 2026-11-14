@@ -133,3 +133,34 @@ section.
 Merge review is not paad: `issue-implement` runs no paad review of its own,
 so it works the same in a Lima or a cloud session; paad's review rounds
 belong to design review in `epic-create`.
+
+## Working the ad-hoc tasks
+
+Not every ready task belongs to a planned epic: a one-off routed out of a
+queue, or a design that collapsed to a single PR, is a task under its
+repository's ad-hoc epic. Those tasks are worked with **`epic-implement`** in
+its `adhoc` mode — org-wide with `/vergil:epic-implement adhoc`, or for one
+repository with `adhoc --repo <owner>/<repo>` or that repository's ad-hoc epic
+ref.
+
+1. **Collect.** It gathers the open tasks under the ad-hoc epics with
+   `vrg-queue adhoc` and summarizes them by repository. A task already handed
+   off or worked elsewhere (an open PR, a report-ready record, a remote
+   branch) is left alone; one that stopped on this machine is resumed the way
+   the development path resumes a task.
+2. **Propose a strategy.** There is no plan to set an order, so it proposes
+   one: which tasks to batch together per repository, which to run alone,
+   which to leave for later, and the order, oldest first unless there is a
+   reason to differ. Ad-hoc tasks are filed one at a time and rarely say what
+   they depend on, so the strategy judges overlap explicitly — tasks that
+   touch the same files are batched or run one after another — and names
+   which tasks run at the same time.
+3. **One confirmation.** The human confirms the whole strategy once.
+4. **Dispatch and gate.** It dispatches the tasks under the same gates, ruling
+   relay and batching rules as a development epic, brings everything that
+   needs the human to one gate, and stops. Its records go on the ad-hoc epic of
+   the repository concerned.
+
+The `adhoc` mode reads no plan and drafts no retrospective: an ad-hoc epic has
+no plan and never closes. Like the development path, it is stateless, so
+re-running it re-derives where things stand from GitHub.
