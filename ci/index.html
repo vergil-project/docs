@@ -847,6 +847,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rust-toolchain-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust toolchain selection
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1029,6 +1040,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rust-toolchain-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust toolchain selection
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1199,11 +1221,14 @@ three jobs:</p>
   <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/dev/branch-sweep/">vrg-branch-sweep reference</a>.</li>
 </ul>
 <p>The nightly <code>ops.yml</code> in <code>vergil-containers</code> also runs the <strong>language
-lifecycle job</strong>, which keeps the version window current. For Python and Go it
-opens one pull request per change: an add, a drop, or (for Python) a runtime
-change that records a newly published <code>vergil-python</code> runtime. For the other
-languages it opens an issue instead. It never enables auto-merge: a person
-reviews and merges every lifecycle pull request.</p>
+lifecycle job</strong>, which keeps the version window current. For Python, Go and
+Rust it opens one pull request per change: an add, a drop, or (for Python) a
+runtime change that records a newly published <code>vergil-python</code> runtime. Each
+add or drop pull request carries its own toolchain pin change: an add writes
+the new series' pin and a drop removes the pin it leaves unused, so the pull
+request passes CI as opened. For the other languages it opens an issue
+instead. It never enables auto-merge: a person reviews and merges every
+lifecycle pull request.</p>
 <h3 id="report-only-dependabot">Report-only Dependabot<a class="headerlink" href="#report-only-dependabot" title="Permanent link">&para;</a></h3>
 <p>Dependabot alerts are on for every repo, and Dependabot never opens a pull
 request. The config audit enforces both settings: alerts on, Dependabot
@@ -1237,6 +1262,29 @@ a floor, such as <code>requires-python</code>:</p>
 <a href="https://vergil-project.github.io/vergil-containers/latest/languages/lifecycle/#the-rules">Language version lifecycle</a>
 and vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/container-config/">Container Config Reference</a>.</p>
+<h2 id="rust-toolchain-selection">Rust toolchain selection<a class="headerlink" href="#rust-toolchain-selection" title="Permanent link">&para;</a></h2>
+<p>Vergil owns which Rust toolchain runs, as it does for Python. A repo deals
+only in <code>x.y</code> and never names a patch release:</p>
+<ul>
+<li><strong>A repo declares only a floor.</strong> It sets an <code>x.y</code> floor through
+  <code>rust-version</code> in its root <code>Cargo.toml</code>. <code>vrg-validate</code> warns when the floor
+  is below the version window's oldest series.</li>
+<li><strong>A toolchain file is an error.</strong> A <code>rust-toolchain.toml</code>, or the legacy
+  <code>rust-toolchain</code>, chooses the toolchain behind Vergil's back, so validation
+  fails until it is deleted.</li>
+<li><strong>The image sets the toolchain itself.</strong> Each Vergil Rust image sets
+  <code>RUSTUP_TOOLCHAIN</code> to its own installed release and turns rustup's
+  auto-install off, so no repo file or setting selects another toolchain and
+  rustup never downloads one. <code>vrg-container-run</code> never forwards
+  <code>RUSTUP_TOOLCHAIN</code> or <code>RUSTUP_AUTO_INSTALL</code> from the host, even when the
+  repo's <code>[container].env-prefixes</code> match them.</li>
+<li><strong>CI checks the result.</strong> Each Rust CI leg asserts that <code>rustc</code> reports the
+  <code>x.y</code> that CI resolved for it, and a mismatch fails the leg.</li>
+</ul>
+<p>See the Toolchain Selection section of vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/standards/development/rust/overview/#toolchain-selection">Rust standards</a>
+and vergil-containers'
+<a href="https://vergil-project.github.io/vergil-containers/latest/languages/rust/">Rust support policy</a>.</p>
 
 
 
