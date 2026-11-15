@@ -173,11 +173,14 @@ three jobs:
   [vrg-branch-sweep reference](https://vergil-project.github.io/vergil-tooling/latest/reference/dev/branch-sweep/).
 
 The nightly `ops.yml` in `vergil-containers` also runs the **language
-lifecycle job**, which keeps the version window current. For Python and Go it
-opens one pull request per change: an add, a drop, or (for Python) a runtime
-change that records a newly published `vergil-python` runtime. For the other
-languages it opens an issue instead. It never enables auto-merge: a person
-reviews and merges every lifecycle pull request.
+lifecycle job**, which keeps the version window current. For Python, Go and
+Rust it opens one pull request per change: an add, a drop, or (for Python) a
+runtime change that records a newly published `vergil-python` runtime. Each
+add or drop pull request carries its own toolchain pin change: an add writes
+the new series' pin and a drop removes the pin it leaves unused, so the pull
+request passes CI as opened. For the other languages it opens an issue
+instead. It never enables auto-merge: a person reviews and merges every
+lifecycle pull request.
 
 ### Report-only Dependabot
 
@@ -217,3 +220,28 @@ See rule 13 of the
 [Language version lifecycle](https://vergil-project.github.io/vergil-containers/latest/languages/lifecycle/#the-rules)
 and vergil-tooling's
 [Container Config Reference](https://vergil-project.github.io/vergil-tooling/latest/reference/container-config/).
+
+## Rust toolchain selection
+
+Vergil owns which Rust toolchain runs, as it does for Python. A repo deals
+only in `x.y` and never names a patch release:
+
+- **A repo declares only a floor.** It sets an `x.y` floor through
+  `rust-version` in its root `Cargo.toml`. `vrg-validate` warns when the floor
+  is below the version window's oldest series.
+- **A toolchain file is an error.** A `rust-toolchain.toml`, or the legacy
+  `rust-toolchain`, chooses the toolchain behind Vergil's back, so validation
+  fails until it is deleted.
+- **The image sets the toolchain itself.** Each Vergil Rust image sets
+  `RUSTUP_TOOLCHAIN` to its own installed release and turns rustup's
+  auto-install off, so no repo file or setting selects another toolchain and
+  rustup never downloads one. `vrg-container-run` never forwards
+  `RUSTUP_TOOLCHAIN` or `RUSTUP_AUTO_INSTALL` from the host, even when the
+  repo's `[container].env-prefixes` match them.
+- **CI checks the result.** Each Rust CI leg asserts that `rustc` reports the
+  `x.y` that CI resolved for it, and a mismatch fails the leg.
+
+See the Toolchain Selection section of vergil-tooling's
+[Rust standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/rust/overview/#toolchain-selection)
+and vergil-containers'
+[Rust support policy](https://vergil-project.github.io/vergil-containers/latest/languages/rust/).
