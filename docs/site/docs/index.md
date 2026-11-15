@@ -42,6 +42,7 @@ New here? Start with **[Getting Started](getting-started.md)**.
 | [`vergil-vm`](https://github.com/vergil-project/vergil-vm) | isolated VM environments |
 | [`vergil-python`](https://github.com/vergil-project/vergil-python) | the pinned CPython runtime, packaged as `.deb`/`.rpm` for the Python products |
 | [`packages`](https://github.com/vergil-project/packages) | the signed apt/dnf [package repository](packages.md) and `vergil-archive-keyring` |
+| `vergil-fixture-{python,rust}-{lib,app}` | four test fixtures with no users ([`python-lib`](https://github.com/vergil-project/vergil-fixture-python-lib), [`python-app`](https://github.com/vergil-project/vergil-fixture-python-app), [`rust-lib`](https://github.com/vergil-project/vergil-fixture-rust-lib), [`rust-app`](https://github.com/vergil-project/vergil-fixture-rust-app)), driven through the full change → release → validate cycle by the `fixture-run` skill to validate released Vergil changes ([spec](https://github.com/vergil-project/.github/blob/develop/epics/1091-language-fixture-repos/spec.md)) |
 | [`.github`](https://github.com/vergil-project/.github) | epics + org metadata |
 | `docs` | this site |
 

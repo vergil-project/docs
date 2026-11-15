@@ -216,6 +216,13 @@ sessions.
   `vrg-ruling`, every raised item closed before hand-off, and an eligibility
   line for the PR notes
   ([merge-review](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#merge-review)).
+- **`fixture-run`** — files a fixture run on one or more of the language
+  fixture repos: per fixture, a change, release and validation trio, blocked
+  by the release or deployment task passed as `--after`. It files the tasks
+  and never runs them. An epic whose plan changes language support,
+  container images, shared CI workflows or release tooling seeds one run per
+  affected fixture
+  ([fixture-run](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#fixture-run)).
 - **`pr-watch`** — the agent monitors an open PR through CI and review,
   reconciling until it is mergeable.
 
