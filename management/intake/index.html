@@ -1089,15 +1089,18 @@ per-quarter archive buckets, so the live queues show only open work.</p>
    <em>completed</em> — closed as "planned as" the epic it became, or with the reason
    it is not worth doing.</li>
 </ol>
-<p>Each planning item carries an <strong>estimated epic size</strong>: <strong>S</strong> (1–9 tasks),
+<p>A planning item can carry an <strong>estimated epic size</strong>: <strong>S</strong> (1–9 tasks),
    <strong>M</strong> (10–19), <strong>L</strong> (20–39) or <strong>XL</strong> (40+), derived from an estimated
-   task count. It is recorded as an <code>epic-size:&lt;S|M|L|XL&gt;</code> label and a dated
-   <code>Sized …</code> comment, both written by <code>vrg-intake-route</code>: an item is sized as
-   it is routed to planning, and the planning review sizes any waiting item
-   still unsized. Deferred items can carry a size too, and a one-off clears
-   it. The size is there so the planning queue can be sorted and filtered by
-   it: <code>vrg-queue planning --sort size --size S</code> lists only the small items,
-   oldest first, so small epics need not wait behind large ones.
+   task count. Sizing is optional: an item stays unsized (<code>?</code> in <code>vrg-queue</code>)
+   until it is sized. A size is recorded as an <code>epic-size:&lt;S|M|L|XL&gt;</code> label
+   and a dated <code>Sized …</code> comment, both written by <code>vrg-intake-route</code>: an item
+   is sized as it is routed to planning, and the planning review sizes any
+   waiting item still unsized. Deferred items can carry a size too, and a
+   one-off clears it. The size is there so the planning queue can be sorted
+   and filtered by it: <code>vrg-queue planning --sort size --size S</code> lists the
+   small items, oldest first, so small epics need not wait behind large
+   ones. An item whose sizing is in error (<code>!</code>) is always listed too,
+   whatever the filter.
 4. <strong>Revisit.</strong> A deferred item is never forgotten, because every deferral
    records a reason and the conditions to check (<code>Revisit when:</code>). On a
    periodic deferred review, the agent actually checks each item's conditions
