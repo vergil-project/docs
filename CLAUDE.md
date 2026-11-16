@@ -17,7 +17,8 @@ versioned with mike, so every page lives under a version segment. A link
 without one returns 404. Always link through `/latest/`:
 
 - Correct: `https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/`
-- Wrong (404): `https://vergil-project.github.io/vergil-tooling/guides/ci-architecture/`
+- Wrong (404): the same link without the `latest/` segment, so that
+  `guides/ci-architecture/` follows `vergil-tooling/` directly.
 
 The same applies to any other Vergil site published with mike. Before
 adding or changing such a link, check that the target (and any `#anchor`)
