@@ -1076,7 +1076,8 @@ per-quarter archive buckets, so the live queues show only open work.</p>
 <li><strong>One-off</strong> — move it into its target repository as a ready task under
      that repository's ad-hoc epic (or a named epic).</li>
 <li><strong>Split</strong> — replace it with several ready tasks and close it.</li>
-<li><strong>Planning</strong> — it needs a real design, so it moves to the planning queue.</li>
+<li><strong>Planning</strong> — it needs a real design, so it moves to the planning queue,
+     with an estimated epic size.</li>
 <li><strong>Plan.</strong> A planning review keeps the planning queue correct, oldest
    first: each item is left (most are), deferred, dropped, or, unusually,
    sent to a repository's ad-hoc epic as a one-off. It never picks. The human
@@ -1087,7 +1088,17 @@ per-quarter archive buckets, so the live queues show only open work.</p>
    resume days later. A planning item is <em>waiting</em>, <em>in progress</em>, or
    <em>completed</em> — closed as "planned as" the epic it became, or with the reason
    it is not worth doing.</li>
-<li><strong>Revisit.</strong> A deferred item is never forgotten, because every deferral
+</ol>
+<p>Each planning item carries an <strong>estimated epic size</strong>: <strong>S</strong> (1–9 tasks),
+   <strong>M</strong> (10–19), <strong>L</strong> (20–39) or <strong>XL</strong> (40+), derived from an estimated
+   task count. It is recorded as an <code>epic-size:&lt;S|M|L|XL&gt;</code> label and a dated
+   <code>Sized …</code> comment, both written by <code>vrg-intake-route</code>: an item is sized as
+   it is routed to planning, and the planning review sizes any waiting item
+   still unsized. Deferred items can carry a size too, and a one-off clears
+   it. The size is there so the planning queue can be sorted and filtered by
+   it: <code>vrg-queue planning --sort size --size S</code> lists only the small items,
+   oldest first, so small epics need not wait behind large ones.
+4. <strong>Revisit.</strong> A deferred item is never forgotten, because every deferral
    records a reason and the conditions to check (<code>Revisit when:</code>). On a
    periodic deferred review, the agent actually checks each item's conditions
    against their real sources — a release page, an issue's state, a date — and
@@ -1095,8 +1106,7 @@ per-quarter archive buckets, so the live queues show only open work.</p>
    <strong>revive</strong> it (back to intake, to planning, or as a one-off), or <strong>drop</strong>
    it. Only an item in a queue or an ad-hoc epic can be deferred; a task in a
    finite epic cannot, since parking one task would in effect suspend its
-   whole epic.</li>
-</ol>
+   whole epic.</p>
 <p>A <code>security</code> item — the neutral issue half of a security record — is routed
 like any other and keeps its advisory links through every move: every advisory
 it names is retargeted when the item is transferred or recreated, and its one
@@ -1135,7 +1145,11 @@ queue-home rules — are documented in vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#intake-planning-and-deferred-queues">GitHub Issue Standards</a>
 (see
 <a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#the-deferred-queue">The deferred queue</a>
-for deferring and reviving) and
+for deferring and reviving, and
+<a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#viewing-the-queues-vrg-queue">Viewing the queues</a>
+for epic sizes), the
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-intake-route">CLI reference</a>,
+and the
 <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/">Epic home visibility flips</a>
 guide.</p>
 
