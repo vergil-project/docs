@@ -65,7 +65,8 @@ per-quarter archive buckets, so the live queues show only open work.
    - **One-off** — move it into its target repository as a ready task under
      that repository's ad-hoc epic (or a named epic).
    - **Split** — replace it with several ready tasks and close it.
-   - **Planning** — it needs a real design, so it moves to the planning queue.
+   - **Planning** — it needs a real design, so it moves to the planning queue,
+     with an estimated epic size.
 3. **Plan.** A planning review keeps the planning queue correct, oldest
    first: each item is left (most are), deferred, dropped, or, unusually,
    sent to a repository's ad-hoc epic as a one-off. It never picks. The human
@@ -76,6 +77,16 @@ per-quarter archive buckets, so the live queues show only open work.
    resume days later. A planning item is *waiting*, *in progress*, or
    *completed* — closed as "planned as" the epic it became, or with the reason
    it is not worth doing.
+
+   Each planning item carries an **estimated epic size**: **S** (1–9 tasks),
+   **M** (10–19), **L** (20–39) or **XL** (40+), derived from an estimated
+   task count. It is recorded as an `epic-size:<S|M|L|XL>` label and a dated
+   `Sized …` comment, both written by `vrg-intake-route`: an item is sized as
+   it is routed to planning, and the planning review sizes any waiting item
+   still unsized. Deferred items can carry a size too, and a one-off clears
+   it. The size is there so the planning queue can be sorted and filtered by
+   it: `vrg-queue planning --sort size --size S` lists only the small items,
+   oldest first, so small epics need not wait behind large ones.
 4. **Revisit.** A deferred item is never forgotten, because every deferral
    records a reason and the conditions to check (`Revisit when:`). On a
    periodic deferred review, the agent actually checks each item's conditions
@@ -132,6 +143,10 @@ queue-home rules — are documented in vergil-tooling's
 [GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#intake-planning-and-deferred-queues)
 (see
 [The deferred queue](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#the-deferred-queue)
-for deferring and reviving) and
+for deferring and reviving, and
+[Viewing the queues](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#viewing-the-queues-vrg-queue)
+for epic sizes), the
+[CLI reference](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-intake-route),
+and the
 [Epic home visibility flips](https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/)
 guide.
