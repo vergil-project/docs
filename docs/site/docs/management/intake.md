@@ -78,15 +78,18 @@ per-quarter archive buckets, so the live queues show only open work.
    *completed* — closed as "planned as" the epic it became, or with the reason
    it is not worth doing.
 
-   Each planning item carries an **estimated epic size**: **S** (1–9 tasks),
+   A planning item can carry an **estimated epic size**: **S** (1–9 tasks),
    **M** (10–19), **L** (20–39) or **XL** (40+), derived from an estimated
-   task count. It is recorded as an `epic-size:<S|M|L|XL>` label and a dated
-   `Sized …` comment, both written by `vrg-intake-route`: an item is sized as
-   it is routed to planning, and the planning review sizes any waiting item
-   still unsized. Deferred items can carry a size too, and a one-off clears
-   it. The size is there so the planning queue can be sorted and filtered by
-   it: `vrg-queue planning --sort size --size S` lists only the small items,
-   oldest first, so small epics need not wait behind large ones.
+   task count. Sizing is optional: an item stays unsized (`?` in `vrg-queue`)
+   until it is sized. A size is recorded as an `epic-size:<S|M|L|XL>` label
+   and a dated `Sized …` comment, both written by `vrg-intake-route`: an item
+   is sized as it is routed to planning, and the planning review sizes any
+   waiting item still unsized. Deferred items can carry a size too, and a
+   one-off clears it. The size is there so the planning queue can be sorted
+   and filtered by it: `vrg-queue planning --sort size --size S` lists the
+   small items, oldest first, so small epics need not wait behind large
+   ones. An item whose sizing is in error (`!`) is always listed too,
+   whatever the filter.
 4. **Revisit.** A deferred item is never forgotten, because every deferral
    records a reason and the conditions to check (`Revisit when:`). On a
    periodic deferred review, the agent actually checks each item's conditions

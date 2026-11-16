@@ -31,10 +31,12 @@ plan left sitting goes stale. **`epic-review planning`** does not choose; it
 keeps the planning queue correct. Each item that is still valid stays, and the
 rest are deferred, dropped or, unusually, sent to a repo's ad-hoc epic as a
 one-off. The pass ends by listing the surviving queue to help the human choose.
-Each planning item carries an estimated [epic size](intake.md#the-lifecycle)
-(S, M, L or XL), so for the small-end cadence
-`vrg-queue planning --sort size --size S` lists only the small items (an
-estimated 1–9 tasks), oldest first.
+A planning item can carry an estimated [epic size](intake.md#the-lifecycle)
+(S, M, L or XL). Sizing is optional: an unsized item shows `?` in
+`vrg-queue`. For the small-end cadence,
+`vrg-queue planning --sort size --size S` lists the small items (an
+estimated 1–9 tasks), oldest first, and any item whose sizing is in error
+(`!`), which is always listed whatever the filter.
 
 The planning item closes once the epic exists, its docs task has merged, and
 its tasks are filed — "planned as" the epic it became.
