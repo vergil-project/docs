@@ -55,14 +55,23 @@ hands off, and a human takes it across the line.
   planning out of intake; defer or drop out of planning; and out of deferred,
   revive to intake, planning or one-off, refresh, drop, or split. Defer
   requires `--reason` and `--revisit-when`, and is the only way into or out of
-  the deferred queue. A `security` item keeps its advisory links when it is
-  transferred, recreated, or split; a split of an item naming several
-  advisories is refused)
+  the deferred queue. `size --tasks N --reason TEXT` records a planning or
+  deferred item's estimated epic size (an `epic-size:<S|M|L|XL>` label and a
+  dated `Sized …` comment), `planning --tasks N --reason TEXT` sizes an item
+  as it enters planning, and a one-off clears the size. A `security` item
+  keeps its advisory links when it is transferred, recreated, or split; a
+  split of an item naming several advisories is refused)
 - `vrg-queue intake|planning|deferred` (the read-only view of one queue — intake
   oldest first, deferred least recently deferred first — or of all three with a
   bare `vrg-queue`; a planning item that any security advisory still tracks is
   held at in-progress until each advisory it names is retargeted to the task or
-  tasks that fix it)
+  tasks that fix it. Planning and deferred lines show each item's epic size
+  (`M/14`, `?` unsized, `!` in error), and `vrg-queue planning` also takes
+  `--sort age|size|tasks` and `--size LIST` to order and filter by it. An item
+  whose sizing is in error makes the run exit 2, after the full listing
+  (exit 1 is a queue that could not be read or a usage error). See the
+  [`vrg-intake-route`](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-intake-route) and
+  [`vrg-queue`](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-queue) reference)
 - `vrg-queue adhoc` (the read-only view of the ready one-off work: the open
   tasks under every live ad-hoc epic, grouped by repository and oldest first
   within each, each with its state — `ready`, `blocked` by an open
@@ -186,14 +195,17 @@ sessions.
   with a mode per queue:
   - **`epic-review intake`** works the intake queue oldest first and routes
     each item out of it: drop, defer, one-off, split, or planning, or leaves
-    it for now.
+    it for now. An item routed to planning is always sized as it moves.
   - **`epic-review planning`** keeps the planning queue correct, oldest
     first: each item is left (most are), deferred, dropped, or, unusually,
     sent to a repo's ad-hoc epic as a one-off. It prunes and never picks:
-    the human chooses what to plan next and runs `epic-create` on it.
+    the human chooses what to plan next and runs `epic-create` on it. It
+    recommends a size for each waiting item that is unsized or in error, and
+    ends by listing the surviving queue, by size when the human asks.
   - **`epic-review deferred`** checks each deferred item's `Revisit when:`
     conditions against their real sources and recommends keep, refresh,
-    revive, or drop.
+    revive, or drop; an unsized item revived to planning is sized as it
+    moves.
 - **`epic-implement`** — the driver above the `issue-*` skills, run as often
   as needed between `epic-create` and `epic-retrospective`. On the development
   path it resumes an epic from its issue and plan, dispatches every runnable
