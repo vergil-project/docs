@@ -1049,11 +1049,11 @@ are an extra layer on top of the signatures, never the trust root.</p>
 </tr>
 <tr>
 <td>Dev containers</td>
-<td>From the package repository, with <code>apt</code>, for a release pin; <code>uv tool install</code> from git for a dev ref (see <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/">CI architecture</a>)</td>
+<td>From the package repository, with <code>apt</code>, for a release pin; <code>uv tool install</code> from git for a dev ref, on the image's core Python (<code>--python &lt;core&gt;</code>) where the image has the vergil apt source and a core Python, or on <code>--python 3.15</code> where it has neither (see <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/">CI architecture</a>)</td>
 </tr>
 <tr>
 <td>macOS host</td>
-<td><code>uv tool install</code></td>
+<td><code>uv tool install --python 3.15</code></td>
 </tr>
 </tbody>
 </table>
