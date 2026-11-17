@@ -1229,6 +1229,18 @@ the new series' pin and a drop removes the pin it leaves unused, so the pull
 request passes CI as opened. For the other languages it opens an issue
 instead. It never enables auto-merge: a person reviews and merges every
 lifecycle pull request.</p>
+<p>The nightly <code>ops.yml</code> in <code>vergil-containers</code> and <code>vergil-python</code> also runs the
+<strong>upstream refresh</strong>, the one nightly job whose pull request merges itself. It
+runs as two jobs. The <code>prepare</code> job runs the repo's <code>[upstream-refresh].hook</code>
+with no secrets and a read-only token. The <code>publish</code> job checks the resulting
+patch against the repo's path fence, the <code>[upstream-refresh].paths</code> allowlist,
+then opens a pull request on a new <code>automation/upstream-refresh/&lt;run-id&gt;</code>
+branch as the org automation App. The pull request merges itself once its CI
+passes, and the run is red unless it merged or there was nothing to change.
+See vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/upstream-refresh-config/">upstream-refresh reference</a>
+and vergil-actions'
+<a href="https://vergil-project.github.io/vergil-actions/latest/workflows/ops-upstream-refresh/"><code>ops-upstream-refresh</code> workflow</a>.</p>
 <h3 id="report-only-dependabot">Report-only Dependabot<a class="headerlink" href="#report-only-dependabot" title="Permanent link">&para;</a></h3>
 <p>Dependabot alerts are on for every repo, and Dependabot never opens a pull
 request. The config audit enforces both settings: alerts on, Dependabot
