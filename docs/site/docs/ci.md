@@ -182,6 +182,19 @@ request passes CI as opened. For the other languages it opens an issue
 instead. It never enables auto-merge: a person reviews and merges every
 lifecycle pull request.
 
+The nightly `ops.yml` in `vergil-containers` and `vergil-python` also runs the
+**upstream refresh**, the one nightly job whose pull request merges itself. It
+runs as two jobs. The `prepare` job runs the repo's `[upstream-refresh].hook`
+with no secrets and a read-only token. The `publish` job checks the resulting
+patch against the repo's path fence, the `[upstream-refresh].paths` allowlist,
+then opens a pull request on a new `automation/upstream-refresh/<run-id>`
+branch as the org automation App. The pull request merges itself once its CI
+passes, and the run is red unless it merged or there was nothing to change.
+See vergil-tooling's
+[upstream-refresh reference](https://vergil-project.github.io/vergil-tooling/latest/reference/upstream-refresh-config/)
+and vergil-actions'
+[`ops-upstream-refresh` workflow](https://vergil-project.github.io/vergil-actions/latest/workflows/ops-upstream-refresh/).
+
 ### Report-only Dependabot
 
 Dependabot alerts are on for every repo, and Dependabot never opens a pull
