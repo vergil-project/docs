@@ -22,8 +22,10 @@ without one returns 404. Always link through `/latest/`:
 
 The same applies to any other Vergil site published with mike. Before
 adding or changing such a link, check that the target (and any `#anchor`)
-resolves. No validator enforces this yet (vergil-project/.github#632), so
-this rule is the guard.
+resolves. The docs-links check in `vrg-validate` flags a deep link to such
+a site that lacks a version segment; see
+[Links to other Vergil docs sites](https://vergil-project.github.io/vergil-tooling/latest/reference/lint/markdown-standards/#links-to-other-vergil-docs-sites)
+in vergil-tooling's Markdown Validation reference.
 
 <!-- vergil:template:claude-md:begin -->
 ## Memory
