@@ -173,8 +173,8 @@ three jobs:
   [vrg-branch-sweep reference](https://vergil-project.github.io/vergil-tooling/latest/reference/dev/branch-sweep/).
 
 The nightly `ops.yml` in `vergil-containers` also runs the **language
-lifecycle job**, which keeps the version window current. For Python, Go and
-Rust it opens one pull request per change: an add, a drop, or (for Python) a
+lifecycle job**, which keeps the version window current. For Python, Go,
+Rust and TypeScript it opens one pull request per change: an add, a drop, or (for Python) a
 runtime change that records a newly published `vergil-python` runtime. Each
 add or drop pull request carries its own toolchain pin change: an add writes
 the new series' pin and a drop removes the pin it leaves unused, so the pull
@@ -258,3 +258,32 @@ See the Toolchain Selection section of vergil-tooling's
 [Rust standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/rust/overview/#toolchain-selection)
 and vergil-containers'
 [Rust support policy](https://vergil-project.github.io/vergil-containers/latest/languages/rust/).
+
+## TypeScript toolchain selection
+
+Vergil owns which Node runs, as it does for Python and Rust. Each Vergil
+TypeScript image carries one Node major, with the npm bundled with it:
+
+- **A repo declares at most a range.** It may set an `engines.node` range in
+  its root `package.json`, and the range should admit every major in the
+  version window. `vrg-validate` warns when the range admits a major below
+  the window's oldest, or excludes the window's newest.
+- **A Node or package-manager version setting is an error.** A `.nvmrc` or
+  `.node-version` file, and in the root `package.json` a `packageManager` or
+  `volta` field, an `npm`, `pnpm` or `yarn` key under `engines`, or a
+  `runtime` or `packageManager` entry under `devEngines`, chooses the version
+  behind Vergil's back, so validation fails until it is removed.
+- **The host's Node settings stay on the host.** `vrg-container-run` never
+  forwards `NODE_OPTIONS`, or any variable whose name starts `npm_config_`,
+  `COREPACK_` or `VOLTA_` in any case, even when the repo's
+  `[container].env-prefixes` match them.
+- **CI checks the result.** Each TypeScript CI leg asserts that the Node on
+  its `PATH` is the major that CI resolved for it, and a mismatch fails the
+  leg.
+
+See the Toolchain Selection section of vergil-tooling's
+[TypeScript standards](https://vergil-project.github.io/vergil-tooling/latest/standards/development/typescript/toolchain-and-strictness/#toolchain-selection),
+its
+[Container Config Reference](https://vergil-project.github.io/vergil-tooling/latest/reference/container-config/#env-prefixes)
+and vergil-containers'
+[TypeScript / Node.js support policy](https://vergil-project.github.io/vergil-containers/latest/languages/ts-node/).
