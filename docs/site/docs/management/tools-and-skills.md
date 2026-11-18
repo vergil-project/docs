@@ -25,9 +25,9 @@ irreversible, outward-facing steps.
 | Driven by the **agent** (runs as the `user` identity) | Driven by the **human** |
 | --- | --- |
 | Participating in the brainstorm; running the design-review rounds | The judgment calls in the brainstorm, and the decision on each design-review finding and each further round |
-| Authoring specs and plans; implementing tasks | Submitting the pull request (`vrg-submit-pr`) |
-| Commits and PR preparation / hand-off | Reviewing and **merging** |
-| Read-only audits and dry-runs | Post-merge finalize (`vrg-finalize-pr`) |
+| Authoring specs and plans; implementing tasks | Submitting the pull request (`vrg-submit-pr`), which turns GitHub auto-merge on |
+| Commits and PR preparation / hand-off | Reviewing the change before submitting it: the submit is the decision to **merge** |
+| Read-only audits and dry-runs | Settling `develop` once the PRs merge (`vrg-finalize-pr`, which the submit runs unless `--no-finalize`) |
 | Filing intake, epics, tasks, links | Write-gated ops: migration `--apply`, audit `--close` |
 | Implementing a dependency-update fix task | Releases (`vrg-release`) and dependency updates (`vrg-update-deps`) |
 | Requesting a review decision, drafting the human's reply and reading it (`vrg-ruling`) | Replying to a review-decision request, as themselves (`vrg-ruling-reply`) |
@@ -93,7 +93,9 @@ out.
 ### Lifecycle
 
 - `vrg-epic-rollup` (close a finite epic when its last task closes — event-driven)
-- `vrg-finalize-pr` (merge + post-merge cleanup — human)
+- `vrg-finalize-pr` (watch the submitted PRs merge, then settle `develop` once:
+  sync, cleanup, validate and a CD report; it never merges — human, run by
+  `vrg-submit-pr` by default)
 
 ### Reporting & enforcement
 
@@ -111,7 +113,9 @@ with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
 
 - `vrg-commit` (standards-compliant commits)
 - `vrg-pr-workflow report-ready` (records the PR hand-off)
-- `vrg-submit-pr` (open the PR — human-run)
+- `vrg-submit-pr` (open the PRs against `develop` with auto-merge on — squash
+  for one issue, rebase for a batch — then finalize them, unless
+  `--no-finalize`; human-run)
 
 ### Merge review
 
