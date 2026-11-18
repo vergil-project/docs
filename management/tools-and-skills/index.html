@@ -1151,15 +1151,15 @@ irreversible, outward-facing steps.</p>
 </tr>
 <tr>
 <td>Authoring specs and plans; implementing tasks</td>
-<td>Submitting the pull request (<code>vrg-submit-pr</code>)</td>
+<td>Submitting the pull request (<code>vrg-submit-pr</code>), which turns GitHub auto-merge on</td>
 </tr>
 <tr>
 <td>Commits and PR preparation / hand-off</td>
-<td>Reviewing and <strong>merging</strong></td>
+<td>Reviewing the change before submitting it: the submit is the decision to <strong>merge</strong></td>
 </tr>
 <tr>
 <td>Read-only audits and dry-runs</td>
-<td>Post-merge finalize (<code>vrg-finalize-pr</code>)</td>
+<td>Settling <code>develop</code> once the PRs merge (<code>vrg-finalize-pr</code>, which the submit runs unless <code>--no-finalize</code>)</td>
 </tr>
 <tr>
 <td>Filing intake, epics, tasks, links</td>
@@ -1236,7 +1236,9 @@ out.</p>
 <h3 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>vrg-epic-rollup</code> (close a finite epic when its last task closes — event-driven)</li>
-<li><code>vrg-finalize-pr</code> (merge + post-merge cleanup — human)</li>
+<li><code>vrg-finalize-pr</code> (watch the submitted PRs merge, then settle <code>develop</code> once:
+  sync, cleanup, validate and a CD report; it never merges — human, run by
+  <code>vrg-submit-pr</code> by default)</li>
 </ul>
 <h3 id="reporting-enforcement">Reporting &amp; enforcement<a class="headerlink" href="#reporting-enforcement" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1253,7 +1255,9 @@ with <code>vrg-gh issue transfer</code> and re-link its tasks with <code>vrg-epi
 <ul>
 <li><code>vrg-commit</code> (standards-compliant commits)</li>
 <li><code>vrg-pr-workflow report-ready</code> (records the PR hand-off)</li>
-<li><code>vrg-submit-pr</code> (open the PR — human-run)</li>
+<li><code>vrg-submit-pr</code> (open the PRs against <code>develop</code> with auto-merge on — squash
+  for one issue, rebase for a batch — then finalize them, unless
+  <code>--no-finalize</code>; human-run)</li>
 </ul>
 <h3 id="merge-review">Merge review<a class="headerlink" href="#merge-review" title="Permanent link">&para;</a></h3>
 <p>The <code>merge-review</code> skill's tools, run by the agent between a green
