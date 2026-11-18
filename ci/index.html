@@ -858,6 +858,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#typescript-toolchain-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript toolchain selection
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1051,6 +1062,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#typescript-toolchain-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript toolchain selection
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1221,8 +1243,8 @@ three jobs:</p>
   <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/dev/branch-sweep/">vrg-branch-sweep reference</a>.</li>
 </ul>
 <p>The nightly <code>ops.yml</code> in <code>vergil-containers</code> also runs the <strong>language
-lifecycle job</strong>, which keeps the version window current. For Python, Go and
-Rust it opens one pull request per change: an add, a drop, or (for Python) a
+lifecycle job</strong>, which keeps the version window current. For Python, Go,
+Rust and TypeScript it opens one pull request per change: an add, a drop, or (for Python) a
 runtime change that records a newly published <code>vergil-python</code> runtime. Each
 add or drop pull request carries its own toolchain pin change: an add writes
 the new series' pin and a drop removes the pin it leaves unused, so the pull
@@ -1297,6 +1319,33 @@ only in <code>x.y</code> and never names a patch release:</p>
 <a href="https://vergil-project.github.io/vergil-tooling/latest/standards/development/rust/overview/#toolchain-selection">Rust standards</a>
 and vergil-containers'
 <a href="https://vergil-project.github.io/vergil-containers/latest/languages/rust/">Rust support policy</a>.</p>
+<h2 id="typescript-toolchain-selection">TypeScript toolchain selection<a class="headerlink" href="#typescript-toolchain-selection" title="Permanent link">&para;</a></h2>
+<p>Vergil owns which Node runs, as it does for Python and Rust. Each Vergil
+TypeScript image carries one Node major, with the npm bundled with it:</p>
+<ul>
+<li><strong>A repo declares at most a range.</strong> It may set an <code>engines.node</code> range in
+  its root <code>package.json</code>, and the range should admit every major in the
+  version window. <code>vrg-validate</code> warns when the range admits a major below
+  the window's oldest, or excludes the window's newest.</li>
+<li><strong>A Node or package-manager version setting is an error.</strong> A <code>.nvmrc</code> or
+  <code>.node-version</code> file, and in the root <code>package.json</code> a <code>packageManager</code> or
+  <code>volta</code> field, an <code>npm</code>, <code>pnpm</code> or <code>yarn</code> key under <code>engines</code>, or a
+  <code>runtime</code> or <code>packageManager</code> entry under <code>devEngines</code>, chooses the version
+  behind Vergil's back, so validation fails until it is removed.</li>
+<li><strong>The host's Node settings stay on the host.</strong> <code>vrg-container-run</code> never
+  forwards <code>NODE_OPTIONS</code>, or any variable whose name starts <code>npm_config_</code>,
+  <code>COREPACK_</code> or <code>VOLTA_</code> in any case, even when the repo's
+  <code>[container].env-prefixes</code> match them.</li>
+<li><strong>CI checks the result.</strong> Each TypeScript CI leg asserts that the Node on
+  its <code>PATH</code> is the major that CI resolved for it, and a mismatch fails the
+  leg.</li>
+</ul>
+<p>See the Toolchain Selection section of vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/standards/development/typescript/toolchain-and-strictness/#toolchain-selection">TypeScript standards</a>,
+its
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/container-config/#env-prefixes">Container Config Reference</a>
+and vergil-containers'
+<a href="https://vergil-project.github.io/vergil-containers/latest/languages/ts-node/">TypeScript / Node.js support policy</a>.</p>
 
 
 
