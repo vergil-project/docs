@@ -37,8 +37,8 @@ multi-version pattern as the rest of the fleet. The v1 shape:
   the expensive matrix axis the **Node version**, not the compiler — and makes
   TypeScript lighter on merge gates than C++.
 - **Multi-version container images.** The toolchain ships as prebuilt stable
-  images for the supported Node majors — **`node-24`** (primary) and **`node-22`**
-  — never built from source.
+  images for the supported Node majors — **`node-26`** (primary), **`node-24`**
+  and **`node-22`** — never built from source.
 - **npm for install and audit.** Install is `npm ci` (a clean, lockfile-pinned
   install from `package-lock.json`); the dependency audit is `npm audit`. npm was
   chosen for universality at zero adoption barrier.
