@@ -69,6 +69,10 @@ edits `.github` itself) are linked like everything else.
 - **Tools & skills** — how the `vrg-*` commands and the skills fit together: what
   each does at the story level, and which are driven by a human versus an agent.
   The per-command reference lives in the repositories where the code does.
+- **[Hoshin kanri](hoshin-kanri.md)** — the management cadence: reviews at the
+  start and end of each day and at week, month, quarter and year boundaries,
+  modelled on 方針管理 hōshin kanri and recorded in the
+  [logbook](../logbook/index.md).
 
 One convention is worth stating up front, because it shapes the whole lifecycle:
 an epic **opens** with a documentation task and does not **close** until you have

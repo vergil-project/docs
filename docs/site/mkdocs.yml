@@ -53,8 +53,18 @@ nav:
       - Intake, planning & deferred: management/intake.md
       - Workflow: management/workflow.md
       - Tools & skills: management/tools-and-skills.md
+      - Hoshin kanri: management/hoshin-kanri.md
       - Roadmap: roadmap.md
       - Activity: activity/index.md
+  - Logbook:
+      - logbook/index.md
+      - Hoshin: logbook/hoshin.md
+      - Fleet: logbook/fleet.md
+      - Daily: logbook/daily/index.md
+      - Weekly: logbook/weekly/index.md
+      - Monthly: logbook/monthly/index.md
+      - Quarterly: logbook/quarterly/index.md
+      - Yearly: logbook/yearly/index.md
   - Supported languages: languages.md
   - Continuous integration: ci.md
   - Package repository: packages.md
