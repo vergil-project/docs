@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -1313,6 +1313,10 @@ build side lives in vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/package-config/">Package Config Reference</a>
 and <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/">CI Architecture</a>
 guide.</p>
+<p>The packages are built, signed, published and install-tested for consumers
+outside Vergil. Vergil itself does not install from them: every Vergil
+install of vergil-tooling uses <code>uv</code> from git (see
+<a href="#who-installs-which-way">Who installs which way</a>).</p>
 <h2 id="where-it-lives">Where it lives<a class="headerlink" href="#where-it-lives" title="Permanent link">&para;</a></h2>
 <p>The repository is served from GitHub Pages at
 <a href="https://vergil-project.github.io/packages">https://vergil-project.github.io/packages</a>:</p>
@@ -1354,8 +1358,9 @@ the <code>packages</code> repo itself).</p>
 </ol>
 <p>The exact apt and dnf commands are in the
 <a href="https://github.com/vergil-project/packages#readme"><code>packages</code> README</a> and are
-not repeated here. On a vergil-managed VM, <code>vrg-package</code> performs this
-bootstrap itself and refuses any key whose primary fingerprint differs from the
+not repeated here. When <code>vrg-package</code> builds or install-tests a Python
+product, it performs this bootstrap itself to install the <code>vergil-python</code>
+runtime, and refuses any key whose primary fingerprint differs from the
 pinned one.</p>
 <h2 id="signing-model">Signing model<a class="headerlink" href="#signing-model" title="Permanent link">&para;</a></h2>
 <p>The org has one OpenPGP identity. Its <strong>primary key is RSA-4096, certify-only,
@@ -1371,6 +1376,10 @@ release signs its packages, and <strong><code>index-signing</code></strong> (adm
 <code>packages</code>, where the index is signed. Sigstore build-provenance attestations
 are an extra layer on top of the signatures, never the trust root.</p>
 <h2 id="who-installs-which-way">Who installs which way<a class="headerlink" href="#who-installs-which-way" title="Permanent link">&para;</a></h2>
+<p>Every Vergil install of vergil-tooling is <code>uv tool install</code> from git, on a
+uv-managed Python 3.15. A release install resolves its tag to one commit
+and constrains its dependencies to that commit's own <code>uv.lock</code>. None of
+them reads the package repository.</p>
 <table>
 <thead>
 <tr>
@@ -1381,21 +1390,29 @@ are an extra layer on top of the signatures, never the trust root.</p>
 <tbody>
 <tr>
 <td>Agent VMs (Lima and cloud)</td>
-<td>From the package repository, with <code>apt</code></td>
+<td><code>vrg-vm</code> resolves the identity's version to one commit with <code>git ls-remote</code> and installs that commit from git, constrained by its <code>uv.lock</code></td>
 </tr>
 <tr>
 <td>Dev containers</td>
-<td>From the package repository, with <code>apt</code>, for a release pin; <code>uv tool install</code> from git, on the image's core Python (<code>--python &lt;core&gt;</code>), for a dev ref (see <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/">CI architecture</a>)</td>
+<td>The per-branch cache build installs every ref from git on the image's uv-managed Python 3.15 (<code>VERGIL_CORE_PYTHON_DIR</code>), with interpreter downloads off; a release pin is constrained by its commit's <code>uv.lock</code>, a dev ref is not (see <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/#tier-1-local-pre-commit">CI architecture</a> and <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#how-the-cache-tracks-vergil-tooling-releases">How the cache tracks vergil-tooling releases</a>)</td>
+</tr>
+<tr>
+<td>CI (GitHub-hosted runners and container jobs)</td>
+<td>The vergil-actions setup action installs from git, constrained by the resolved commit's <code>uv.lock</code></td>
 </tr>
 <tr>
 <td>macOS host</td>
-<td><code>uv tool install --python 3.15</code></td>
+<td><code>uv tool install --no-config --python 3.15 --managed-python</code> of the exact release tag, constrained by the tag's <code>uv.lock</code>; the release's consumer refresh runs it, and a first install follows vergil-tooling's <a href="https://vergil-project.github.io/vergil-tooling/latest/getting-started/">Getting Started</a></td>
 </tr>
 </tbody>
 </table>
-<p>On a VM, <code>vrg-vm</code> pins <code>vergil-tooling</code> to the identity's resolved version and
-fails provisioning if the repository has no matching package; it never falls
-back to a <code>uv</code> install. See vergil-tooling's
+<p>On a VM, a version with no release tag, a failed lock export or a failed
+install fails provisioning: <code>vrg-vm</code> never falls back to another version
+or to an unconstrained install. VMs made before the move to <code>uv</code> installed
+vergil-tooling as an apt package. Once the <code>uv</code> install passes its check,
+<code>vrg-vm update</code> removes the vergil packages, the vergil apt source and its
+key from them, and <code>vrg-vm create</code> no longer sets up the package
+repository. See vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/vm-spec/#vergil-tooling-inside-the-vm">VM spec reference</a>.</p>
 <p>Packaged Python products depend on the <code>vergil-python</code> runtime series they were
 built against. <code>vergil-python</code> publishes one package per listed CPython
