@@ -9,6 +9,11 @@ build side lives in vergil-tooling's
 and [CI Architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/)
 guide.
 
+The packages are built, signed, published and install-tested for consumers
+outside Vergil. Vergil itself does not install from them: every Vergil
+install of vergil-tooling uses `uv` from git (see
+[Who installs which way](#who-installs-which-way)).
+
 ## Where it lives
 
 The repository is served from GitHub Pages at
@@ -38,8 +43,9 @@ A host trusts the repository in four steps:
 
 The exact apt and dnf commands are in the
 [`packages` README](https://github.com/vergil-project/packages#readme) and are
-not repeated here. On a vergil-managed VM, `vrg-package` performs this
-bootstrap itself and refuses any key whose primary fingerprint differs from the
+not repeated here. When `vrg-package` builds or install-tests a Python
+product, it performs this bootstrap itself to install the `vergil-python`
+runtime, and refuses any key whose primary fingerprint differs from the
 pinned one.
 
 ## Signing model
@@ -61,15 +67,25 @@ are an extra layer on top of the signatures, never the trust root.
 
 ## Who installs which way
 
+Every Vergil install of vergil-tooling is `uv tool install` from git, on a
+uv-managed Python 3.15. A release install resolves its tag to one commit
+and constrains its dependencies to that commit's own `uv.lock`. None of
+them reads the package repository.
+
 | Environment | How vergil-tooling is installed |
 | --- | --- |
-| Agent VMs (Lima and cloud) | From the package repository, with `apt` |
-| Dev containers | From the package repository, with `apt`, for a release pin; `uv tool install` from git, on the image's core Python (`--python <core>`), for a dev ref (see [CI architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/)) |
-| macOS host | `uv tool install --python 3.15` |
+| Agent VMs (Lima and cloud) | `vrg-vm` resolves the identity's version to one commit with `git ls-remote` and installs that commit from git, constrained by its `uv.lock` |
+| Dev containers | The per-branch cache build installs every ref from git on the image's uv-managed Python 3.15 (`VERGIL_CORE_PYTHON_DIR`), with interpreter downloads off; a release pin is constrained by its commit's `uv.lock`, a dev ref is not (see [CI architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/#tier-1-local-pre-commit) and [How the cache tracks vergil-tooling releases](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#how-the-cache-tracks-vergil-tooling-releases)) |
+| CI (GitHub-hosted runners and container jobs) | The vergil-actions setup action installs from git, constrained by the resolved commit's `uv.lock` |
+| macOS host | `uv tool install --no-config --python 3.15 --managed-python` of the exact release tag, constrained by the tag's `uv.lock`; the release's consumer refresh runs it, and a first install follows vergil-tooling's [Getting Started](https://vergil-project.github.io/vergil-tooling/latest/getting-started/) |
 
-On a VM, `vrg-vm` pins `vergil-tooling` to the identity's resolved version and
-fails provisioning if the repository has no matching package; it never falls
-back to a `uv` install. See vergil-tooling's
+On a VM, a version with no release tag, a failed lock export or a failed
+install fails provisioning: `vrg-vm` never falls back to another version
+or to an unconstrained install. VMs made before the move to `uv` installed
+vergil-tooling as an apt package. Once the `uv` install passes its check,
+`vrg-vm update` removes the vergil packages, the vergil apt source and its
+key from them, and `vrg-vm create` no longer sets up the package
+repository. See vergil-tooling's
 [VM spec reference](https://vergil-project.github.io/vergil-tooling/latest/reference/vm-spec/#vergil-tooling-inside-the-vm).
 
 Packaged Python products depend on the `vergil-python` runtime series they were
