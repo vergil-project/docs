@@ -105,9 +105,11 @@ like any other and keeps its advisory links through every move: every advisory
 it names is retargeted when the item is transferred or recreated, and its one
 advisory is retargeted when it is split. A split of an item naming several
 advisories is refused, since which advisory goes to which task can't be
-inferred; retarget each by hand with `vrg-security-record retarget`, then
-split. See
-vergil-tooling's
+inferred; retarget each by hand with
+`vrg-security-record retarget <GHSA> --from <item> --to <task>`, then split
+(see
+[Retargeting by hand](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#retargeting-by-hand)).
+See vergil-tooling's
 [Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#when-the-issue-moves)
 guide.
 
