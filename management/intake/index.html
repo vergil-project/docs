@@ -1451,12 +1451,13 @@ like any other and keeps its advisory links through every move: every advisory
 it names is retargeted when the item is transferred or recreated, and its one
 advisory is retargeted when it is split. A split of an item naming several
 advisories is refused, since which advisory goes to which task can't be
-inferred; retarget each by hand with
-<code>vrg-security-record retarget &lt;GHSA&gt; --from &lt;item&gt; --to &lt;task&gt;</code>, then split
-(see
-<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#retargeting-by-hand">Retargeting by hand</a>).
-See vergil-tooling's
-<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#when-the-issue-moves">Security Records</a>
+inferred; retarget each by hand, one at a time, with
+<code>vrg-security-record retarget &lt;GHSA&gt; --from &lt;item&gt; --to &lt;task&gt; [--to …]</code>,
+then split. The <code>--to</code> set is the complete set the advisory tracks afterwards:
+a <code>--to</code> for each task that fixes it and for every other open issue it still
+tracks, since <code>retarget</code> refuses a set that leaves one out and prints the
+command that would succeed. See vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#retargeting-by-hand">Security Records</a>
 guide.</p>
 <p>The intake and planning queues are meant to stay drained: a growing one is a
 signal to review it, not a place for work to live. The deferred queue is not

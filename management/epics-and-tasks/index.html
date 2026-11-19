@@ -1508,11 +1508,17 @@ ones, strips the retired labels, moves a now-public repository's self-homed
 queue items under <code>.github</code>, and attaches every orphan to its home's intake
 epic. It never closes an item, and it stops loudly — never silently skipping —
 when a queue is too full to accept more.</p>
-<p>After the orphan pass, the sweep runs a <strong>security-records pass</strong> over the
-private draft advisories in the org's <code>.github</code>. Each advisory follows the
-neutral <code>security</code> issues it tracks — closed once every one of them is closed,
-a draft while any is open — and broken pairs are reported for a human to
-resolve, never repaired. See vergil-tooling's
+<p>The sweep does not run the <strong>security-records pass</strong>: <code>vrg-epic-audit --close</code>
+makes no security-advisory call. The pass is <code>vrg-security-record sync</code>, which
+the human or the user agent runs over the private draft advisories in the org's
+<code>.github</code>; nothing runs it on a schedule, and the read-only <code>vrg-epic-audit</code>
+only previews it. Each advisory follows the neutral <code>security</code> issues it
+tracks: closed once every one of them is closed as completed and none is a
+queue item, a draft while any is open. The <strong>close guard</strong> keeps an advisory
+<code>draft</code>, reported on a <code>held:</code> line, while any issue it tracks is a queue item
+(live or archived) or was closed with a reason other than completed; retarget
+it to the task that fixes it, or close it with <code>vrg-security-record close</code> and
+a reason. Broken pairs are reported for a human to resolve, never repaired. See vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#managing-a-record-through-its-issue">Security Records</a>
 guide.</p>
 <p>When a <strong>finite epic</strong> is found outside its home, relocate it: move the issue
