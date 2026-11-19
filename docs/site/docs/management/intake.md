@@ -105,12 +105,13 @@ like any other and keeps its advisory links through every move: every advisory
 it names is retargeted when the item is transferred or recreated, and its one
 advisory is retargeted when it is split. A split of an item naming several
 advisories is refused, since which advisory goes to which task can't be
-inferred; retarget each by hand with
-`vrg-security-record retarget <GHSA> --from <item> --to <task>`, then split
-(see
-[Retargeting by hand](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#retargeting-by-hand)).
-See vergil-tooling's
-[Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#when-the-issue-moves)
+inferred; retarget each by hand, one at a time, with
+`vrg-security-record retarget <GHSA> --from <item> --to <task> [--to …]`,
+then split. The `--to` set is the complete set the advisory tracks afterwards:
+a `--to` for each task that fixes it and for every other open issue it still
+tracks, since `retarget` refuses a set that leaves one out and prints the
+command that would succeed. See vergil-tooling's
+[Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#retargeting-by-hand)
 guide.
 
 The intake and planning queues are meant to stay drained: a growing one is a

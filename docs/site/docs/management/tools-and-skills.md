@@ -63,10 +63,12 @@ hands off, and a human takes it across the line.
   split of an item naming several advisories is refused)
 - `vrg-queue intake|planning|deferred` (the read-only view of one queue — intake
   oldest first, deferred least recently deferred first — or of all three with a
-  bare `vrg-queue`; a planning item that any security advisory still tracks is
-  held at in-progress until each advisory it names is retargeted to the task or
-  tasks that fix it. Planning and deferred lines show each item's epic size
-  (`M/14`, `?` unsized, `!` in error), and `vrg-queue planning` also takes
+  bare `vrg-queue`; a planning item is held at in-progress, never shown as
+  ready-to-close, while any security advisory still tracks it, or while it is
+  `security`-labelled and names an advisory that cannot be read, until each
+  advisory is retargeted to the task or tasks that fix it. Planning and
+  deferred lines show each item's epic size (`M/14`, `?` unsized, `!` in
+  error), and `vrg-queue planning` also takes
   `--sort age|size|tasks` and `--size LIST` to order and filter by it. An item
   whose sizing is in error makes the run exit 2, after the full listing
   (exit 1 is a queue that could not be read or a usage error). See the
@@ -82,7 +84,11 @@ hands off, and a human takes it across the line.
   `vrg-queue`)
 - `vrg-security-record` (record a security finding as a private draft advisory
   in `<org>/.github`, paired with a neutral `security`-labelled intake issue;
-  `create`, `list`, `show`, `retarget` — see vergil-tooling's
+  `create`, `list`, `show`, `retarget`, `close` (close a draft advisory with a
+  reason posted on every issue it tracks), `note` (append a dated note to an
+  advisory) and `sync` (the **security-records pass**: sync each advisory's
+  state to its issues and report broken pairs, run by the human or the user
+  agent, never on a schedule) — see vergil-tooling's
   [Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/)
   guide)
 
@@ -103,8 +109,9 @@ out.
 - `vrg-epic-audit` (drift and invariant violations — read-only, with a gated
   `--close`; under `--close`, run daily by the scheduled sweep, it also runs the
   **orphan pass** that attaches every unparented issue to its home's intake
-  epic, then the **security-records pass** that syncs each advisory's state to
-  its issues and reports broken pairs)
+  epic. `--close` makes no security-advisory call: the security-records pass is
+  `vrg-security-record sync`, which the read-only `vrg-epic-audit` only
+  previews)
 
 To relocate a **finite** epic into its correct home (`.github`), move the issue
 with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.

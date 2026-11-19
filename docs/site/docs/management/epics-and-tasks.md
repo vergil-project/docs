@@ -158,11 +158,17 @@ queue items under `.github`, and attaches every orphan to its home's intake
 epic. It never closes an item, and it stops loudly — never silently skipping —
 when a queue is too full to accept more.
 
-After the orphan pass, the sweep runs a **security-records pass** over the
-private draft advisories in the org's `.github`. Each advisory follows the
-neutral `security` issues it tracks — closed once every one of them is closed,
-a draft while any is open — and broken pairs are reported for a human to
-resolve, never repaired. See vergil-tooling's
+The sweep does not run the **security-records pass**: `vrg-epic-audit --close`
+makes no security-advisory call. The pass is `vrg-security-record sync`, which
+the human or the user agent runs over the private draft advisories in the org's
+`.github`; nothing runs it on a schedule, and the read-only `vrg-epic-audit`
+only previews it. Each advisory follows the neutral `security` issues it
+tracks: closed once every one of them is closed as completed and none is a
+queue item, a draft while any is open. The **close guard** keeps an advisory
+`draft`, reported on a `held:` line, while any issue it tracks is a queue item
+(live or archived) or was closed with a reason other than completed; retarget
+it to the task that fixes it, or close it with `vrg-security-record close` and
+a reason. Broken pairs are reported for a human to resolve, never repaired. See vergil-tooling's
 [Security Records](https://vergil-project.github.io/vergil-tooling/latest/guides/security-records/#managing-a-record-through-its-issue)
 guide.
 
