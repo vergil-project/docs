@@ -1,0 +1,1667 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Activity log: vergil-tooling - Vergil</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#activity-log-vergil-tooling" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Vergil" class="md-header__button md-logo" aria-label="Vergil" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Vergil
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Activity log: vergil-tooling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vergil-project/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../management/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Management
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../logbook/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Logbook
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../languages/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Supported languages
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../ci/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Continuous integration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../packages/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Package repository
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Vergil" class="md-nav__button md-logo" aria-label="Vergil" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Vergil
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vergil-project/docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../management/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Management
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Management
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/epics-and-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Epics & tasks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/intake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intake, planning & deferred
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/tools-and-skills/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools & skills
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../management/hoshin-kanri/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoshin kanri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Activity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../logbook/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logbook
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Logbook
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../logbook/hoshin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hoshin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../logbook/fleet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fleet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../logbook/daily/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Daily
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../logbook/weekly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Weekly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../logbook/monthly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monthly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../logbook/quarterly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quarterly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../logbook/yearly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yearly
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../languages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supported languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ci/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Package repository
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-20
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-19
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-18
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-17
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-16
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-15
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-14
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-13
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-12
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-11
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-10
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-09" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-09
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-08" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-08
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="activity-log-vergil-tooling">Activity log: vergil-tooling<a class="headerlink" href="#activity-log-vergil-tooling" title="Permanent link">&para;</a></h1>
+<p><em>277 issue(s) closed in the last 30 days. Generated; do not edit.</em></p>
+<h2 id="2026-11-20">2026-11-20<a class="headerlink" href="#2026-11-20" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4710">vergil-project/vergil-tooling#4710</a> Documentation review: install vergil-tooling with uv everywhere</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4797">vergil-project/vergil-tooling#4797</a> Add the hoshin standing epic</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4799">vergil-project/vergil-tooling#4799</a> Add the proxy epic model and exempt proxies from rollup and the development-epic checks</li>
+</ul>
+<h2 id="2026-11-19">2026-11-19<a class="headerlink" href="#2026-11-19" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4603">vergil-project/vergil-tooling#4603</a> vrg-host: report vergil-tooling and skip it during upgrade, leaving its install to the release</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4697">vergil-project/vergil-tooling#4697</a> Documentation review: harden the security-planning flow</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4707">vergil-project/vergil-tooling#4707</a> Documentation review: TypeScript supply chain and the npm updater</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4736">vergil-project/vergil-tooling#4736</a> Protect release tag creation in the Tag protection ruleset</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4737">vergil-project/vergil-tooling#4737</a> Deploy: apply the release tag ruleset in vergil-project</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4738">vergil-project/vergil-tooling#4738</a> Add tooling_install and lock the Mac's consumer refresh</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4739">vergil-project/vergil-tooling#4739</a> Run consumer-refresh right after confirm-main, rolled up to one line</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4740">vergil-project/vergil-tooling#4740</a> Install vergil-tooling in the cache build from one release commit with uv</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4741">vergil-project/vergil-tooling#4741</a> Install vergil-tooling on VMs with uv and remove the vergil packages</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4742">vergil-project/vergil-tooling#4742</a> Guarantee \~/.local/bin on PATH for non-login remote commands on VMs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4743">vergil-project/vergil-tooling#4743</a> Deploy: release vergil-tooling and move the Mac and every VM</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4744">vergil-project/vergil-tooling#4744</a> vrg-submit-pr: drop the confirmation and --yes, replace body previews with a compact selection table</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4747">vergil-project/vergil-tooling#4747</a> Pass the automation App secrets in the cd.yml that repo_init generates</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4752">vergil-project/vergil-tooling#4752</a> Hook-environment tests fail on any branch named with 'secret'</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4762">vergil-project/vergil-tooling#4762</a> vrg-gh: select the installation token from every form of target owner, or refuse</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4791">vergil-project/vergil-tooling#4791</a> Double the default disk size of new agent VMs</li>
+</ul>
+<h2 id="2026-11-18">2026-11-18<a class="headerlink" href="#2026-11-18" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4197">vergil-project/vergil-tooling#4197</a> vrg-validate: run the *.test.sh shell harnesses, not only shellcheck them</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4529">vergil-project/vergil-tooling#4529</a> Documentation review: parallel PR merging</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4575">vergil-project/vergil-tooling#4575</a> vrg-submit-pr finalizes by default; --no-finalize opts out</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4576">vergil-project/vergil-tooling#4576</a> Supersede the up-to-date rationale and update the provenance mitigation in the specs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4638">vergil-project/vergil-tooling#4638</a> Documentation review: TypeScript lifecycle PRs and toolchain enforcement</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4649">vergil-project/vergil-tooling#4649</a> Documentation review: remove the cutover vergil-tooling install switch</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4658">vergil-project/vergil-tooling#4658</a> TypeScript toolchain-setting errors in vrg-validate</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4659">vergil-project/vergil-tooling#4659</a> Two-sided engines.node floor warning for TypeScript</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4661">vergil-project/vergil-tooling#4661</a> Withhold Node and npm host variables from containers, with a notice</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4670">vergil-project/vergil-tooling#4670</a> Docs PR also closes the epic's planning issue: report-ready and vrg-submit-pr add its Closes line</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4677">vergil-project/vergil-tooling#4677</a> vrg-finalize-pr prints a status table on each poll of the watch</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4678">vergil-project/vergil-tooling#4678</a> vrg-repo-status shows a submitted PR that cannot merge, with its reason</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4682">vergil-project/vergil-tooling#4682</a> TypeScript audit: time-boxed exceptions for advisories with no fix, like .trivyignore</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4684">vergil-project/vergil-tooling#4684</a> Rust validate: a stale target/ from an older toolchain no longer fails the coverage gate</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4692">vergil-project/vergil-tooling#4692</a> Finalize watch: a check cancelled by a superseding CI run is not a failure</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4694">vergil-project/vergil-tooling#4694</a> vrg-finalize-pr shows the watch as a live, collapsing progress stage</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4695">vergil-project/vergil-tooling#4695</a> Provenance: drop advisories and remove --allow-provenance-violation; a violation always fails</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4696">vergil-project/vergil-tooling#4696</a> vrg-submit-pr: a retried gh pr create adopts the PR the first attempt opened</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4699">vergil-project/vergil-tooling#4699</a> PR creators: adopt the PR a failed gh pr create opened, in mechanized, release and update-deps PRs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4706">vergil-project/vergil-tooling#4706</a> Dev-image provisioning waits for a just-released tooling package instead of failing</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4708">vergil-project/vergil-tooling#4708</a> vrg-finalize-pr: show the final report as one PR table like vrg-repo-status</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4709">vergil-project/vergil-tooling#4709</a> vrg-submit-pr: use the vrg-release step rollup summary for most of its output</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4711">vergil-project/vergil-tooling#4711</a> vrg-submit-pr: forward --output-format and --output-window to the chained vrg-finalize-pr</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4712">vergil-project/vergil-tooling#4712</a> vrg-finalize-pr: name the real exit code in the settle summary, not a fixed exit 1</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4718">vergil-project/vergil-tooling#4718</a> Require retarget's source and refuse to drop an open tracked issue</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4719">vergil-project/vergil-tooling#4719</a> Hold an advisory open in the sync while a queue item or a non-completed close ended it</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4721">vergil-project/vergil-tooling#4721</a> Share the time-boxed exception rules between the npm gates</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4722">vergil-project/vergil-tooling#4722</a> Gate TypeScript dependency licenses with vrg-npm-license-gate</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4723">vergil-project/vergil-tooling#4723</a> vrg-update-deps: add the npm updater and its held-back report</li>
+</ul>
+<h2 id="2026-11-17">2026-11-17<a class="headerlink" href="#2026-11-17" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4108">vergil-project/vergil-tooling#4108</a> Prefer machine-readable output when parsing command-line tools</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4382">vergil-project/vergil-tooling#4382</a> merge-review: vrg-merge-review-check verifies the stored result's capture record</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4433">vergil-project/vergil-tooling#4433</a> update logs its resolved identity mode and each ruleset's bypass actors read back (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4442">vergil-project/vergil-tooling#4442</a> vrg-release adopt_worktree: surface git failures as a clear ReleaseError</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4443">vergil-project/vergil-tooling#4443</a> Documentation review: Rust validation, supply-chain and dependency-update parity</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4444">vergil-project/vergil-tooling#4444</a> Documentation review: upstream-refresh PRs merge themselves (epic vergil-project/.github#1168)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4451">vergil-project/vergil-tooling#4451</a> Documentation review: TypeScript through the full cycle (epic 1174)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4490">vergil-project/vergil-tooling#4490</a> Docs: retarget or remove links to Vergil docs sites that no longer exist</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4539">vergil-project/vergil-tooling#4539</a> Path fence: a hash line may change only with its block's version (epic vergil-project/.github#1168)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4541">vergil-project/vergil-tooling#4541</a> Keep Vergil-managed files out of TypeScript LINT's Prettier check</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4542">vergil-project/vergil-tooling#4542</a> Release vergil-tooling with the path fence's hash-line rule (epic vergil-project/.github#1168)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4543">vergil-project/vergil-tooling#4543</a> Path fence: name the hash rule in the whole-file diff refusal message (epic vergil-project/.github#1168)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4550">vergil-project/vergil-tooling#4550</a> Treat a container cache as stale when the pinned vergil-tooling line has a newer release</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4552">vergil-project/vergil-tooling#4552</a> Write a minimal package.json when repo-init creates a TypeScript repo</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4553">vergil-project/vergil-tooling#4553</a> Write Prettier-clean release notes and keep release output out of LINT's Prettier check</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4561">vergil-project/vergil-tooling#4561</a> Add lib/cd_runs.py and require a green develop CD run before a release</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4562">vergil-project/vergil-tooling#4562</a> vrg-release installs by default; --no-install skips it</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4563">vergil-project/vergil-tooling#4563</a> Split the CI gates ruleset into develop and main; producibility covers both</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4564">vergil-project/vergil-tooling#4564</a> Config audit clears classic protection's up-to-date flag on develop</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4565">vergil-project/vergil-tooling#4565</a> confirm-main re-dispatches a main CD run whose release job was superseded</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4566">vergil-project/vergil-tooling#4566</a> Add lib/checkout_lock.py; --cleanup-only and update-deps take it</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4567">vergil-project/vergil-tooling#4567</a> Release preflight fast-forwards develop under the checkout lock</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4568">vergil-project/vergil-tooling#4568</a> Add lib/auto_merge.py; mechanized PRs use it</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4569">vergil-project/vergil-tooling#4569</a> Provenance treats an agent enabling auto-merge as a violation</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4570">vergil-project/vergil-tooling#4570</a> Add vrg-pr-workflow batch-check for a submitted batch PR</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4571">vergil-project/vergil-tooling#4571</a> vrg-finalize-pr reports develop CD instead of waiting; --wait-cd opts in</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4572">vergil-project/vergil-tooling#4572</a> Add lib/finalize_watch.py: the batch watch phase</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4573">vergil-project/vergil-tooling#4573</a> Rebuild vrg-finalize-pr on the batch watch and the checkout lock</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4574">vergil-project/vergil-tooling#4574</a> vrg-submit-pr opens every PR through one path with auto-merge on</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4577">vergil-project/vergil-tooling#4577</a> Security follow-up from design review of #410</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4578">vergil-project/vergil-tooling#4578</a> Documentation review: narrow vergil-tooling to the newest Python series</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4579">vergil-project/vergil-tooling#4579</a> Private-repo enumeration cannot tell 'none' from 'cannot see'</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4580">vergil-project/vergil-tooling#4580</a> A new repo's first CD run on main fails because it has no release PR</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4581">vergil-project/vergil-tooling#4581</a> vrg-repo-status: show open PRs on origin that have no local worktree</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4582">vergil-project/vergil-tooling#4582</a> vrg-host reports brew tools as current from a stale Homebrew cache</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4584">vergil-project/vergil-tooling#4584</a> vrg-merge-review-request: carry every batch issue's scope for a fix to an open batch PR</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4585">vergil-project/vergil-tooling#4585</a> Release gate: the ancestor-run refusal no longer reports a 0s wait</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4587">vergil-project/vergil-tooling#4587</a> vrg-version bump leaves a half-bumped tree when the lockfile step fails</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4594">vergil-project/vergil-tooling#4594</a> vrg-validate --check &lt;kind&gt; passes when no language is detected</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4596">vergil-project/vergil-tooling#4596</a> vrg-upstream-refresh publish: log the PR poller's lines as they happen, not at step end</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4597">vergil-project/vergil-tooling#4597</a> vrg-gh: a read-only command to fetch one Actions job's log</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4598">vergil-project/vergil-tooling#4598</a> vrg-intake-route: allow routing an ad-hoc item to planning</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4599">vergil-project/vergil-tooling#4599</a> docs-links check: flag links to Vergil docs sites that are not published</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4600">vergil-project/vergil-tooling#4600</a> vrg-generate-commands: drop 'Sphinx' from the --mapping-pages-dir help</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4604">vergil-project/vergil-tooling#4604</a> Documentation review: machine-readable tool output (epic 1268)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4607">vergil-project/vergil-tooling#4607</a> Name --python 3.15 in container_cache, vm_packages dev installs and the developer docs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4608">vergil-project/vergil-tooling#4608</a> Raise vergil-tooling's floor to Python 3.15</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4624">vergil-project/vergil-tooling#4624</a> Treat repo-init's dependency-free package.json as not bootstrapped for TypeScript</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4639">vergil-project/vergil-tooling#4639</a> Make the Python version resolver honour requires-python</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4640">vergil-project/vergil-tooling#4640</a> Lint-clean scripts/perf/ and bring it under the vrg-validate lint gate</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4648">vergil-project/vergil-tooling#4648</a> vrg-pr-await waits for the PR to merge: exit 0 merged, exit 1 cannot merge</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4657">vergil-project/vergil-tooling#4657</a> Remove the cutover install switch from the container cache build</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4662">vergil-project/vergil-tooling#4662</a> Finalize: --allow-provenance-violation no longer releases past an already-merged violation</li>
+</ul>
+<h2 id="2026-11-16">2026-11-16<a class="headerlink" href="#2026-11-16" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4106">vergil-project/vergil-tooling#4106</a> Audit vergil.toml keys in org .github profile repos; prune dead keys and pin down the documentation-profile shape</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4293">vergil-project/vergil-tooling#4293</a> vrg-release promotes the vX.Y tag before the package index has the release, so git and packaged installs briefly disagree</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4294">vergil-project/vergil-tooling#4294</a> vrg-finalize-pr waits out its timeout when the semgrep job fails before the required Semgrep OSS check is registered</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4295">vergil-project/vergil-tooling#4295</a> vrg-update-deps: record what each dependency update changed (count and packages)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4429">vergil-project/vergil-tooling#4429</a> Docs: mark Plan 2 complete and update the VM plans' status tables</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4445">vergil-project/vergil-tooling#4445</a> vrg-validate: add a local trivy stage that mirrors CI's security / trivy scan</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4446">vergil-project/vergil-tooling#4446</a> vrg-validate: add a docs stage that runs the strict mkdocs build</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4447">vergil-project/vergil-tooling#4447</a> vrg-semgrep-scan: own the per-language extra rulesets (p/c, p/typescript)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4448">vergil-project/vergil-tooling#4448</a> CI gates: integration-tests = true requires a check that no CI job produces</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4462">vergil-project/vergil-tooling#4462</a> vrg-github-repo-init: refuse integration-tests before creating the repository on the interactive path</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4469">vergil-project/vergil-tooling#4469</a> vrg-container-run: create the trivy cache volume only when missing, so nerdctl stops warning on every launch</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4470">vergil-project/vergil-tooling#4470</a> Rust: enforce Cargo.lock in validation and keep the warmup from rewriting it</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4471">vergil-project/vergil-tooling#4471</a> Rust: validate every workspace member in the gate</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4472">vergil-project/vergil-tooling#4472</a> Rust: require 100% region coverage and locate uncovered regions</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4473">vergil-project/vergil-tooling#4473</a> Rust: write lint and typecheck reports</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4474">vergil-project/vergil-tooling#4474</a> vrg-version: read and bump Rust workspace versions</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4475">vergil-project/vergil-tooling#4475</a> vrg-update-deps: add the Cargo updater and its held-back report</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4476">vergil-project/vergil-tooling#4476</a> Rust: build the release profile in vrg-validate</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4477">vergil-project/vergil-tooling#4477</a> Documentation review: planning-queue sizing</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4486">vergil-project/vergil-tooling#4486</a> Add the epic_size module and the four epic-size labels</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4487">vergil-project/vergil-tooling#4487</a> Add vrg-intake-route size, and sizing on the planning route</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4488">vergil-project/vergil-tooling#4488</a> Show, sort and filter vrg-queue by epic size, with exit 2 for sizing errors</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4489">vergil-project/vergil-tooling#4489</a> Clear an item's epic size when it leaves as a one-off</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4494">vergil-project/vergil-tooling#4494</a> App token source: mint, renew and revoke repo-scoped automation tokens in-process (epic vergil-project/.github#1168, Task 1)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4495">vergil-project/vergil-tooling#4495</a> Upstream-refresh prepare, the paths config key and the path fence (epic vergil-project/.github#1168, Task 3a)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4496">vergil-project/vergil-tooling#4496</a> Route the token source through every gh and git call (epic vergil-project/.github#1168, Task 2)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4497">vergil-project/vergil-tooling#4497</a> Upstream-refresh publish, the CLI modes and the tooling docs (epic vergil-project/.github#1168, Task 3b)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4498">vergil-project/vergil-tooling#4498</a> D1: release vergil-tooling with the token source and the new upstream-refresh (epic vergil-project/.github#1168)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4500">vergil-project/vergil-tooling#4500</a> Require a CI version pin only for a multi-family window</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4501">vergil-project/vergil-tooling#4501</a> Fail on a package.json that cannot be parsed</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4502">vergil-project/vergil-tooling#4502</a> Add the cross-language tool-ownership guideline</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4503">vergil-project/vergil-tooling#4503</a> Add a language-neutral BUILD check kind</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4504">vergil-project/vergil-tooling#4504</a> Manage the TypeScript base configs as per-language files</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4505">vergil-project/vergil-tooling#4505</a> Run TypeScript gates on the repo's own tools within accepted ranges</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4506">vergil-project/vergil-tooling#4506</a> Check that TypeScript entry points build on the managed configs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4507">vergil-project/vergil-tooling#4507</a> vrg-version: bump a TypeScript repo's package.json and lockfile</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4508">vergil-project/vergil-tooling#4508</a> Write TypeScript quality, test and audit evidence</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4509">vergil-project/vergil-tooling#4509</a> Build TypeScript in validate and at release</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4536">vergil-project/vergil-tooling#4536</a> Docs: name the unknown size label and bare vrg-queue in the sizing docs</li>
+</ul>
+<h2 id="2026-11-15">2026-11-15<a class="headerlink" href="#2026-11-15" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4268">vergil-project/vergil-tooling#4268</a> Documentation review: automatic fleet sync (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4296">vergil-project/vergil-tooling#4296</a> Let agents move a follow-on brainstorm from a development epic into planning</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4298">vergil-project/vergil-tooling#4298</a> vrg-finalize-pr: verify the head-moved retry against gh's real --match-head-commit error</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4309">vergil-project/vergil-tooling#4309</a> Retire the vrg-*-sync tools (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4317">vergil-project/vergil-tooling#4317</a> Documentation review: language fixture repos</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4319">vergil-project/vergil-tooling#4319</a> Documentation review: Rust toolchain lifecycle and enforcement (epic vergil-project/.github#1095)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4365">vergil-project/vergil-tooling#4365</a> Fix failed dependency update for 2.1.310</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4367">vergil-project/vergil-tooling#4367</a> vrg-release: an interrupt before the progress block is written leaves an unrecoverable release</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4395">vergil-project/vergil-tooling#4395</a> Rust test gate writes junit.xml with cargo llvm-cov nextest</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4402">vergil-project/vergil-tooling#4402</a> CI evidence bundle README describes only the entries present</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4405">vergil-project/vergil-tooling#4405</a> vrg-release --resume cannot recover a failed CD release job</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4407">vergil-project/vergil-tooling#4407</a> vrg-release refreshes the lockfile on the host, so a Rust release needs cargo installed</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4414">vergil-project/vergil-tooling#4414</a> vrg-release audits vergil-tooling's managed files against the in-tree templates being released (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4415">vergil-project/vergil-tooling#4415</a> vrg-release --resume cannot re-run back-merge-bump after it created the post-release branch</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4423">vergil-project/vergil-tooling#4423</a> Dependency audit: retry pip-audit on transient PyPI timeouts instead of failing the merge</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4427">vergil-project/vergil-tooling#4427</a> Docs: retire or update the in-progress plans that name the deleted vergil-agent App</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4430">vergil-project/vergil-tooling#4430</a> repo-init workflow-registration workaround: say it is kept on purpose, not tracked by #1129</li>
+</ul>
+<h2 id="2026-11-14">2026-11-14<a class="headerlink" href="#2026-11-14" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4102">vergil-project/vergil-tooling#4102</a> Escape issue and PR titles in the generated roadmap and activity pages</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4104">vergil-project/vergil-tooling#4104</a> Relax the managed CLAUDE.md validation rule: ad hoc tool runs through vrg-container-run, full vrg-validate to finish</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4105">vergil-project/vergil-tooling#4105</a> No read-only way for the user agent to list a PR's inline review comments</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4209">vergil-project/vergil-tooling#4209</a> Fix failed dependency update for 2.1.301</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4291">vergil-project/vergil-tooling#4291</a> vrg-intake-route reports a one-off route as done while the item is still listed under the intake epic</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4297">vergil-project/vergil-tooling#4297</a> batch-show and report-ready spell batch issue refs differently (#N vs N)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4299">vergil-project/vergil-tooling#4299</a> vrg-security-record retarget exits 1 after a transfer, because unmarking the old issue ref returns 404</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4308">vergil-project/vergil-tooling#4308</a> Release the tooling and run the same-day update sweep (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4354">vergil-project/vergil-tooling#4354</a> Drop unused-allowed-license from the packaged rust deny.toml</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4366">vergil-project/vergil-tooling#4366</a> Document vrg-queue adhoc in github-issues.md and name epic-review in the queue-item refusal passage</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4370">vergil-project/vergil-tooling#4370</a> Mechanized PRs watch until merged and update a branch that falls behind develop (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4371">vergil-project/vergil-tooling#4371</a> vrg-github-repo-init: Pages step fails after a successful create and cannot resume</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4376">vergil-project/vergil-tooling#4376</a> vrg-github-repo-init: check every workflow is registered and work around GitHub missing some</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4378">vergil-project/vergil-tooling#4378</a> feat(rust): the Rust test gate also runs doctests</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4379">vergil-project/vergil-tooling#4379</a> feat(rust): the Rust lint gate lints all targets, including tests</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4380">vergil-project/vergil-tooling#4380</a> Move the nightly scheduled crons to the 01:xx UTC hour</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4381">vergil-project/vergil-tooling#4381</a> CodeQL language lists disagree on rust: repo-init disables CodeQL the ruleset requires</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4384">vergil-project/vergil-tooling#4384</a> vrg-validate fails install on a Rust repo with no crate yet</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4389">vergil-project/vergil-tooling#4389</a> Release vergil-tooling with the fixture-gap fixes</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4394">vergil-project/vergil-tooling#4394</a> Rust test and audit gates write evidence report files</li>
+</ul>
+<h2 id="2026-11-13">2026-11-13<a class="headerlink" href="#2026-11-13" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4267">vergil-project/vergil-tooling#4267</a> Let a validation run commit to throwaway validate/* fixture branches</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4300">vergil-project/vergil-tooling#4300</a> Add the automation identity mode (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4301">vergil-project/vergil-tooling#4301</a> Run audit and update in a fresh clone of develop (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4302">vergil-project/vergil-tooling#4302</a> Fixers for the hook-guard shim, CLAUDE.md and Claude settings (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4303">vergil-project/vergil-tooling#4303</a> Fixers for .gitignore, dependabot.yml and workflow ref pins (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4304">vergil-project/vergil-tooling#4304</a> The mechanized-PR library (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4305">vergil-project/vergil-tooling#4305</a> Desired state: auto-merge, the automation-prefix ruleset, fatal bypass reads (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4306">vergil-project/vergil-tooling#4306</a> vrg-github-repo-config update; deprecate apply (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4307">vergil-project/vergil-tooling#4307</a> vrg-repo-status shows automation PRs as their own type (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4311">vergil-project/vergil-tooling#4311</a> Narrow the catch-all exception in _cwd_matches_repo (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4313">vergil-project/vergil-tooling#4313</a> Move the advisory-state sync out of vrg-epic-audit --close (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4322">vergil-project/vergil-tooling#4322</a> Record repo settings GitHub did not return as not checked, never as False (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4326">vergil-project/vergil-tooling#4326</a> Name the permission in the not-checked message for merge settings (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4327">vergil-project/vergil-tooling#4327</a> Settle how an agent verifies an apply now that diff exits 2 on not-checked settings (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4330">vergil-project/vergil-tooling#4330</a> intake-route: allow one-off from the planning queue</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4331">vergil-project/vergil-tooling#4331</a> Name epic-review in queue messages and docs, and drop skill names from queue epic bodies</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4333">vergil-project/vergil-tooling#4333</a> Add vrg-queue adhoc</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4334">vergil-project/vergil-tooling#4334</a> Report in-flight ad-hoc tasks in vrg-queue adhoc</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4336">vergil-project/vergil-tooling#4336</a> Add mq-rest-admin-project to IN_SCOPE_ORGS and the identity docs (epic vergil-project/.github#1064)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4342">vergil-project/vergil-tooling#4342</a> Rust floor and toolchain-file checks, and the Rust standards page</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4343">vergil-project/vergil-tooling#4343</a> rustup variables never forwarded into a container</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4344">vergil-project/vergil-tooling#4344</a> Rust allowed actions drop actions-rust-lang/*</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4346">vergil-project/vergil-tooling#4346</a> Ignore target/ in rust repos: fill the Rust .gitignore fragment</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4347">vergil-project/vergil-tooling#4347</a> Packaged cargo-deny license policy for rust</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4348">vergil-project/vergil-tooling#4348</a> vrg-issue-create: operational task bodies from a sectioned file</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4349">vergil-project/vergil-tooling#4349</a> Release vergil-tooling with the fixture prerequisites</li>
+</ul>
+<h2 id="2026-11-12">2026-11-12<a class="headerlink" href="#2026-11-12" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4103">vergil-project/vergil-tooling#4103</a> Drop markdownlint MD013 and collapse the strict and prose passes into one</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4129">vergil-project/vergil-tooling#4129</a> feat(validate): refuse ubuntu-latest in workflows</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4186">vergil-project/vergil-tooling#4186</a> Retry transient network errors when minting GitHub App tokens</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4198">vergil-project/vergil-tooling#4198</a> Documentation review: batched same-repo PRs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4222">vergil-project/vergil-tooling#4222</a> vrg-pr-workflow: batch-start, batch-extract and batch-show (the batch marker)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4223">vergil-project/vergil-tooling#4223</a> Workflow state and report-ready: carry an ordered issue list</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4225">vergil-project/vergil-tooling#4225</a> vrg-submit-pr: per-issue checks and one Closes line per issue</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4226">vergil-project/vergil-tooling#4226</a> vrg-finalize-pr: detect a batch PR, update it by rebase, re-check and rebase-merge</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4227">vergil-project/vergil-tooling#4227</a> Deploy the batch tooling and skills (release and install)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4228">vergil-project/vergil-tooling#4228</a> Validate a live batch end to end</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4230">vergil-project/vergil-tooling#4230</a> feat(package): publish the apt repository's indexes by hash, so a publish cannot race apt clients</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4231">vergil-project/vergil-tooling#4231</a> Fix failed dependency update for 2.1.302</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4237">vergil-project/vergil-tooling#4237</a> ci(package): revert package CI to the prod- package images after the Ubuntu 24.04 cutover</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4253">vergil-project/vergil-tooling#4253</a> fix(finalize-pr): stop saying a submitted PR is frozen to agents in the merge-conflict message</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4254">vergil-project/vergil-tooling#4254</a> docs(claude-md): name the batch worktree form and the freeze lifting at submit in the consumer template</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4256">vergil-project/vergil-tooling#4256</a> Documentation review: vrg-repo-status rename and pending-release section</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4257">vergil-project/vergil-tooling#4257</a> fix(finalize-pr): drop the last frozen-to-agents claim and describe the conflict steps as #4253 makes them</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4260">vergil-project/vergil-tooling#4260</a> docs(site): describe the Ubuntu 24.04 images and link the OS-usage table</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4266">vergil-project/vergil-tooling#4266</a> test_retry: test_raises_after_max_retries uses match='', which always passes</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4269">vergil-project/vergil-tooling#4269</a> Rename vrg-worktree-status to vrg-repo-status</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4270">vergil-project/vergil-tooling#4270</a> Add the pending-release data layer (lib/pending_release.py)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4271">vergil-project/vergil-tooling#4271</a> Show the Pending release section in vrg-repo-status</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4272">vergil-project/vergil-tooling#4272</a> Validate vrg-repo-status's Pending release section against live data</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4279">vergil-project/vergil-tooling#4279</a> vrg-repo-status: pluralise the worktree summary counts</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4280">vergil-project/vergil-tooling#4280</a> The report-ready freeze refusal names only the first issue of a batch</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4282">vergil-project/vergil-tooling#4282</a> vrg-repo-status: put the Pending release heading and release line on one line</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4283">vergil-project/vergil-tooling#4283</a> Releasing guide: say the Pending release section lists every change, not every PR</li>
+</ul>
+<h2 id="2026-11-11">2026-11-11<a class="headerlink" href="#2026-11-11" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4156">vergil-project/vergil-tooling#4156</a> Docs review: retention-first package index</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4182">vergil-project/vergil-tooling#4182</a> Security finding from a design review</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4188">vergil-project/vergil-tooling#4188</a> vrg-semgrep-scan: print semgrep's error output when the scan fails</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4199">vergil-project/vergil-tooling#4199</a> feat(package): add APT::Update::Error-Mode=any to APT_FAIL_FAST, to match pkg-ubuntu's 80-vergil-fast-fail</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4200">vergil-project/vergil-tooling#4200</a> Review the PR and release tooling's wait timeouts against measured step durations (vrg-finalize-pr's 1800 s is shorter than a full image rebuild)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4202">vergil-project/vergil-tooling#4202</a> ci(package): run package CI on the dev- package images until the Ubuntu 24.04 cutover</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4205">vergil-project/vergil-tooling#4205</a> vrg-release preflight re-publish check views every release; use one paginated listing</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4210">vergil-project/vergil-tooling#4210</a> fix(container): retry the base-image pull on transient registry failures before refusing</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4217">vergil-project/vergil-tooling#4217</a> vrg-git: allow reset, clean and pathspec checkout on unfrozen feature branches, and rebase -i only with --autosquash</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4218">vergil-project/vergil-tooling#4218</a> vrg-commit: add --fixup &lt;commit&gt;</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4219">vergil-project/vergil-tooling#4219</a> Batch rules module: hard rules and the one-commit-per-issue check</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4220">vergil-project/vergil-tooling#4220</a> Epic sweep: read every linkage line of a PR body</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4221">vergil-project/vergil-tooling#4221</a> Worktree convention: add the batch form</li>
+</ul>
+<h2 id="2026-11-10">2026-11-10<a class="headerlink" href="#2026-11-10" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4115">vergil-project/vergil-tooling#4115</a> vrg-validate runs no strict mkdocs build of the site docs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4131">vergil-project/vergil-tooling#4131</a> Deploy: release the vergil-tooling and vergil-actions install paths</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4132">vergil-project/vergil-tooling#4132</a> Manage images / evidence as a required CI gate for repos that run ci-images.yml</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4138">vergil-project/vergil-tooling#4138</a> fix(cpp): make the packaged cppcheck suppressions file comment-free for cppcheck 2.13</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4139">vergil-project/vergil-tooling#4139</a> fix(package): count only glibc libraries' version needs in elf.glibc_requirements</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4145">vergil-project/vergil-tooling#4145</a> fix(release): package-index counts a followed publish-index run against its 1200s timeout and fails a delivered release</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4146">vergil-project/vergil-tooling#4146</a> fix(release): raise the package-index timeout to one hour</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4157">vergil-project/vergil-tooling#4157</a> fix(publish): install the host tools on Python 3.15 in consumer-refresh and the install docs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4159">vergil-project/vergil-tooling#4159</a> Package index: select releases before downloading and verifying them</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4160">vergil-project/vergil-tooling#4160</a> Deploy the retention-first package index: release vergil-tooling and find the triggered index run</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4162">vergil-project/vergil-tooling#4162</a> fix(container): name the repository in cached dev images so repositories stop evicting each other</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4168">vergil-project/vergil-tooling#4168</a> vergil-tooling: keep the HTTP error detail and retry transient errors when minting App tokens</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4169">vergil-project/vergil-tooling#4169</a> Minimal host installs: run host-only-by-accident tools (git-cliff, …) through vrg-container-run</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4170">vergil-project/vergil-tooling#4170</a> vrg-intake-route refuses to drop a planning item whose development epic is already closed</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4171">vergil-project/vergil-tooling#4171</a> Give each parallel sub-agent its own scratch directory</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4172">vergil-project/vergil-tooling#4172</a> Docs: say when to use an upstream refresh and when a dependency update</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4173">vergil-project/vergil-tooling#4173</a> Deprecate vrg-xdist-sync now that the pytest-xdist rollout is done</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4175">vergil-project/vergil-tooling#4175</a> vrg-release releases a repo that declares [publish] release = false (docs 0.1.0 merged to main before failing)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4176">vergil-project/vergil-tooling#4176</a> Deployment-task scaffold calls repo-config apply agent-safe, but it needs a human identity (administration=read)</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4178">vergil-project/vergil-tooling#4178</a> vrg-* --help must print full help for any identity; run identity checks only after help is handled</li>
+</ul>
+<h2 id="2026-11-09">2026-11-09<a class="headerlink" href="#2026-11-09" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4107">vergil-project/vergil-tooling#4107</a> Documentation review: remove Java support</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4109">vergil-project/vergil-tooling#4109</a> Keep the hook guard shim current: fleet-sync target and a content check in the audit</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4111">vergil-project/vergil-tooling#4111</a> Retire java as a primary language and remove its code</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4112">vergil-project/vergil-tooling#4112</a> Remove Java from the vergil-tooling site docs</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4119">vergil-project/vergil-tooling#4119</a> vrg-package index: retry transient 5xx errors on release-asset downloads</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4121">vergil-project/vergil-tooling#4121</a> vrg-release package-index: fail fast when the followed publish-index run has failed</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4130">vergil-project/vergil-tooling#4130</a> feat(container): choose the vergil-tooling install from the image's environment</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4140">vergil-project/vergil-tooling#4140</a> Let promote accept vergil-actions' freeze-commit release tags</li>
+</ul>
+<h2 id="2026-11-08">2026-11-08<a class="headerlink" href="#2026-11-08" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4056">vergil-project/vergil-tooling#4056</a> vrg-fleet-sync: add a claude-settings target for the managed .claude/settings.json</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4058">vergil-project/vergil-tooling#4058</a> github: list_org_repos refuses a non-list response instead of returning []</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4070">vergil-project/vergil-tooling#4070</a> Documentation review: full markdownlint coverage</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4077">vergil-project/vergil-tooling#4077</a> vrg-pr-workflow report-ready: tell a stale branch from a workflow change on a workflow-permission push refusal</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4088">vergil-project/vergil-tooling#4088</a> Move draft_ref and vrg-git onto the shared GitHub remote URL parser</li>
+<li><a href="https://github.com/vergil-project/vergil-tooling/issues/4092">vergil-project/vergil-tooling#4092</a> Remove the vestigial vrg-trivy-scan command and lib/trivy.py</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.top", "content.code.copy", "search.highlight", "search.suggest"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
