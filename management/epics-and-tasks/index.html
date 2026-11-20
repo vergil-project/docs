@@ -1490,8 +1490,9 @@ standing epics'.</p>
 <h2 id="proxy-epics">Proxy epics<a class="headerlink" href="#proxy-epics" title="Permanent link">&para;</a></h2>
 <p>A development epic's work sometimes lands in a repository of another org. A
 <strong>proxy epic</strong> is the same-org umbrella for those tasks: titled
-<code>Epic (proxy): &lt;primary's title&gt;</code>, labelled <code>epic</code> + <code>proxy</code>, and homed in that
-org's <code>.github</code>. The development epic it serves is its <strong>primary</strong>. Proxies
+<code>Epic (proxy): &lt;owner&gt;/&lt;repo&gt;#&lt;N&gt; — &lt;primary's title without "Epic: "&gt;</code> (the
+primary's full ref, then its title), labelled <code>epic</code> + <code>proxy</code>, and homed in
+that org's <code>.github</code>. The development epic it serves is its <strong>primary</strong>. Proxies
 exist only between public repositories. The link runs both ways: the proxy's
 body carries one <code>Primary: &lt;owner&gt;/&lt;repo&gt;#&lt;N&gt;</code> line, and the primary records
 each proxy in a trusted comment carrying a <code>Proxy: &lt;owner&gt;/.github#&lt;N&gt;</code> line.
