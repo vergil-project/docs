@@ -51,13 +51,23 @@ demanded its own epic. So every repository has exactly one **ad-hoc epic**:
 `Epic (ad hoc): <repo>`, labelled `epic` + `ad-hoc`, and (like all epics) located
 in `.github`. Its tasks live in the target repository, linked across.
 
+An ad-hoc epic holds **standalone work only**: each of its tasks can be picked
+up, merged and released on its own. A task owned by another epic or by a skill
+never goes there. A task of another org's epic goes under that epic's
+[proxy](#proxy-epics), and the `Logbook:` tasks that `/vergil:hoshin` files go
+under the [hoshin epic](#standing-epics). No filing-time guard enforces this:
+`vrg-epic-audit` reports an open ad-hoc task that looks misplaced (a
+`Logbook:` title, or a body naming an epic in another org) for a human to rule
+on, and a trusted `Standalone-confirmed` comment on a task ruled standalone
+stops the report.
+
 `ad-hoc` is the **single** marker for this perpetual variant. An earlier
 `standing` alias has been retired — removed from the code and the label
 registry — so `ad-hoc` is the only form the model recognises.
 
 An ad-hoc epic is **perpetual**: created once, never auto-closed, kept open even
-when empty. That perpetual-ness is the *only* thing distinguishing it from a
-finite epic. The name does deliberate work — "ad hoc" is the smell a serious
+when empty, and it holds only work that stands alone. The name does deliberate
+work — "ad hoc" is the smell a serious
 engineer drives toward zero. The long-term goal is for ad-hoc work to become the
 rare exception as real work is increasingly shaped into finite, tidy,
 self-closing epics.
@@ -72,7 +82,7 @@ strategy for the human to confirm; see
 
 ## Standing epics
 
-The ad-hoc epic is one of four **standing epics** — perpetual umbrellas that
+The ad-hoc epic is one of five **standing epics** — perpetual umbrellas that
 are created once, reused, and never roll up:
 
 | Standing epic | Holds |
@@ -81,12 +91,41 @@ are created once, reused, and never roll up:
 | `Epic (intake): <name>` | captured, unreviewed items — and every orphan the sweep finds |
 | `Epic (planning): <name>` | items waiting for (or undergoing) epic creation |
 | `Epic (deferred): <name>` | evaluated items parked until their revival conditions are met |
+| `Epic (hoshin): <org>` | the `Logbook:` tasks that `/vergil:hoshin` files and works |
 
 There is one ad-hoc epic per repository. The intake, planning and deferred
 epics come as a set per **queue home**: the org's `.github` for every public
 repository, and the repository itself for a private one. They are the three
 queues that hold work before it is ready to build — see
 [Intake, planning & deferred](intake.md).
+
+There is one **hoshin epic** per org, labelled `epic` + `hoshin`. It is always
+homed in `<org>/.github`, whatever the target repository's visibility. It is
+not a queue: its tasks are ready to build, but only `/vergil:hoshin` (the
+[hoshin kanri](hoshin-kanri.md) review cadence) files and works them, so no
+queue review or ad-hoc run picks them up, and no intake route moves an item
+into it. Its closed children drain into per-quarter archives like the other
+standing epics'.
+
+## Proxy epics
+
+A development epic's work sometimes lands in a repository of another org. A
+**proxy epic** is the same-org umbrella for those tasks: titled
+`Epic (proxy): <primary's title>`, labelled `epic` + `proxy`, and homed in that
+org's `.github`. The development epic it serves is its **primary**. Proxies
+exist only between public repositories. The link runs both ways: the proxy's
+body carries one `Primary: <owner>/<repo>#<N>` line, and the primary records
+each proxy in a trusted comment carrying a `Proxy: <owner>/.github#<N>` line.
+`vrg-epic-create --proxy-for <primary ref> --repo <owner>/<repo>` finds,
+reopens or creates the proxy, with its `Proxy:` comment on the primary.
+
+A proxy is **not a development epic**. It has no spec, plan or bookends, since
+the primary carries them; the roll-up never closes it; and the roadmap does not
+list it. Its tasks are driven from the primary: `epic-implement` on the primary
+works them beside the primary's own, and refuses the proxy itself. The proxy's
+own org closes it: the daily sweep closes a proxy once its primary is closed
+and it has no open task. `vrg-epic-audit --epic` reports a `Primary:` /
+`Proxy:` link where the two sides disagree.
 
 ## Every issue belongs to an epic
 
@@ -99,8 +138,8 @@ intake, planning and deferred items — hangs under an epic.
 There is no opt-out and no "unlinked" state, and the parent is not just
 bookkeeping: it *is* the issue's state. Under the intake epic it has been
 captured; under the planning epic it awaits a design; under the deferred epic it
-waits for its revival conditions; under an ad-hoc or finite epic it is ready to
-build. The sanctioned tools create every issue already
+waits for its revival conditions; under an ad-hoc, finite or proxy epic it is
+ready to build. The sanctioned tools create every issue already
 linked, and an issue born outside them is **healed, not rejected** — the daily
 sweep attaches it to its home's intake epic.
 

@@ -25,7 +25,7 @@ epic says where it stands, so no label has to restate it:
 | **Intake** — captured, not yet reviewed | the intake epic | no |
 | **Planning** — judged to need a full epic | the planning epic | no |
 | **Deferred** — evaluated, but waiting on something before it can move | the deferred epic | no |
-| **Ready** — a one-off, or part of a planned initiative | a repository's ad-hoc epic, or a finite epic | yes |
+| **Ready** — a one-off, or part of a planned initiative | a repository's ad-hoc epic, a finite epic, or a proxy epic | yes |
 
 Work moves **intake → planning → ready**. An item that has been evaluated but
 cannot move yet — it waits on an upstream release, another issue, a date, or
@@ -63,13 +63,20 @@ per-quarter archive buckets, so the live queues show only open work.
    - **Defer** — move it into the deferred queue, recording why it waits and
      what to check before it can come back.
    - **One-off** — move it into its target repository as a ready task under
-     that repository's ad-hoc epic (or a named epic).
+     that repository's ad-hoc epic (or a named epic). The ad-hoc epic takes
+     only standalone work: an item that is work of a development epic in
+     another org goes under that epic's
+     [proxy](epics-and-tasks.md#proxy-epics) in the target repository's org,
+     never ad-hoc, and one in the primary's own org goes under the primary
+     itself. A one-off never goes under the hoshin epic: only
+     `/vergil:hoshin` files its tasks.
    - **Split** — replace it with several ready tasks and close it.
    - **Planning** — it needs a real design, so it moves to the planning queue,
      with an estimated epic size.
 3. **Plan.** A planning review keeps the planning queue correct, oldest
    first: each item is left (most are), deferred, dropped, or, unusually,
-   sent to a repository's ad-hoc epic as a one-off. It never picks. The human
+   sent out as a one-off, to a repository's ad-hoc epic or, for another
+   org's epic, to its proxy, by the same rule as from intake. It never picks. The human
    chooses what to plan next and runs `epic-create` on it, picking only what
    will be implemented soon, since a plan left sitting goes stale. A
    planning item is the record of its own epic creation: `epic-create` always

@@ -39,13 +39,18 @@ hands off, and a human takes it across the line.
 
 ### Authoring & structure
 
-- `vrg-epic-create` (mint an epic in `.github`)
+- `vrg-epic-create` (mint an epic in `.github`; with
+  `--proxy-for <primary ref> --repo <owner>/<repo>` it instead finds, reopens
+  or creates the [proxy epic](epics-and-tasks.md#proxy-epics) for a primary in
+  another org, in the target's org `.github`, with its `Proxy:` comment on the
+  primary)
 - `vrg-adhoc-epic` (ensure a repo's ad-hoc epic exists)
 - `vrg-issue-create` (create a task, born linked under an epic)
 - `vrg-epic-link` / `vrg-epic-move` (manage the epic↔task relationship)
 
-- `vrg-issue-create --epic adhoc|intake|planning` (target a repository's
-  standing epic by name rather than by number)
+- `vrg-issue-create --epic adhoc|intake|planning|hoshin` (target a
+  repository's standing epic by name rather than by number; `hoshin` is the
+  org's hoshin epic in `<org>/.github`, for `/vergil:hoshin`'s logbook tasks)
 
 ### Intake, planning & deferred
 
@@ -82,9 +87,14 @@ hands off, and a human takes it across the line.
   merge-review directory. `--repo` narrows it to one repository's ad-hoc epic.
   It is not a review queue, so it is shown only when named, never by a bare
   `vrg-queue`)
+- `vrg-queue hoshin` (the same read-only view of the open tasks under the
+  org's hoshin epic; `--repo` narrows it to one repository's tasks. Like
+  `adhoc`, it is shown only when named)
 - `vrg-security-record` (record a security finding as a private draft advisory
   in `<org>/.github`, paired with a neutral `security`-labelled intake issue;
-  `create`, `list`, `show`, `retarget`, `close` (close a draft advisory with a
+  `create`, `list`, `show`, `retarget` (move an advisory's tracking to the
+  tasks that fix it; when they are all in another org, the advisory moves to
+  that org's `.github`), `close` (close a draft advisory with a
   reason posted on every issue it tracks), `note` (append a dated note to an
   advisory) and `sync` (the **security-records pass**: sync each advisory's
   state to its issues and report broken pairs, run by the human or the user
@@ -225,8 +235,12 @@ sessions.
   everything that needs the human to one gate, and stops. Its **`adhoc`** mode
   works the ad-hoc tasks instead: org-wide with `/vergil:epic-implement adhoc`,
   or for one repository with `adhoc --repo <owner>/<repo>` or that
-  repository's ad-hoc epic ref. Given an intake, planning or deferred queue it
-  refuses and points to `epic-review`, which is how a queue is worked
+  repository's ad-hoc epic ref. On a development epic it also works the tasks
+  of every [proxy epic](epics-and-tasks.md#proxy-epics) the epic has in
+  another org. It refuses an epic it does not drive and says what does:
+  given an intake, planning or deferred queue it points to `epic-review`,
+  which is how a queue is worked; given the hoshin epic, to `/vergil:hoshin`;
+  and given a proxy epic, to its primary
   ([epic-implement](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#epic-implement)).
 - **`issue-implement`** — the agent implements a single issue end-to-end,
   validates it to green, runs `merge-review` and hands the PR off with the
