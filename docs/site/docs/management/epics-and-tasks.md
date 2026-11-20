@@ -111,8 +111,9 @@ standing epics'.
 
 A development epic's work sometimes lands in a repository of another org. A
 **proxy epic** is the same-org umbrella for those tasks: titled
-`Epic (proxy): <primary's title>`, labelled `epic` + `proxy`, and homed in that
-org's `.github`. The development epic it serves is its **primary**. Proxies
+`Epic (proxy): <owner>/<repo>#<N> — <primary's title without "Epic: ">` (the
+primary's full ref, then its title), labelled `epic` + `proxy`, and homed in
+that org's `.github`. The development epic it serves is its **primary**. Proxies
 exist only between public repositories. The link runs both ways: the proxy's
 body carries one `Primary: <owner>/<repo>#<N>` line, and the primary records
 each proxy in a trusted comment carrying a `Proxy: <owner>/.github#<N>` line.
