@@ -1373,7 +1373,7 @@ epic says where it stands, so no label has to restate it:</p>
 </tr>
 <tr>
 <td><strong>Ready</strong> — a one-off, or part of a planned initiative</td>
-<td>a repository's ad-hoc epic, or a finite epic</td>
+<td>a repository's ad-hoc epic, a finite epic, or a proxy epic</td>
 <td>yes</td>
 </tr>
 </tbody>
@@ -1410,13 +1410,20 @@ per-quarter archive buckets, so the live queues show only open work.</p>
 <li><strong>Defer</strong> — move it into the deferred queue, recording why it waits and
      what to check before it can come back.</li>
 <li><strong>One-off</strong> — move it into its target repository as a ready task under
-     that repository's ad-hoc epic (or a named epic).</li>
+     that repository's ad-hoc epic (or a named epic). The ad-hoc epic takes
+     only standalone work: an item that is work of a development epic in
+     another org goes under that epic's
+     <a href="../epics-and-tasks/#proxy-epics">proxy</a> in the target repository's org,
+     never ad-hoc, and one in the primary's own org goes under the primary
+     itself. A one-off never goes under the hoshin epic: only
+     <code>/vergil:hoshin</code> files its tasks.</li>
 <li><strong>Split</strong> — replace it with several ready tasks and close it.</li>
 <li><strong>Planning</strong> — it needs a real design, so it moves to the planning queue,
      with an estimated epic size.</li>
 <li><strong>Plan.</strong> A planning review keeps the planning queue correct, oldest
    first: each item is left (most are), deferred, dropped, or, unusually,
-   sent to a repository's ad-hoc epic as a one-off. It never picks. The human
+   sent out as a one-off, to a repository's ad-hoc epic or, for another
+   org's epic, to its proxy, by the same rule as from intake. It never picks. The human
    chooses what to plan next and runs <code>epic-create</code> on it, picking only what
    will be implemented soon, since a plan left sitting goes stale. A
    planning item is the record of its own epic creation: <code>epic-create</code> always

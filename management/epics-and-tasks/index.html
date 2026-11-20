@@ -625,6 +625,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#proxy-epics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy epics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#every-issue-belongs-to-an-epic" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1304,6 +1315,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#proxy-epics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proxy epics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#every-issue-belongs-to-an-epic" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1396,12 +1418,21 @@ things — fix a typo in a man page, bump a pin — would clutter the model if e
 demanded its own epic. So every repository has exactly one <strong>ad-hoc epic</strong>:
 <code>Epic (ad hoc): &lt;repo&gt;</code>, labelled <code>epic</code> + <code>ad-hoc</code>, and (like all epics) located
 in <code>.github</code>. Its tasks live in the target repository, linked across.</p>
+<p>An ad-hoc epic holds <strong>standalone work only</strong>: each of its tasks can be picked
+up, merged and released on its own. A task owned by another epic or by a skill
+never goes there. A task of another org's epic goes under that epic's
+<a href="#proxy-epics">proxy</a>, and the <code>Logbook:</code> tasks that <code>/vergil:hoshin</code> files go
+under the <a href="#standing-epics">hoshin epic</a>. No filing-time guard enforces this:
+<code>vrg-epic-audit</code> reports an open ad-hoc task that looks misplaced (a
+<code>Logbook:</code> title, or a body naming an epic in another org) for a human to rule
+on, and a trusted <code>Standalone-confirmed</code> comment on a task ruled standalone
+stops the report.</p>
 <p><code>ad-hoc</code> is the <strong>single</strong> marker for this perpetual variant. An earlier
 <code>standing</code> alias has been retired — removed from the code and the label
 registry — so <code>ad-hoc</code> is the only form the model recognises.</p>
 <p>An ad-hoc epic is <strong>perpetual</strong>: created once, never auto-closed, kept open even
-when empty. That perpetual-ness is the <em>only</em> thing distinguishing it from a
-finite epic. The name does deliberate work — "ad hoc" is the smell a serious
+when empty, and it holds only work that stands alone. The name does deliberate
+work — "ad hoc" is the smell a serious
 engineer drives toward zero. The long-term goal is for ad-hoc work to become the
 rare exception as real work is increasingly shaped into finite, tidy,
 self-closing epics.</p>
@@ -1412,7 +1443,7 @@ collects them across every ad-hoc epic with <code>vrg-queue adhoc</code> and pro
 strategy for the human to confirm; see
 <a href="../workflow/#working-the-ad-hoc-tasks">Working the ad-hoc tasks</a>.</p>
 <h2 id="standing-epics">Standing epics<a class="headerlink" href="#standing-epics" title="Permanent link">&para;</a></h2>
-<p>The ad-hoc epic is one of four <strong>standing epics</strong> — perpetual umbrellas that
+<p>The ad-hoc epic is one of five <strong>standing epics</strong> — perpetual umbrellas that
 are created once, reused, and never roll up:</p>
 <table>
 <thead>
@@ -1438,6 +1469,10 @@ are created once, reused, and never roll up:</p>
 <td><code>Epic (deferred): &lt;name&gt;</code></td>
 <td>evaluated items parked until their revival conditions are met</td>
 </tr>
+<tr>
+<td><code>Epic (hoshin): &lt;org&gt;</code></td>
+<td>the <code>Logbook:</code> tasks that <code>/vergil:hoshin</code> files and works</td>
+</tr>
 </tbody>
 </table>
 <p>There is one ad-hoc epic per repository. The intake, planning and deferred
@@ -1445,6 +1480,30 @@ epics come as a set per <strong>queue home</strong>: the org's <code>.github</co
 repository, and the repository itself for a private one. They are the three
 queues that hold work before it is ready to build — see
 <a href="../intake/">Intake, planning &amp; deferred</a>.</p>
+<p>There is one <strong>hoshin epic</strong> per org, labelled <code>epic</code> + <code>hoshin</code>. It is always
+homed in <code>&lt;org&gt;/.github</code>, whatever the target repository's visibility. It is
+not a queue: its tasks are ready to build, but only <code>/vergil:hoshin</code> (the
+<a href="../hoshin-kanri/">hoshin kanri</a> review cadence) files and works them, so no
+queue review or ad-hoc run picks them up, and no intake route moves an item
+into it. Its closed children drain into per-quarter archives like the other
+standing epics'.</p>
+<h2 id="proxy-epics">Proxy epics<a class="headerlink" href="#proxy-epics" title="Permanent link">&para;</a></h2>
+<p>A development epic's work sometimes lands in a repository of another org. A
+<strong>proxy epic</strong> is the same-org umbrella for those tasks: titled
+<code>Epic (proxy): &lt;primary's title&gt;</code>, labelled <code>epic</code> + <code>proxy</code>, and homed in that
+org's <code>.github</code>. The development epic it serves is its <strong>primary</strong>. Proxies
+exist only between public repositories. The link runs both ways: the proxy's
+body carries one <code>Primary: &lt;owner&gt;/&lt;repo&gt;#&lt;N&gt;</code> line, and the primary records
+each proxy in a trusted comment carrying a <code>Proxy: &lt;owner&gt;/.github#&lt;N&gt;</code> line.
+<code>vrg-epic-create --proxy-for &lt;primary ref&gt; --repo &lt;owner&gt;/&lt;repo&gt;</code> finds,
+reopens or creates the proxy, with its <code>Proxy:</code> comment on the primary.</p>
+<p>A proxy is <strong>not a development epic</strong>. It has no spec, plan or bookends, since
+the primary carries them; the roll-up never closes it; and the roadmap does not
+list it. Its tasks are driven from the primary: <code>epic-implement</code> on the primary
+works them beside the primary's own, and refuses the proxy itself. The proxy's
+own org closes it: the daily sweep closes a proxy once its primary is closed
+and it has no open task. <code>vrg-epic-audit --epic</code> reports a <code>Primary:</code> /
+<code>Proxy:</code> link where the two sides disagree.</p>
 <h2 id="every-issue-belongs-to-an-epic">Every issue belongs to an epic<a class="headerlink" href="#every-issue-belongs-to-an-epic" title="Permanent link">&para;</a></h2>
 <p>In any managed repository, <strong>every issue is either a legitimate top-level kind
 or has an epic parent.</strong> The top-level kinds are epics (including the standing
@@ -1454,8 +1513,8 @@ intake, planning and deferred items — hangs under an epic.</p>
 <p>There is no opt-out and no "unlinked" state, and the parent is not just
 bookkeeping: it <em>is</em> the issue's state. Under the intake epic it has been
 captured; under the planning epic it awaits a design; under the deferred epic it
-waits for its revival conditions; under an ad-hoc or finite epic it is ready to
-build. The sanctioned tools create every issue already
+waits for its revival conditions; under an ad-hoc, finite or proxy epic it is
+ready to build. The sanctioned tools create every issue already
 linked, and an issue born outside them is <strong>healed, not rejected</strong> — the daily
 sweep attaches it to its home's intake epic.</p>
 <h2 id="the-bookend-convention">The bookend convention<a class="headerlink" href="#the-bookend-convention" title="Permanent link">&para;</a></h2>

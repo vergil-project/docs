@@ -1516,15 +1516,20 @@ hands off, and a human takes it across the line.</p>
 <h2 id="the-tools-by-role">The tools, by role<a class="headerlink" href="#the-tools-by-role" title="Permanent link">&para;</a></h2>
 <h3 id="authoring-structure">Authoring &amp; structure<a class="headerlink" href="#authoring-structure" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>vrg-epic-create</code> (mint an epic in <code>.github</code>)</li>
+<li><code>vrg-epic-create</code> (mint an epic in <code>.github</code>; with
+  <code>--proxy-for &lt;primary ref&gt; --repo &lt;owner&gt;/&lt;repo&gt;</code> it instead finds, reopens
+  or creates the <a href="../epics-and-tasks/#proxy-epics">proxy epic</a> for a primary in
+  another org, in the target's org <code>.github</code>, with its <code>Proxy:</code> comment on the
+  primary)</li>
 <li><code>vrg-adhoc-epic</code> (ensure a repo's ad-hoc epic exists)</li>
 <li><code>vrg-issue-create</code> (create a task, born linked under an epic)</li>
 <li>
 <p><code>vrg-epic-link</code> / <code>vrg-epic-move</code> (manage the epic↔task relationship)</p>
 </li>
 <li>
-<p><code>vrg-issue-create --epic adhoc|intake|planning</code> (target a repository's
-  standing epic by name rather than by number)</p>
+<p><code>vrg-issue-create --epic adhoc|intake|planning|hoshin</code> (target a
+  repository's standing epic by name rather than by number; <code>hoshin</code> is the
+  org's hoshin epic in <code>&lt;org&gt;/.github</code>, for <code>/vergil:hoshin</code>'s logbook tasks)</p>
 </li>
 </ul>
 <h3 id="intake-planning-deferred">Intake, planning &amp; deferred<a class="headerlink" href="#intake-planning-deferred" title="Permanent link">&para;</a></h3>
@@ -1562,9 +1567,14 @@ hands off, and a human takes it across the line.</p>
   merge-review directory. <code>--repo</code> narrows it to one repository's ad-hoc epic.
   It is not a review queue, so it is shown only when named, never by a bare
   <code>vrg-queue</code>)</li>
+<li><code>vrg-queue hoshin</code> (the same read-only view of the open tasks under the
+  org's hoshin epic; <code>--repo</code> narrows it to one repository's tasks. Like
+  <code>adhoc</code>, it is shown only when named)</li>
 <li><code>vrg-security-record</code> (record a security finding as a private draft advisory
   in <code>&lt;org&gt;/.github</code>, paired with a neutral <code>security</code>-labelled intake issue;
-  <code>create</code>, <code>list</code>, <code>show</code>, <code>retarget</code>, <code>close</code> (close a draft advisory with a
+  <code>create</code>, <code>list</code>, <code>show</code>, <code>retarget</code> (move an advisory's tracking to the
+  tasks that fix it; when they are all in another org, the advisory moves to
+  that org's <code>.github</code>), <code>close</code> (close a draft advisory with a
   reason posted on every issue it tracks), <code>note</code> (append a dated note to an
   advisory) and <code>sync</code> (the <strong>security-records pass</strong>: sync each advisory's
   state to its issues and report broken pairs, run by the human or the user
@@ -1696,8 +1706,12 @@ sessions.</p>
   everything that needs the human to one gate, and stops. Its <strong><code>adhoc</code></strong> mode
   works the ad-hoc tasks instead: org-wide with <code>/vergil:epic-implement adhoc</code>,
   or for one repository with <code>adhoc --repo &lt;owner&gt;/&lt;repo&gt;</code> or that
-  repository's ad-hoc epic ref. Given an intake, planning or deferred queue it
-  refuses and points to <code>epic-review</code>, which is how a queue is worked
+  repository's ad-hoc epic ref. On a development epic it also works the tasks
+  of every <a href="../epics-and-tasks/#proxy-epics">proxy epic</a> the epic has in
+  another org. It refuses an epic it does not drive and says what does:
+  given an intake, planning or deferred queue it points to <code>epic-review</code>,
+  which is how a queue is worked; given the hoshin epic, to <code>/vergil:hoshin</code>;
+  and given a proxy epic, to its primary
   (<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#epic-implement">epic-implement</a>).</li>
 <li><strong><code>issue-implement</code></strong> — the agent implements a single issue end-to-end,
   validates it to green, runs <code>merge-review</code> and hands the PR off with the

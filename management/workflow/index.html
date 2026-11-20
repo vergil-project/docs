@@ -1438,12 +1438,26 @@ repository's ad-hoc epic. Those tasks are worked with <strong><code>epic-impleme
 its <code>adhoc</code> mode — org-wide with <code>/vergil:epic-implement adhoc</code>, or for one
 repository with <code>adhoc --repo &lt;owner&gt;/&lt;repo&gt;</code> or that repository's ad-hoc epic
 ref.</p>
-<ol>
-<li><strong>Collect.</strong> It gathers the open tasks under the ad-hoc epics with
+<p>Ad-hoc tasks are standalone work only, each picked up, merged and released on
+its own. Two kinds of ready task that are not standalone have homes of their
+own, and <code>epic-implement</code> refuses both epics:</p>
+<ul>
+<li><strong>Hoshin's logbook tasks</strong> sit under the org's hoshin epic. Given it,
+  <code>epic-implement</code> stops and points to <code>/vergil:hoshin</code>, which files and works
+  them.</li>
+<li>
+<p><strong>Another org's epic tasks</strong> sit under that epic's
+  <a href="../epics-and-tasks/#proxy-epics">proxy</a>. Given a proxy, <code>epic-implement</code>
+  stops and points to its primary: running it on the primary works the proxy's
+  tasks beside the primary's own.</p>
+</li>
+<li>
+<p><strong>Collect.</strong> It gathers the open tasks under the ad-hoc epics with
    <code>vrg-queue adhoc</code> and summarizes them by repository. A task already handed
    off or worked elsewhere (an open PR, a report-ready record, a remote
    branch) is left alone; one that stopped on this machine is resumed the way
-   the development path resumes a task.</li>
+   the development path resumes a task.</p>
+</li>
 <li><strong>Propose a strategy.</strong> There is no plan to set an order, so it proposes
    one: which tasks to batch together per repository, which to run alone,
    which to leave for later, and the order, oldest first unless there is a
@@ -1456,7 +1470,7 @@ ref.</p>
    relay and batching rules as a development epic, brings everything that
    needs the human to one gate, and stops. Its records go on the ad-hoc epic of
    the repository concerned.</li>
-</ol>
+</ul>
 <p>The <code>adhoc</code> mode reads no plan and drafts no retrospective: an ad-hoc epic has
 no plan and never closes. Like the development path, it is stateless, so
 re-running it re-derives where things stand from GitHub.</p>
