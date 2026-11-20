@@ -149,6 +149,18 @@ its `adhoc` mode — org-wide with `/vergil:epic-implement adhoc`, or for one
 repository with `adhoc --repo <owner>/<repo>` or that repository's ad-hoc epic
 ref.
 
+Ad-hoc tasks are standalone work only, each picked up, merged and released on
+its own. Two kinds of ready task that are not standalone have homes of their
+own, and `epic-implement` refuses both epics:
+
+- **Hoshin's logbook tasks** sit under the org's hoshin epic. Given it,
+  `epic-implement` stops and points to `/vergil:hoshin`, which files and works
+  them.
+- **Another org's epic tasks** sit under that epic's
+  [proxy](epics-and-tasks.md#proxy-epics). Given a proxy, `epic-implement`
+  stops and points to its primary: running it on the primary works the proxy's
+  tasks beside the primary's own.
+
 1. **Collect.** It gathers the open tasks under the ad-hoc epics with
    `vrg-queue adhoc` and summarizes them by repository. A task already handed
    off or worked elsewhere (an open PR, a report-ready record, a remote
