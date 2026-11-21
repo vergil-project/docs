@@ -636,6 +636,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#epic-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Epic categories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#every-issue-belongs-to-an-epic" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1326,6 +1337,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#epic-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Epic categories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#every-issue-belongs-to-an-epic" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1505,6 +1527,56 @@ works them beside the primary's own, and refuses the proxy itself. The proxy's
 own org closes it: the daily sweep closes a proxy once its primary is closed
 and it has no open task. <code>vrg-epic-audit --epic</code> reports a <code>Primary:</code> /
 <code>Proxy:</code> link where the two sides disagree.</p>
+<h2 id="epic-categories">Epic categories<a class="headerlink" href="#epic-categories" title="Permanent link">&para;</a></h2>
+<p>Every epic carries exactly one <strong>category label</strong>, so one label filter in the
+GitHub UI shows each category:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Epics</th>
+<th>Category label</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Development</td>
+<td>every <a href="#finite-epics">finite epic</a>: planned with <code>epic-create</code>, closed by roll-up</td>
+<td><code>epic-development</code></td>
+</tr>
+<tr>
+<td>Management</td>
+<td>the intake, planning, deferred and hoshin <a href="#standing-epics">standing epics</a></td>
+<td><code>epic-management</code></td>
+</tr>
+<tr>
+<td>Ad hoc</td>
+<td>each repository's <a href="#ad-hoc-epics">ad-hoc epic</a></td>
+<td><code>ad-hoc</code></td>
+</tr>
+<tr>
+<td>Proxy</td>
+<td>each <a href="#proxy-epics">proxy epic</a></td>
+<td><code>proxy</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>ad-hoc</code> and <code>proxy</code> are both the marker the tools read and the category
+label. <code>epic-development</code> and <code>epic-management</code> are new, and they are <strong>for
+display only</strong>: no tool reads either of them to decide behaviour or to find an
+epic. An archive bucket is not an epic and has no category.</p>
+<p>The tools apply the category label when they create an epic.
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-epic-create"><code>vrg-epic-create</code></a>
+derives it from the epic's other labels, and refuses, creating nothing, a
+caller-given <code>epic-development</code> or <code>epic-management</code> label and labels that
+mark two categories at once (for example <code>ad-hoc</code> and <code>proxy</code>). The path that
+creates a standing epic on demand adds <code>epic-management</code> to a new intake,
+planning, deferred or hoshin epic.</p>
+<p>Epics created before the category labels existed are labelled once, by the
+one-off deployment
+<a href="https://github.com/vergil-project/.github/issues/1460">vergil-project/.github#1460</a>.
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-ensure-label"><code>vrg-ensure-label --repo &lt;owner&gt;/&lt;repo&gt; --label &lt;name&gt;</code></a>
+creates one registered label from the label registry.</p>
 <h2 id="every-issue-belongs-to-an-epic">Every issue belongs to an epic<a class="headerlink" href="#every-issue-belongs-to-an-epic" title="Permanent link">&para;</a></h2>
 <p>In any managed repository, <strong>every issue is either a legitimate top-level kind
 or has an epic parent.</strong> The top-level kinds are epics (including the standing
