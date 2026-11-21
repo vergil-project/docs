@@ -128,6 +128,37 @@ own org closes it: the daily sweep closes a proxy once its primary is closed
 and it has no open task. `vrg-epic-audit --epic` reports a `Primary:` /
 `Proxy:` link where the two sides disagree.
 
+## Epic categories
+
+Every epic carries exactly one **category label**, so one label filter in the
+GitHub UI shows each category:
+
+| Category | Epics | Category label |
+| --- | --- | --- |
+| Development | every [finite epic](#finite-epics): planned with `epic-create`, closed by roll-up | `epic-development` |
+| Management | the intake, planning, deferred and hoshin [standing epics](#standing-epics) | `epic-management` |
+| Ad hoc | each repository's [ad-hoc epic](#ad-hoc-epics) | `ad-hoc` |
+| Proxy | each [proxy epic](#proxy-epics) | `proxy` |
+
+`ad-hoc` and `proxy` are both the marker the tools read and the category
+label. `epic-development` and `epic-management` are new, and they are **for
+display only**: no tool reads either of them to decide behaviour or to find an
+epic. An archive bucket is not an epic and has no category.
+
+The tools apply the category label when they create an epic.
+[`vrg-epic-create`](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-epic-create)
+derives it from the epic's other labels, and refuses, creating nothing, a
+caller-given `epic-development` or `epic-management` label and labels that
+mark two categories at once (for example `ad-hoc` and `proxy`). The path that
+creates a standing epic on demand adds `epic-management` to a new intake,
+planning, deferred or hoshin epic.
+
+Epics created before the category labels existed are labelled once, by the
+one-off deployment
+[vergil-project/.github#1460](https://github.com/vergil-project/.github/issues/1460).
+[`vrg-ensure-label --repo <owner>/<repo> --label <name>`](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-ensure-label)
+creates one registered label from the label registry.
+
 ## Every issue belongs to an epic
 
 In any managed repository, **every issue is either a legitimate top-level kind
