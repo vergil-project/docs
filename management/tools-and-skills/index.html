@@ -1495,7 +1495,7 @@ irreversible, outward-facing steps.</p>
 </tr>
 <tr>
 <td>Read-only audits and dry-runs</td>
-<td>Settling <code>develop</code> once the PRs merge (<code>vrg-finalize-pr</code>, which the submit runs unless <code>--no-finalize</code>)</td>
+<td>Settling <code>develop</code> once the PRs merge (<code>vrg-finalize-pr</code>, which the submit always runs)</td>
 </tr>
 <tr>
 <td>Filing intake, epics, tasks, links</td>
@@ -1590,7 +1590,7 @@ out.</p>
 <li><code>vrg-epic-rollup</code> (close a finite epic when its last task closes — event-driven)</li>
 <li><code>vrg-finalize-pr</code> (watch the submitted PRs merge, then settle <code>develop</code> once:
   sync, cleanup, validate and a CD report; it never merges — human, run by
-  <code>vrg-submit-pr</code> by default)</li>
+  every <code>vrg-submit-pr</code>)</li>
 </ul>
 <h3 id="reporting-enforcement">Reporting &amp; enforcement<a class="headerlink" href="#reporting-enforcement" title="Permanent link">&para;</a></h3>
 <ul>
@@ -1609,8 +1609,7 @@ with <code>vrg-gh issue transfer</code> and re-link its tasks with <code>vrg-epi
 <li><code>vrg-commit</code> (standards-compliant commits)</li>
 <li><code>vrg-pr-workflow report-ready</code> (records the PR hand-off)</li>
 <li><code>vrg-submit-pr</code> (open the PRs against <code>develop</code> with auto-merge on — squash
-  for one issue, rebase for a batch — then finalize them, unless
-  <code>--no-finalize</code>; human-run)</li>
+  for one issue, rebase for a batch — then always finalize them; human-run)</li>
 </ul>
 <h3 id="merge-review">Merge review<a class="headerlink" href="#merge-review" title="Permanent link">&para;</a></h3>
 <p>The <code>merge-review</code> skill's tools, run by the agent between a green
@@ -1650,15 +1649,40 @@ checks and recovery are in vergil-tooling's
 guide.</p>
 <h3 id="release">Release<a class="headerlink" href="#release" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>vrg-release</code> (cut a release from <code>develop</code> to <code>main</code> — human-run)</li>
+<li><code>vrg-release</code> (cut a release from <code>develop</code> to <code>main</code> — human-run;
+  <code>--resume</code> finishes the open release, and <code>--supersede X.Y.Z</code> replaces
+  an open release that <code>--resume</code> cannot finish)</li>
 <li><code>vrg-update-deps</code> (the mechanized dependency update — human-run)</li>
+<li><code>vrg-release-record check</code> (read an issue's <code>Released:</code> record and
+  confirm it against git: how a deployment task confirms that a
+  blocked-by task is released)</li>
 </ul>
-<p>A release ends with an <code>update-deps</code> stage, which runs <code>vrg-update-deps</code> once
-the release is tagged and published. When anything changed, it opens a
+<p>A release is one workflow, tracked on its <code>release: &lt;version&gt;</code> issue. It
+runs its stages in order: tag and publish, <code>update-deps</code>, the <code>install</code>
+stage (<code>[publish].install</code>), a
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#released-records"><code>Released:</code> record</a>
+on every issue the release closes, and last the closing of the tracking
+issue. A failed stage does not undo what is done: the tracking issue
+stays open, and the release is always finished with
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#resuming-a-release"><code>vrg-release --resume</code></a>,
+which runs only the stages not yet done. A release that cannot finish is
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#superseding-a-release">superseded</a>
+by a new version, which absorbs its issues.</p>
+<p>A repository has
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#one-release-at-a-time">one release at a time</a>:
+a fresh <code>vrg-release</code> refuses while any release tracking issue is open.
+The tracking issue is the human's: it is locked as it is created, and
+its state is trusted only while every identity that can change it is a
+human. Any other identity stops the release, which can then only be
+superseded
+(<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#the-lock-and-the-identity-rule">the lock and the identity rule</a>).</p>
+<p>The <code>update-deps</code> stage runs <code>vrg-update-deps</code> once the release is tagged
+and published. When anything changed, it opens a
 <code>deps/update-&lt;next&gt;</code> pull request labelled <code>dependency-update</code>, and a green one
 is merged. If validation or the merge fails, the PR stays open and a fix task is
 filed. If an updater itself fails, nothing is pushed and the failure is recorded
-on the release's tracking issue. Any open <code>dependency-update</code> PR blocks
+on the release's tracking issue. Either failure leaves the tracking issue open
+for <code>--resume</code>. Any open <code>dependency-update</code> PR blocks
 the next release, until its fix task closes as completed — the next
 <code>vrg-release</code> then closes the PR and the gate clears. Two flags change this:
 <code>--allow-pending-deps</code> lets an urgent release through despite an open PR, and
