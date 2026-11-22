@@ -77,7 +77,7 @@ them reads the package repository.
 | Agent VMs (Lima and cloud) | `vrg-vm` resolves the identity's version to one commit with `git ls-remote` and installs that commit from git, constrained by its `uv.lock` |
 | Dev containers | The per-branch cache build installs every ref from git on the image's uv-managed Python 3.15 (`VERGIL_CORE_PYTHON_DIR`), with interpreter downloads off; a release pin is constrained by its commit's `uv.lock`, a dev ref is not (see [CI architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/#tier-1-local-pre-commit) and [How the cache tracks vergil-tooling releases](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#how-the-cache-tracks-vergil-tooling-releases)) |
 | CI (GitHub-hosted runners and container jobs) | The vergil-actions setup action installs from git, constrained by the resolved commit's `uv.lock` |
-| macOS host | `uv tool install --no-config --python 3.15 --managed-python` of the exact release tag, constrained by the tag's `uv.lock`; the release's consumer refresh runs it, and a first install follows vergil-tooling's [Getting Started](https://vergil-project.github.io/vergil-tooling/latest/getting-started/) |
+| macOS host | `uv tool install --no-config --python 3.15 --managed-python` of the exact release tag, constrained by the tag's `uv.lock`; the release's `install` stage (`[publish].install`) runs it, and a first install follows vergil-tooling's [Getting Started](https://vergil-project.github.io/vergil-tooling/latest/getting-started/) |
 
 On a VM, a version with no release tag, a failed lock export or a failed
 install fails provisioning: `vrg-vm` never falls back to another version
