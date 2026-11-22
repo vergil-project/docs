@@ -27,7 +27,7 @@ irreversible, outward-facing steps.
 | Participating in the brainstorm; running the design-review rounds | The judgment calls in the brainstorm, and the decision on each design-review finding and each further round |
 | Authoring specs and plans; implementing tasks | Submitting the pull request (`vrg-submit-pr`), which turns GitHub auto-merge on |
 | Commits and PR preparation / hand-off | Reviewing the change before submitting it: the submit is the decision to **merge** |
-| Read-only audits and dry-runs | Settling `develop` once the PRs merge (`vrg-finalize-pr`, which the submit runs unless `--no-finalize`) |
+| Read-only audits and dry-runs | Settling `develop` once the PRs merge (`vrg-finalize-pr`, which the submit always runs) |
 | Filing intake, epics, tasks, links | Write-gated ops: migration `--apply`, audit `--close` |
 | Implementing a dependency-update fix task | Releases (`vrg-release`) and dependency updates (`vrg-update-deps`) |
 | Requesting a review decision, drafting the human's reply and reading it (`vrg-ruling`) | Replying to a review-decision request, as themselves (`vrg-ruling-reply`) |
@@ -111,7 +111,7 @@ out.
 - `vrg-epic-rollup` (close a finite epic when its last task closes — event-driven)
 - `vrg-finalize-pr` (watch the submitted PRs merge, then settle `develop` once:
   sync, cleanup, validate and a CD report; it never merges — human, run by
-  `vrg-submit-pr` by default)
+  every `vrg-submit-pr`)
 
 ### Reporting & enforcement
 
@@ -131,8 +131,7 @@ with `vrg-gh issue transfer` and re-link its tasks with `vrg-epic-link`.
 - `vrg-commit` (standards-compliant commits)
 - `vrg-pr-workflow report-ready` (records the PR hand-off)
 - `vrg-submit-pr` (open the PRs against `develop` with auto-merge on — squash
-  for one issue, rebase for a batch — then finalize them, unless
-  `--no-finalize`; human-run)
+  for one issue, rebase for a batch — then always finalize them; human-run)
 
 ### Merge review
 
@@ -177,15 +176,42 @@ guide.
 
 ### Release
 
-- `vrg-release` (cut a release from `develop` to `main` — human-run)
+- `vrg-release` (cut a release from `develop` to `main` — human-run;
+  `--resume` finishes the open release, and `--supersede X.Y.Z` replaces
+  an open release that `--resume` cannot finish)
 - `vrg-update-deps` (the mechanized dependency update — human-run)
+- `vrg-release-record check` (read an issue's `Released:` record and
+  confirm it against git: how a deployment task confirms that a
+  blocked-by task is released)
 
-A release ends with an `update-deps` stage, which runs `vrg-update-deps` once
-the release is tagged and published. When anything changed, it opens a
+A release is one workflow, tracked on its `release: <version>` issue. It
+runs its stages in order: tag and publish, `update-deps`, the `install`
+stage (`[publish].install`), a
+[`Released:` record](https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#released-records)
+on every issue the release closes, and last the closing of the tracking
+issue. A failed stage does not undo what is done: the tracking issue
+stays open, and the release is always finished with
+[`vrg-release --resume`](https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#resuming-a-release),
+which runs only the stages not yet done. A release that cannot finish is
+[superseded](https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#superseding-a-release)
+by a new version, which absorbs its issues.
+
+A repository has
+[one release at a time](https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#one-release-at-a-time):
+a fresh `vrg-release` refuses while any release tracking issue is open.
+The tracking issue is the human's: it is locked as it is created, and
+its state is trusted only while every identity that can change it is a
+human. Any other identity stops the release, which can then only be
+superseded
+([the lock and the identity rule](https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/#the-lock-and-the-identity-rule)).
+
+The `update-deps` stage runs `vrg-update-deps` once the release is tagged
+and published. When anything changed, it opens a
 `deps/update-<next>` pull request labelled `dependency-update`, and a green one
 is merged. If validation or the merge fails, the PR stays open and a fix task is
 filed. If an updater itself fails, nothing is pushed and the failure is recorded
-on the release's tracking issue. Any open `dependency-update` PR blocks
+on the release's tracking issue. Either failure leaves the tracking issue open
+for `--resume`. Any open `dependency-update` PR blocks
 the next release, until its fix task closes as completed — the next
 `vrg-release` then closes the PR and the gate clears. Two flags change this:
 `--allow-pending-deps` lets an urgent release through despite an open PR, and
