@@ -22,8 +22,11 @@ without one returns 404. Always link through `/latest/`:
 
 The same applies to any other Vergil site published with mike. Before
 adding or changing such a link, check that the target (and any `#anchor`)
-resolves. The docs-links check in `vrg-validate` flags a deep link to such
-a site that lacks a version segment; see
+resolves. The docs-links check in `vrg-validate` knows the versioned sites
+only from a fixed list in vergil-tooling (`VERSIONED_SITES`), and flags a
+deep link that lacks a version segment only for a site on it. A link to a
+mike site missing from that list fails as a link to an unpublished site
+instead, until the site is added to the list. See
 [Links to other Vergil docs sites](https://vergil-project.github.io/vergil-tooling/latest/reference/lint/markdown-standards/#links-to-other-vergil-docs-sites)
 in vergil-tooling's Markdown Validation reference.
 
