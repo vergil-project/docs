@@ -13,6 +13,9 @@ jobs:
     uses: vergil-project/vergil-actions/.github/workflows/cd-docs.yml@v2.1
     permissions:
       contents: write
+    secrets:
+      APP_CLIENT_ID: ${{ secrets.APP_CLIENT_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
     with:
       # Regenerate the roadmap and activity pages before each deploy, as the
       # nightly cd-docs-refresh.yml does, so a push never republishes the
