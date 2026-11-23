@@ -669,6 +669,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#trusted-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trusted content
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#compliance-invariants" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1370,6 +1381,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#trusted-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trusted content
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#compliance-invariants" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1447,7 +1469,7 @@ never goes there. A task of another org's epic goes under that epic's
 under the <a href="#standing-epics">hoshin epic</a>. No filing-time guard enforces this:
 <code>vrg-epic-audit</code> reports an open ad-hoc task that looks misplaced (a
 <code>Logbook:</code> title, or a body naming an epic in another org) for a human to rule
-on, and a trusted <code>Standalone-confirmed</code> comment on a task ruled standalone
+on, and a <a href="#trusted-content">trusted</a> <code>Standalone-confirmed</code> comment on a task ruled standalone
 stops the report.</p>
 <p><code>ad-hoc</code> is the <strong>single</strong> marker for this perpetual variant. An earlier
 <code>standing</code> alias has been retired — removed from the code and the label
@@ -1587,7 +1609,9 @@ captured; under the planning epic it awaits a design; under the deferred epic it
 waits for its revival conditions; under an ad-hoc, finite or proxy epic it is
 ready to build. The sanctioned tools create every issue already
 linked, and an issue born outside them is <strong>healed, not rejected</strong> — the daily
-sweep attaches it to its home's intake epic.</p>
+sweep attaches it to its home's intake epic, unless an outsider opened it. An
+outsider's issue is never attached: it is reported, metadata only (see
+<a href="#trusted-content">Trusted content</a>).</p>
 <h2 id="the-bookend-convention">The bookend convention<a class="headerlink" href="#the-bookend-convention" title="Permanent link">&para;</a></h2>
 <p>An epic is never truly "done" the instant its implementation lands, because
 almost no real problem is 100% closed by a single initiative. So every epic
@@ -1607,6 +1631,29 @@ carries <strong>bookend</strong> tasks:</p>
 close, the closing bookends <em>gate</em> completion. You cannot finish an epic without
 answering "now what?" and confirming the story is documented. Nothing is ever
 done without asking what comes next.</p>
+<h2 id="trusted-content">Trusted content<a class="headerlink" href="#trusted-content" title="Permanent link">&para;</a></h2>
+<p>The tools and skills act only on content they can trust. A body, comment,
+review or title counts only when an identity with a role wrote it and every
+identity that edited it holds one too. There are three roles: the human and
+the agent Apps, trusted in every Vergil org, and each org's automation App,
+trusted only in its own org's repositories. Content that anyone else wrote or
+edited is never acted on: it is reported as metadata only (the item, the
+account and the time), never its text. A task whose body is not trusted stops
+for the human instead of being worked.</p>
+<p>Agents read issue and PR content through <code>vrg-issue-read</code>, the trusted read
+command, which prints only what the trust rule accepts; the hook guard refuses
+their raw content reads. Two checks keep watch, and the daily
+<a href="../hoshin-kanri/">hoshin</a> review shows both: the <strong>outsider report</strong>
+(<code>vrg-epic-audit --untrusted</code>), which lists what accounts outside the roles
+did in each Vergil org, and the nightly <strong>trusted-authors check</strong>, which
+checks each org's published copy of the configuration (see
+<a href="../../ci/#nightly-governance-opsyml">Nightly governance</a>).</p>
+<p>The roles are configured once, on the human's host, and published to each org
+for its GitHub Actions jobs. The configuration is described in vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/account-setup/#trusted-authors">Trusted authors</a>
+section, and the order in which to publish it in vergil-actions'
+<a href="https://vergil-project.github.io/vergil-actions/latest/configuration/#vrg_trusted_authors">VRG_TRUSTED_AUTHORS</a>
+section.</p>
 <h2 id="compliance-invariants">Compliance invariants<a class="headerlink" href="#compliance-invariants" title="Permanent link">&para;</a></h2>
 <p>These guarantees are enforced, not just documented. <code>vrg-epic-audit</code> is a
 read-only sweep (with a human-gated <code>--close</code>) that flags drift and invariant
@@ -1628,7 +1675,7 @@ violations:</p>
 <p>The daily sweep (<code>vrg-epic-audit --close</code>) does more than report: its <strong>orphan
 pass</strong> auto-heals the model. It converts body-only parent links into native
 ones, strips the retired labels, and attaches every orphan to its home's intake
-epic. It never closes an item, and it stops loudly — never silently skipping —
+epic, except one an outsider opened, which it reports instead. It never closes an item, and it stops loudly — never silently skipping —
 when a queue is too full to accept more.</p>
 <p>The sweep does not run the <strong>security-records pass</strong>: <code>vrg-epic-audit --close</code>
 makes no security-advisory call. The pass is <code>vrg-security-record sync</code>, which

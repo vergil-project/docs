@@ -1598,7 +1598,12 @@ out.</p>
 <li><code>vrg-epic-audit</code> (drift and invariant violations — read-only, with a gated
   <code>--close</code>; under <code>--close</code>, run daily by the scheduled sweep, it also runs the
   <strong>orphan pass</strong> that attaches every unparented issue to its home's intake
-  epic. <code>--close</code> makes no security-advisory call: the security-records pass is
+  epic, except one an outsider opened, which it reports. With
+  <code>--untrusted --since &lt;time&gt;</code> it is instead the read-only <strong>outsider
+  report</strong>: what accounts outside the
+  <a href="../epics-and-tasks/#trusted-content">trusted roles</a> did in each Vergil org
+  since then, by metadata and links only, with possible tampering first.
+  <code>--close</code> makes no security-advisory call: the security-records pass is
   <code>vrg-security-record sync</code>, which the read-only <code>vrg-epic-audit</code> only
   previews)</li>
 </ul>
@@ -1691,7 +1696,10 @@ the bypass is logged on the release's tracking issue; <code>--without-deps</code
 <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/releasing/">Releasing guide</a>.</p>
 <p>The <code>vrg-gh</code> and <code>vrg-git</code> wrappers sit under all of this, enforcing the
 allow-lists and selecting the right identity; raw <code>git</code>/<code>gh</code> are blocked in agent
-sessions.</p>
+sessions. The hook guard also refuses an agent's raw issue and PR content
+reads and names <code>vrg-issue-read</code>, the trusted read command, which prints only
+what a <a href="../epics-and-tasks/#trusted-content">trusted</a> identity wrote and
+reports the rest as metadata.</p>
 <h2 id="the-skills-by-role">The skills, by role<a class="headerlink" href="#the-skills-by-role" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>epic-create</code></strong> — the outer orchestrator of the <a href="../workflow/">workflow</a>:
@@ -1760,7 +1768,9 @@ sessions.</p>
   <code>/vergil:hoshin start</code> each working day works out which reviews are due,
   closes any period left open (late, or recorded as not performed) and runs
   the daily review and any boundary reviews; <code>end</code> or <code>end &lt;level&gt;</code> is
-  optional. Each run files the follow-ups the human decides on and hands off
+  optional. The daily review also shows two trust checks, in the terminal
+  only: the outsider report (<code>vrg-epic-audit --untrusted</code>) and the result of
+  the nightly trusted-authors check. Each run files the follow-ups the human decides on and hands off
   one docs PR of dated entries, after a security screen and the human's
   approval of the full text. Its <code>Logbook:</code> task lives under the org's
   hoshin epic, and it skips <code>merge-review</code> on purpose, so its handoff

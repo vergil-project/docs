@@ -1451,7 +1451,9 @@ conditions are unmet.</p>
 <p>Issues created outside the sanctioned tools — in the web UI, by a script —
 are <strong>healed, not rejected</strong>. A daily sweep attaches every orphan it finds to
 its home's intake epic, so it surfaces at the next review instead of drifting
-unseen. Placement stays the reviewer's job; the sweep only guarantees that
+unseen. The one exception is an issue an outsider opened: the sweep never
+attaches it, and reports it by metadata only (see
+<a href="../epics-and-tasks/#trusted-content">Trusted content</a>). Placement stays the reviewer's job; the sweep only guarantees that
 nothing is lost.</p>
 <p>The former <code>triage</code> / <code>idea</code> / <code>research</code> kind labels are <strong>retired</strong> — the
 parent carries the state now, and the sweep strips the old labels.</p>

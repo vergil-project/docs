@@ -1423,7 +1423,11 @@ System.</p>
 <ul>
 <li><strong>Nichijō kanri (daily)</strong> runs on every invocation. <code>start</code> is the 朝礼
   chōrei: what ran unattended since the last review, what failed and why, and
-  what needs action today. <code>end</code> is the 終礼 shūrei: what changed today, what
+  what needs action today. It also shows two trust checks, in the terminal
+  only: the outsider report (<code>vrg-epic-audit --untrusted</code>), what accounts
+  outside the <a href="../epics-and-tasks/#trusted-content">trusted roles</a> did in
+  each Vergil org since the last daily review, and the latest nightly
+  trusted-authors check, compared with the host configuration. <code>end</code> is the 終礼 shūrei: what changed today, what
   is waiting on the human, and a note for tomorrow's chōrei.</li>
 <li><strong>Hōshin (week, month, quarter, year)</strong> runs only at boundaries, or when the
   human asks to close a period with <code>end &lt;level&gt;</code>. A <code>start</code> review sets
