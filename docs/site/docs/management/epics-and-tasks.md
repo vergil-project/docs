@@ -58,7 +58,7 @@ never goes there. A task of another org's epic goes under that epic's
 under the [hoshin epic](#standing-epics). No filing-time guard enforces this:
 `vrg-epic-audit` reports an open ad-hoc task that looks misplaced (a
 `Logbook:` title, or a body naming an epic in another org) for a human to rule
-on, and a trusted `Standalone-confirmed` comment on a task ruled standalone
+on, and a [trusted](#trusted-content) `Standalone-confirmed` comment on a task ruled standalone
 stops the report.
 
 `ad-hoc` is the **single** marker for this perpetual variant. An earlier
@@ -171,7 +171,9 @@ captured; under the planning epic it awaits a design; under the deferred epic it
 waits for its revival conditions; under an ad-hoc, finite or proxy epic it is
 ready to build. The sanctioned tools create every issue already
 linked, and an issue born outside them is **healed, not rejected** — the daily
-sweep attaches it to its home's intake epic.
+sweep attaches it to its home's intake epic, unless an outsider opened it. An
+outsider's issue is never attached: it is reported, metadata only (see
+[Trusted content](#trusted-content)).
 
 ## The bookend convention
 
@@ -193,6 +195,33 @@ This rides the roll-up: because the epic cannot close until *all* its tasks
 close, the closing bookends *gate* completion. You cannot finish an epic without
 answering "now what?" and confirming the story is documented. Nothing is ever
 done without asking what comes next.
+
+## Trusted content
+
+The tools and skills act only on content they can trust. A body, comment,
+review or title counts only when an identity with a role wrote it and every
+identity that edited it holds one too. There are three roles: the human and
+the agent Apps, trusted in every Vergil org, and each org's automation App,
+trusted only in its own org's repositories. Content that anyone else wrote or
+edited is never acted on: it is reported as metadata only (the item, the
+account and the time), never its text. A task whose body is not trusted stops
+for the human instead of being worked.
+
+Agents read issue and PR content through `vrg-issue-read`, the trusted read
+command, which prints only what the trust rule accepts; the hook guard refuses
+their raw content reads. Two checks keep watch, and the daily
+[hoshin](hoshin-kanri.md) review shows both: the **outsider report**
+(`vrg-epic-audit --untrusted`), which lists what accounts outside the roles
+did in each Vergil org, and the nightly **trusted-authors check**, which
+checks each org's published copy of the configuration (see
+[Nightly governance](../ci.md#nightly-governance-opsyml)).
+
+The roles are configured once, on the human's host, and published to each org
+for its GitHub Actions jobs. The configuration is described in vergil-tooling's
+[Trusted authors](https://vergil-project.github.io/vergil-tooling/latest/guides/account-setup/#trusted-authors)
+section, and the order in which to publish it in vergil-actions'
+[VRG_TRUSTED_AUTHORS](https://vergil-project.github.io/vergil-actions/latest/configuration/#vrg_trusted_authors)
+section.
 
 ## Compliance invariants
 
@@ -216,7 +245,7 @@ violations:
 The daily sweep (`vrg-epic-audit --close`) does more than report: its **orphan
 pass** auto-heals the model. It converts body-only parent links into native
 ones, strips the retired labels, and attaches every orphan to its home's intake
-epic. It never closes an item, and it stops loudly — never silently skipping —
+epic, except one an outsider opened, which it reports instead. It never closes an item, and it stops loudly — never silently skipping —
 when a queue is too full to accept more.
 
 The sweep does not run the **security-records pass**: `vrg-epic-audit --close`

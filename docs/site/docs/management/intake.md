@@ -130,7 +130,9 @@ conditions are unmet.
 Issues created outside the sanctioned tools — in the web UI, by a script —
 are **healed, not rejected**. A daily sweep attaches every orphan it finds to
 its home's intake epic, so it surfaces at the next review instead of drifting
-unseen. Placement stays the reviewer's job; the sweep only guarantees that
+unseen. The one exception is an issue an outsider opened: the sweep never
+attaches it, and reports it by metadata only (see
+[Trusted content](epics-and-tasks.md#trusted-content)). Placement stays the reviewer's job; the sweep only guarantees that
 nothing is lost.
 
 The former `triage` / `idea` / `research` kind labels are **retired** — the

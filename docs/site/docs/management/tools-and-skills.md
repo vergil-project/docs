@@ -119,7 +119,12 @@ out.
 - `vrg-epic-audit` (drift and invariant violations — read-only, with a gated
   `--close`; under `--close`, run daily by the scheduled sweep, it also runs the
   **orphan pass** that attaches every unparented issue to its home's intake
-  epic. `--close` makes no security-advisory call: the security-records pass is
+  epic, except one an outsider opened, which it reports. With
+  `--untrusted --since <time>` it is instead the read-only **outsider
+  report**: what accounts outside the
+  [trusted roles](epics-and-tasks.md#trusted-content) did in each Vergil org
+  since then, by metadata and links only, with possible tampering first.
+  `--close` makes no security-advisory call: the security-records pass is
   `vrg-security-record sync`, which the read-only `vrg-epic-audit` only
   previews)
 
@@ -221,7 +226,10 @@ the bypass is logged on the release's tracking issue; `--without-deps` skips the
 
 The `vrg-gh` and `vrg-git` wrappers sit under all of this, enforcing the
 allow-lists and selecting the right identity; raw `git`/`gh` are blocked in agent
-sessions.
+sessions. The hook guard also refuses an agent's raw issue and PR content
+reads and names `vrg-issue-read`, the trusted read command, which prints only
+what a [trusted](epics-and-tasks.md#trusted-content) identity wrote and
+reports the rest as metadata.
 
 ## The skills, by role
 
@@ -291,7 +299,9 @@ sessions.
   `/vergil:hoshin start` each working day works out which reviews are due,
   closes any period left open (late, or recorded as not performed) and runs
   the daily review and any boundary reviews; `end` or `end <level>` is
-  optional. Each run files the follow-ups the human decides on and hands off
+  optional. The daily review also shows two trust checks, in the terminal
+  only: the outsider report (`vrg-epic-audit --untrusted`) and the result of
+  the nightly trusted-authors check. Each run files the follow-ups the human decides on and hands off
   one docs PR of dated entries, after a security screen and the human's
   approval of the full text. Its `Logbook:` task lives under the org's
   hoshin epic, and it skips `merge-review` on purpose, so its handoff
