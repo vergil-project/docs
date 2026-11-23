@@ -1609,9 +1609,9 @@ limit, and the config audit flags a missing or non-canonical file. The file
 exists so that the OpenSSF Scorecard Dependency-Update-Tool check passes.</p>
 <p>The nightly <code>dependabot-audit</code> job fails on any open alert, at any severity.
 <code>vrg-dependabot-audit</code> exits 1 when the repo has open alerts and 2 when it
-could not check them, and both fail the run. The log of a public repo shows
-alert counts only. The only way to clear an alert is to fix the dependency or
-dismiss the alert on GitHub; nothing in the repo can suppress one.</p>
+could not check them, and both fail the run. The log shows alert counts only.
+The only way to clear an alert is to fix the dependency or dismiss the alert on
+GitHub; nothing in the repo can suppress one.</p>
 <p>This gate is defense in depth, aimed at dormant repos. The dependency update
 at release time and the language audits that run on every change remain the
 main dependency hygiene. See the

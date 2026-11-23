@@ -653,17 +653,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#visibility-changes-go-one-way" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Visibility changes go one way
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#mechanics" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1293,17 +1282,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#visibility-changes-go-one-way" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Visibility changes go one way
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#mechanics" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1391,10 +1369,9 @@ epic: created once, reused, never auto-closed.
 <code>Epic (planning): &lt;name&gt;</code> holds items waiting for (or undergoing) epic
 creation; <code>Epic (deferred): &lt;name&gt;</code> holds evaluated items parked until their
 revival conditions are met.</p>
-<p>There is one set per <strong>queue home</strong>. Every public repository shares the org's
-set in <code>.github</code>, so the whole org-wide queue is one view rather than something
-scattered across repositories. A <strong>private</strong> repository keeps its own set, so
-private work never surfaces in a public issue. Closed items drain into
+<p>There is one set per <strong>queue home</strong>, the org's <code>.github</code>. Every repository
+shares it, so the whole org-wide queue is one view rather than something
+scattered across repositories. Closed items drain into
 per-quarter archive buckets, so the live queues show only open work.</p>
 <h2 id="the-lifecycle">The lifecycle<a class="headerlink" href="#the-lifecycle" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1478,15 +1455,6 @@ unseen. Placement stays the reviewer's job; the sweep only guarantees that
 nothing is lost.</p>
 <p>The former <code>triage</code> / <code>idea</code> / <code>research</code> kind labels are <strong>retired</strong> — the
 parent carries the state now, and the sweep strips the old labels.</p>
-<h2 id="visibility-changes-go-one-way">Visibility changes go one way<a class="headerlink" href="#visibility-changes-go-one-way" title="Permanent link">&para;</a></h2>
-<p>Because a private repository keeps its own queues and epics, a repository's
-visibility decides where its work is tracked. <strong>Private → public is supported</strong>:
-the sweep moves the repository's open queue items under the org's <code>.github</code>
-queues, and its epics are relocated to match. <strong>Public → private is not
-supported</strong> — work already tracked in public cannot be made private again, so
-the path is to create a new private repository and migrate the code into it.
-The audit reports private-repository issues found under public epics for a
-human to resolve.</p>
 <h2 id="mechanics">Mechanics<a class="headerlink" href="#mechanics" title="Permanent link">&para;</a></h2>
 <p>The commands and their exact behavior — <code>vrg-intake-create</code>,
 <code>vrg-intake-route</code>, <code>vrg-queue</code>, the deferral record, the orphan pass, and the
@@ -1496,11 +1464,8 @@ queue-home rules — are documented in vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#the-deferred-queue">The deferred queue</a>
 for deferring and reviving, and
 <a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#viewing-the-queues-vrg-queue">Viewing the queues</a>
-for epic sizes), the
-<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-intake-route">CLI reference</a>,
-and the
-<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/">Epic home visibility flips</a>
-guide.</p>
+for epic sizes) and the
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-intake-route">CLI reference</a>.</p>
 
 
 

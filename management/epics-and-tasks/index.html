@@ -1498,26 +1498,24 @@ are created once, reused, and never roll up:</p>
 </tbody>
 </table>
 <p>There is one ad-hoc epic per repository. The intake, planning and deferred
-epics come as a set per <strong>queue home</strong>: the org's <code>.github</code> for every public
-repository, and the repository itself for a private one. They are the three
-queues that hold work before it is ready to build — see
-<a href="../intake/">Intake, planning &amp; deferred</a>.</p>
+epics come as a set per <strong>queue home</strong>: the org's <code>.github</code>, shared by every
+repository in the org. They are the three queues that hold work before it is
+ready to build — see <a href="../intake/">Intake, planning &amp; deferred</a>.</p>
 <p>There is one <strong>hoshin epic</strong> per org, labelled <code>epic</code> + <code>hoshin</code>. It is always
-homed in <code>&lt;org&gt;/.github</code>, whatever the target repository's visibility. It is
-not a queue: its tasks are ready to build, but only <code>/vergil:hoshin</code> (the
-<a href="../hoshin-kanri/">hoshin kanri</a> review cadence) files and works them, so no
-queue review or ad-hoc run picks them up, and no intake route moves an item
-into it. Its closed children drain into per-quarter archives like the other
-standing epics'.</p>
+homed in <code>&lt;org&gt;/.github</code>. It is not a queue: its tasks are ready to build, but
+only <code>/vergil:hoshin</code> (the <a href="../hoshin-kanri/">hoshin kanri</a> review cadence) files
+and works them, so no queue review or ad-hoc run picks them up, and no intake
+route moves an item into it. Its closed children drain into per-quarter
+archives like the other standing epics'.</p>
 <h2 id="proxy-epics">Proxy epics<a class="headerlink" href="#proxy-epics" title="Permanent link">&para;</a></h2>
 <p>A development epic's work sometimes lands in a repository of another org. A
 <strong>proxy epic</strong> is the same-org umbrella for those tasks: titled
 <code>Epic (proxy): &lt;owner&gt;/&lt;repo&gt;#&lt;N&gt; — &lt;primary's title without "Epic: "&gt;</code> (the
 primary's full ref, then its title), labelled <code>epic</code> + <code>proxy</code>, and homed in
-that org's <code>.github</code>. The development epic it serves is its <strong>primary</strong>. Proxies
-exist only between public repositories. The link runs both ways: the proxy's
-body carries one <code>Primary: &lt;owner&gt;/&lt;repo&gt;#&lt;N&gt;</code> line, and the primary records
-each proxy in a trusted comment carrying a <code>Proxy: &lt;owner&gt;/.github#&lt;N&gt;</code> line.
+that org's <code>.github</code>. The development epic it serves is its <strong>primary</strong>. The
+link runs both ways: the proxy's body carries one <code>Primary: &lt;owner&gt;/&lt;repo&gt;#&lt;N&gt;</code>
+line, and the primary records each proxy in a trusted comment carrying a
+<code>Proxy: &lt;owner&gt;/.github#&lt;N&gt;</code> line.
 <code>vrg-epic-create --proxy-for &lt;primary ref&gt; --repo &lt;owner&gt;/&lt;repo&gt;</code> finds,
 reopens or creates the proxy, with its <code>Proxy:</code> comment on the primary.</p>
 <p>A proxy is <strong>not a development epic</strong>. It has no spec, plan or bookends, since
@@ -1614,9 +1612,8 @@ done without asking what comes next.</p>
 read-only sweep (with a human-gated <code>--close</code>) that flags drift and invariant
 violations:</p>
 <ul>
-<li><strong>Epics live in <code>.github</code>.</strong> A public repository's epics belong in the org's
-  <code>.github</code>; an epic that has leaked out is flagged. (A private repository may
-  legitimately home its own epics.)</li>
+<li><strong>Epics live in <code>.github</code>.</strong> Every repository's epics belong in the org's
+  <code>.github</code>; an epic that has leaked out is flagged.</li>
 <li><strong>No stray <code>.github</code> issues.</strong> The epic home holds only epics, the
   per-quarter archive buckets, and issues linked under an epic — tasks and
   intake, planning and deferred queue items alike. Any other open issue there is a stray.</li>
@@ -1627,17 +1624,10 @@ violations:</p>
 <li><strong>Every issue has an epic parent.</strong> An <strong>orphan</strong> — an open issue that is
   neither a top-level kind nor linked under an epic — is reported, along with
   any issue still carrying the retired <code>triage</code> / <code>idea</code> / <code>research</code> labels.</li>
-<li><strong>No private work under public epics.</strong> Visibility changes are supported in
-  one direction only. <strong>Private → public</strong> is supported: the sweep moves the
-  repository's queue items under the org's <code>.github</code> queues, and its epics are
-  relocated. <strong>Public → private</strong> is <strong>unsupported</strong> — create a new private
-  repository and migrate the code instead. A private repository's issue found
-  under a public <code>.github</code> epic is reported for a human to resolve.</li>
 </ul>
 <p>The daily sweep (<code>vrg-epic-audit --close</code>) does more than report: its <strong>orphan
 pass</strong> auto-heals the model. It converts body-only parent links into native
-ones, strips the retired labels, moves a now-public repository's self-homed
-queue items under <code>.github</code>, and attaches every orphan to its home's intake
+ones, strips the retired labels, and attaches every orphan to its home's intake
 epic. It never closes an item, and it stops loudly — never silently skipping —
 when a queue is too full to accept more.</p>
 <p>The sweep does not run the <strong>security-records pass</strong>: <code>vrg-epic-audit --close</code>
@@ -1657,10 +1647,7 @@ guide.</p>
 into <code>.github</code> with <code>vrg-gh issue transfer</code>, then re-establish its task links
 with <code>vrg-epic-link</code>.</p>
 <p>The exact rules and commands are in vergil-tooling's
-<a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#compliance-invariants">GitHub Issue Standards</a>
-and its
-<a href="https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/">Epic home visibility flips</a>
-guide.</p>
+<a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#compliance-invariants">GitHub Issue Standards</a>.</p>
 
 
 
