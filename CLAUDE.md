@@ -7,8 +7,8 @@ This file provides guidance to Claude Code when working in this repository.
 The Vergil project's documentation site: org-wide narrative (MkDocs, source
 under `docs/site/`) plus a published roadmap and activity log. Never hand-edit
 the generated `docs/site/docs/roadmap.md` or `docs/site/docs/activity/`: the
-nightly `cd-docs-refresh.yml` workflow regenerates them with `vrg-roadmap` and
-`vrg-activity-log`.
+push deploy (`cd.yml`) and the nightly `cd-docs-refresh.yml` workflow both
+regenerate them with `vrg-roadmap` and `vrg-activity-log` before publishing.
 
 ## Links to other Vergil docs sites
 
