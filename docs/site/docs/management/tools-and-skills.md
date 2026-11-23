@@ -286,8 +286,21 @@ sessions.
   container images, shared CI workflows or release tooling seeds one run per
   affected fixture
   ([fixture-run](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#fixture-run)).
+- **`hoshin`** — runs the [hoshin kanri](hoshin-kanri.md) review cadence
+  with the human and writes its public [logbook](../logbook/index.md):
+  `/vergil:hoshin start` each working day works out which reviews are due,
+  closes any period left open (late, or recorded as not performed) and runs
+  the daily review and any boundary reviews; `end` or `end <level>` is
+  optional. Each run files the follow-ups the human decides on and hands off
+  one docs PR of dated entries, after a security screen and the human's
+  approval of the full text. Its `Logbook:` task lives under the org's
+  hoshin epic, and it skips `merge-review` on purpose, so its handoff
+  carries no eligibility line
+  ([hoshin](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#hoshin)).
 - **`pr-watch`** — the agent monitors an open PR through CI and review,
-  reconciling until it is mergeable.
+  reconciling until it is mergeable. It never fixes a logbook PR (one
+  titled `Logbook:`): it tells the human to close the PR with its task and
+  redo the run through `/vergil:hoshin`.
 
 Together, the tools give the mechanical guarantees and the skills give the
 process on top of them — which is exactly why the *story* belongs here, in one
