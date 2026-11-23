@@ -207,9 +207,9 @@ exists so that the OpenSSF Scorecard Dependency-Update-Tool check passes.
 
 The nightly `dependabot-audit` job fails on any open alert, at any severity.
 `vrg-dependabot-audit` exits 1 when the repo has open alerts and 2 when it
-could not check them, and both fail the run. The log of a public repo shows
-alert counts only. The only way to clear an alert is to fix the dependency or
-dismiss the alert on GitHub; nothing in the repo can suppress one.
+could not check them, and both fail the run. The log shows alert counts only.
+The only way to clear an alert is to fix the dependency or dismiss the alert on
+GitHub; nothing in the repo can suppress one.
 
 This gate is defense in depth, aimed at dormant repos. The dependency update
 at release time and the language audits that run on every change remain the

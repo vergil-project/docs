@@ -43,10 +43,9 @@ epic: created once, reused, never auto-closed.
 creation; `Epic (deferred): <name>` holds evaluated items parked until their
 revival conditions are met.
 
-There is one set per **queue home**. Every public repository shares the org's
-set in `.github`, so the whole org-wide queue is one view rather than something
-scattered across repositories. A **private** repository keeps its own set, so
-private work never surfaces in a public issue. Closed items drain into
+There is one set per **queue home**, the org's `.github`. Every repository
+shares it, so the whole org-wide queue is one view rather than something
+scattered across repositories. Closed items drain into
 per-quarter archive buckets, so the live queues show only open work.
 
 ## The lifecycle
@@ -137,17 +136,6 @@ nothing is lost.
 The former `triage` / `idea` / `research` kind labels are **retired** — the
 parent carries the state now, and the sweep strips the old labels.
 
-## Visibility changes go one way
-
-Because a private repository keeps its own queues and epics, a repository's
-visibility decides where its work is tracked. **Private → public is supported**:
-the sweep moves the repository's open queue items under the org's `.github`
-queues, and its epics are relocated to match. **Public → private is not
-supported** — work already tracked in public cannot be made private again, so
-the path is to create a new private repository and migrate the code into it.
-The audit reports private-repository issues found under public epics for a
-human to resolve.
-
 ## Mechanics
 
 The commands and their exact behavior — `vrg-intake-create`,
@@ -158,8 +146,5 @@ queue-home rules — are documented in vergil-tooling's
 [The deferred queue](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#the-deferred-queue)
 for deferring and reviving, and
 [Viewing the queues](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#viewing-the-queues-vrg-queue)
-for epic sizes), the
-[CLI reference](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-intake-route),
-and the
-[Epic home visibility flips](https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/)
-guide.
+for epic sizes) and the
+[CLI reference](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-intake-route).

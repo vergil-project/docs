@@ -40,8 +40,7 @@ Everything in this layer follows from three rules:
    one-line idea is captured under the intake epic — and the parent *is* the
    issue's state: intake, planning, deferred, or ready to build.
 2. **All epics live in the organization's `.github` repository** — one place to
-   see every initiative in the org. (A private repository keeps its own, so
-   private work never surfaces in public.)
+   see every initiative in the org.
 3. **Every other repository holds nothing but single-PR tasks** — each closed by
    exactly one pull request in that same repository.
 

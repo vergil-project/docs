@@ -94,18 +94,16 @@ are created once, reused, and never roll up:
 | `Epic (hoshin): <org>` | the `Logbook:` tasks that `/vergil:hoshin` files and works |
 
 There is one ad-hoc epic per repository. The intake, planning and deferred
-epics come as a set per **queue home**: the org's `.github` for every public
-repository, and the repository itself for a private one. They are the three
-queues that hold work before it is ready to build — see
-[Intake, planning & deferred](intake.md).
+epics come as a set per **queue home**: the org's `.github`, shared by every
+repository in the org. They are the three queues that hold work before it is
+ready to build — see [Intake, planning & deferred](intake.md).
 
 There is one **hoshin epic** per org, labelled `epic` + `hoshin`. It is always
-homed in `<org>/.github`, whatever the target repository's visibility. It is
-not a queue: its tasks are ready to build, but only `/vergil:hoshin` (the
-[hoshin kanri](hoshin-kanri.md) review cadence) files and works them, so no
-queue review or ad-hoc run picks them up, and no intake route moves an item
-into it. Its closed children drain into per-quarter archives like the other
-standing epics'.
+homed in `<org>/.github`. It is not a queue: its tasks are ready to build, but
+only `/vergil:hoshin` (the [hoshin kanri](hoshin-kanri.md) review cadence) files
+and works them, so no queue review or ad-hoc run picks them up, and no intake
+route moves an item into it. Its closed children drain into per-quarter
+archives like the other standing epics'.
 
 ## Proxy epics
 
@@ -113,10 +111,10 @@ A development epic's work sometimes lands in a repository of another org. A
 **proxy epic** is the same-org umbrella for those tasks: titled
 `Epic (proxy): <owner>/<repo>#<N> — <primary's title without "Epic: ">` (the
 primary's full ref, then its title), labelled `epic` + `proxy`, and homed in
-that org's `.github`. The development epic it serves is its **primary**. Proxies
-exist only between public repositories. The link runs both ways: the proxy's
-body carries one `Primary: <owner>/<repo>#<N>` line, and the primary records
-each proxy in a trusted comment carrying a `Proxy: <owner>/.github#<N>` line.
+that org's `.github`. The development epic it serves is its **primary**. The
+link runs both ways: the proxy's body carries one `Primary: <owner>/<repo>#<N>`
+line, and the primary records each proxy in a trusted comment carrying a
+`Proxy: <owner>/.github#<N>` line.
 `vrg-epic-create --proxy-for <primary ref> --repo <owner>/<repo>` finds,
 reopens or creates the proxy, with its `Proxy:` comment on the primary.
 
@@ -202,9 +200,8 @@ These guarantees are enforced, not just documented. `vrg-epic-audit` is a
 read-only sweep (with a human-gated `--close`) that flags drift and invariant
 violations:
 
-- **Epics live in `.github`.** A public repository's epics belong in the org's
-  `.github`; an epic that has leaked out is flagged. (A private repository may
-  legitimately home its own epics.)
+- **Epics live in `.github`.** Every repository's epics belong in the org's
+  `.github`; an epic that has leaked out is flagged.
 - **No stray `.github` issues.** The epic home holds only epics, the
   per-quarter archive buckets, and issues linked under an epic — tasks and
   intake, planning and deferred queue items alike. Any other open issue there is a stray.
@@ -215,17 +212,10 @@ violations:
 - **Every issue has an epic parent.** An **orphan** — an open issue that is
   neither a top-level kind nor linked under an epic — is reported, along with
   any issue still carrying the retired `triage` / `idea` / `research` labels.
-- **No private work under public epics.** Visibility changes are supported in
-  one direction only. **Private → public** is supported: the sweep moves the
-  repository's queue items under the org's `.github` queues, and its epics are
-  relocated. **Public → private** is **unsupported** — create a new private
-  repository and migrate the code instead. A private repository's issue found
-  under a public `.github` epic is reported for a human to resolve.
 
 The daily sweep (`vrg-epic-audit --close`) does more than report: its **orphan
 pass** auto-heals the model. It converts body-only parent links into native
-ones, strips the retired labels, moves a now-public repository's self-homed
-queue items under `.github`, and attaches every orphan to its home's intake
+ones, strips the retired labels, and attaches every orphan to its home's intake
 epic. It never closes an item, and it stops loudly — never silently skipping —
 when a queue is too full to accept more.
 
@@ -248,7 +238,4 @@ into `.github` with `vrg-gh issue transfer`, then re-establish its task links
 with `vrg-epic-link`.
 
 The exact rules and commands are in vergil-tooling's
-[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#compliance-invariants)
-and its
-[Epic home visibility flips](https://vergil-project.github.io/vergil-tooling/latest/guides/epic-home-visibility-flip/)
-guide.
+[GitHub Issue Standards](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#compliance-invariants).
