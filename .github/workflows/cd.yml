@@ -13,3 +13,10 @@ jobs:
     uses: vergil-project/vergil-actions/.github/workflows/cd-docs.yml@v2.1
     permissions:
       contents: write
+    with:
+      # Regenerate the roadmap and activity pages before each deploy, as the
+      # nightly cd-docs-refresh.yml does, so a push never republishes the
+      # committed copies. Keep the two commands identical.
+      pre-deploy-command: >-
+        vrg-roadmap > docs/site/docs/roadmap.md &&
+        vrg-activity-log --out-dir docs/site/docs/activity
