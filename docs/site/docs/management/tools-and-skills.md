@@ -298,9 +298,11 @@ sessions.
   carries no eligibility line
   ([hoshin](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#hoshin)).
 - **`pr-watch`** — the agent monitors an open PR through CI and review,
-  reconciling until it is mergeable. It never fixes a logbook PR (one
-  titled `Logbook:`): it tells the human to close the PR with its task and
-  redo the run through `/vergil:hoshin`.
+  reconciling until it is mergeable. It fixes a logbook PR (one titled
+  `Logbook:`) like any other, but skips the merge review of its fixes, as
+  the logbook run itself does: the text passed the run's security screen
+  and the human's approval before the PR existed, and a fix to it is
+  mechanical, never new content.
 
 Together, the tools give the mechanical guarantees and the skills give the
 process on top of them — which is exactly why the *story* belongs here, in one
