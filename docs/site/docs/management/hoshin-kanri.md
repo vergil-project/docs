@@ -63,7 +63,11 @@ System.
 
 - **Nichijō kanri (daily)** runs on every invocation. `start` is the 朝礼
   chōrei: what ran unattended since the last review, what failed and why, and
-  what needs action today. `end` is the 終礼 shūrei: what changed today, what
+  what needs action today. It also shows two trust checks, in the terminal
+  only: the outsider report (`vrg-epic-audit --untrusted`), what accounts
+  outside the [trusted roles](epics-and-tasks.md#trusted-content) did in
+  each Vergil org since the last daily review, and the latest nightly
+  trusted-authors check, compared with the host configuration. `end` is the 終礼 shūrei: what changed today, what
   is waiting on the human, and a note for tomorrow's chōrei.
 - **Hōshin (week, month, quarter, year)** runs only at boundaries, or when the
   human asks to close a period with `end <level>`. A `start` review sets

@@ -155,7 +155,7 @@ Checking this model across the fleet is itself automated. Every managed repo
 carries an `ops.yml` workflow that calls the `vergil-actions` reusable
 workflow `ops-github-config.yml` on a nightly schedule. A repo whose `ops.yml`
 is missing or has no schedule is treated as non-compliant. The nightly run has
-three jobs:
+three jobs in every repo, and a fourth in the org's own `.github` repository:
 
 - **Config audit.** `vrg-github-repo-config audit` compares the repo's GitHub
   configuration and its checked-in files against the canonical Vergil
@@ -171,6 +171,16 @@ three jobs:
   work is finished. It is the safety net behind the delete-on-merge and
   delete-on-close rules. See the
   [vrg-branch-sweep reference](https://vergil-project.github.io/vergil-tooling/latest/reference/dev/branch-sweep/).
+- **Trusted-authors check** (`.github` only). `vrg-trusted-authors check`
+  reads back the org's published copy of the
+  [trusted-authors configuration](management/epics-and-tasks.md#trusted-content),
+  the Actions variables its jobs judge content against, and fails the run
+  when one is missing, invalid, not visible to every repo, or shadowed by a
+  repository-level copy. The
+  daily hoshin review compares the values it read with the host
+  configuration. One run covers the whole org, so every other repo skips the
+  job. See vergil-actions'
+  [trusted-authors-check](https://vergil-project.github.io/vergil-actions/latest/workflows/ops-github-config/#trusted-authors-check).
 
 The nightly `ops.yml` in `vergil-containers` also runs the **language
 lifecycle job**, which keeps the version window current. For Python, Go,
