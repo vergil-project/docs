@@ -15,8 +15,10 @@ the design collapses to a trivial, single-PR change, it is a **task**, not an
 epic — filed under the target repository's ad-hoc epic, and done.
 
 Every run is tracked in a **planning item** — an issue in the
-[planning queue](intake.md) that records its own epic creation, with progress
-comments so a session can pause and resume days later:
+[planning queue](intake.md) that records its own epic creation. Its body
+carries the run's stage checklist and its comments record each stage's
+progress, so a session can pause and resume days later at the first unticked
+stage:
 
 - **`epic-create <issue>`** starts or resumes that planning item (an intake or
   deferred item is first moved to the planning queue).
@@ -45,22 +47,36 @@ its tasks are filed — "planned as" the epic it became.
 
 `epic-create` drives these stages in order:
 
-1. **Brainstorm** — explore intent and converge on an approved design.
-2. **Initialize** — create the epic in `.github` and seed its bookend tasks
-   (documentation first; documentation review and the retrospective last).
-3. **Spec → spec pushback rounds → human review** — write the spec, critique
-   it adversarially in spec pushback rounds, and have a human review it.
+1. **Bootstrap** — create the epic in `.github` and its documentation task
+   (the opening bookend), before any design work.
+2. **Brainstorm** — explore intent, converge on an approved design, commit the
+   spec and write the epic body from it.
+3. **Spec pushback rounds → human review** — critique the spec adversarially
+   in spec pushback rounds, then have a human review it.
 4. **Plan → plan pushback rounds → alignment rounds** — write the
    implementation plan in one automated pass, critique it in plan pushback
    rounds, then reconcile the spec and the plan in alignment rounds, which may
    change both.
-5. **Docs PR** — land the spec and plan as a single documentation PR (which
-   closes the documentation bookend).
-6. **File tasks** — create the implementation tasks from the plan, each in the
-   repository where its PR will land.
+5. **File tasks** — create the implementation tasks from the plan, each in the
+   repository where its PR will land and each keyed `Plan task: <id>`, with
+   the closing bookends (the documentation review and the retrospective).
+6. **Docs PR** — land the spec and plan as a single documentation PR (which
+   closes the documentation task).
 
 The review steps in stages 3 and 4 run in **human-gated rounds**, described
 below.
+
+The run is **checkpointed**. Its nine stages (`bootstrap`, `brainstorm`,
+`spec-pushback`, `spec-review`, `plan`, `plan-pushback`, `alignment`,
+`file-tasks` and `docs-pr`) are a checklist in the planning item's body,
+written only by
+[`vrg-checkpoint`](https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-checkpoint).
+Each stage makes its work durable, posts its progress comment and ticks its
+box, then pauses with the commands to reset the session ready to paste. A
+fresh session, after `/clear`, resumes at the first unticked stage, with no
+decision lost and nothing created twice. The stages and what re-entry does
+in each are in the plugin's
+[`epic-create` reference](https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#epic-create).
 
 ## The interaction doctrine
 

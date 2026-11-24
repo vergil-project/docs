@@ -234,9 +234,12 @@ reports the rest as metadata.
 ## The skills, by role
 
 - **`epic-create`** — the outer orchestrator of the [workflow](workflow.md):
-  brainstorm → epic → spec → spec pushback rounds → human spec review →
-  plan → plan pushback rounds → alignment rounds → docs PR → file tasks,
-  always worked through a planning item that records its progress. Its
+  epic and documentation task → brainstorm → spec → spec pushback rounds →
+  human spec review → plan → plan pushback rounds → alignment rounds → file
+  tasks → docs PR, always worked through a planning item that records its
+  progress. The run is nine checkpointed stages, tracked by `vrg-checkpoint`
+  in the planning item's body, so a fresh session resumes it after `/clear`
+  at the first unticked stage. Its
   design-review rounds need paad's unattended runner, `paad:paad-delegate`,
   which every box, Lima or cloud, gets by installing paad from the vergil
   fork through the ordinary plugin refresh. A session without it is on a
