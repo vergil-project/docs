@@ -207,15 +207,14 @@ and vergil-actions'
 
 ### Failures go to the operations queue
 
-A failing nightly job does not rely on someone reading its run history. The
-**branch sweep** and the **upstream refresh** report their failures to the
+The **branch sweep** and the **upstream refresh** report their failures to the
 org's [operations queue](management/epics-and-tasks.md#standing-epics): a
 failure opens one ops issue for that job in the repository it ran in, under
 the org's `Epic (operations): <org>`, or comments on the one already open, so
 a job failing night after night has one issue with a growing history. The
-**config audit** and the **Dependabot audit** do not report there: a failure
-of either means a security finding exists, and an ops issue is public. Their
-failures are read from the Actions run history instead.
+**config audit**, the **Dependabot audit** and the **trusted-authors check**
+do not report there: their failures are security signals, and an ops issue
+is public. Their failures are read from the Actions run history instead.
 
 ### Report-only Dependabot
 
