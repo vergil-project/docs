@@ -82,7 +82,7 @@ strategy for the human to confirm; see
 
 ## Standing epics
 
-The ad-hoc epic is one of five **standing epics** — perpetual umbrellas that
+The ad-hoc epic is one of six **standing epics** — perpetual umbrellas that
 are created once, reused, and never roll up:
 
 | Standing epic | Holds |
@@ -92,6 +92,7 @@ are created once, reused, and never roll up:
 | `Epic (planning): <name>` | items waiting for (or undergoing) epic creation |
 | `Epic (deferred): <name>` | evaluated items parked until their revival conditions are met |
 | `Epic (hoshin): <org>` | the `Logbook:` tasks that `/vergil:hoshin` files and works |
+| `Epic (operations): <org>` | the ops issues of the org's unattended jobs, each in its job's own repository |
 
 There is one ad-hoc epic per repository. The intake, planning and deferred
 epics come as a set per **queue home**: the org's `.github`, shared by every
@@ -104,6 +105,24 @@ only `/vergil:hoshin` (the [hoshin kanri](hoshin-kanri.md) review cadence) files
 and works them, so no queue review or ad-hoc run picks them up, and no intake
 route moves an item into it. Its closed children drain into per-quarter
 archives like the other standing epics'.
+
+There is one **operations epic** per org, labelled `epic` + `operations`
+(and the `epic-management` [category label](#epic-categories)). It is always
+homed in `<org>/.github`. It is not a queue either: it holds one open **ops
+issue** per failing unattended job and repository. Each ops issue is filed
+in the repository its job ran in and linked under the org's operations epic
+as a sub-issue: a failing `branch-sweep` run in `<org>/widget` is filed in
+`<org>/widget` as `ops: widget / branch-sweep failing`. An ops issue is never
+closed automatically: a person closes it by hand once the problem is dealt
+with, and the daily sweep's drift close never closes one that a merged PR
+names. It is not PR-workable: `vrg-pr-workflow report-ready` and
+`vrg-submit-pr` refuse it as they refuse a queue item, and a code fix found
+while working one is filed as a follow-up task in its own repository. No
+intake route moves an ops issue out of the operations epic, but an intake
+item can be routed *into* it as a one-off (`--epic operations`), so an
+operational problem captured by hand reaches the queue through intake
+review. Its closed children drain into per-quarter archives like the other
+standing epics'.
 
 ## Proxy epics
 
@@ -134,7 +153,7 @@ GitHub UI shows each category:
 | Category | Epics | Category label |
 | --- | --- | --- |
 | Development | every [finite epic](#finite-epics): planned with `epic-create`, closed by roll-up | `epic-development` |
-| Management | the intake, planning, deferred and hoshin [standing epics](#standing-epics) | `epic-management` |
+| Management | the intake, planning, deferred, hoshin and operations [standing epics](#standing-epics) | `epic-management` |
 | Ad hoc | each repository's [ad-hoc epic](#ad-hoc-epics) | `ad-hoc` |
 | Proxy | each [proxy epic](#proxy-epics) | `proxy` |
 
@@ -149,7 +168,7 @@ derives it from the epic's other labels, and refuses, creating nothing, a
 caller-given `epic-development` or `epic-management` label and labels that
 mark two categories at once (for example `ad-hoc` and `proxy`). The path that
 creates a standing epic on demand adds `epic-management` to a new intake,
-planning, deferred or hoshin epic.
+planning, deferred, hoshin or operations epic.
 
 Epics created before the category labels existed are labelled once, by the
 one-off deployment
