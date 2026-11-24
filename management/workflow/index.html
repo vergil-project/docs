@@ -1300,8 +1300,10 @@ is little value in designing something and then walking away from it untracked.
 the design collapses to a trivial, single-PR change, it is a <strong>task</strong>, not an
 epic — filed under the target repository's ad-hoc epic, and done.</p>
 <p>Every run is tracked in a <strong>planning item</strong> — an issue in the
-<a href="../intake/">planning queue</a> that records its own epic creation, with progress
-comments so a session can pause and resume days later:</p>
+<a href="../intake/">planning queue</a> that records its own epic creation. Its body
+carries the run's stage checklist and its comments record each stage's
+progress, so a session can pause and resume days later at the first unticked
+stage:</p>
 <ul>
 <li><strong><code>epic-create &lt;issue&gt;</code></strong> starts or resumes that planning item (an intake or
   deferred item is first moved to the planning queue).</li>
@@ -1327,22 +1329,35 @@ its tasks are filed — "planned as" the epic it became.</p>
 <h2 id="the-pipeline">The pipeline<a class="headerlink" href="#the-pipeline" title="Permanent link">&para;</a></h2>
 <p><code>epic-create</code> drives these stages in order:</p>
 <ol>
-<li><strong>Brainstorm</strong> — explore intent and converge on an approved design.</li>
-<li><strong>Initialize</strong> — create the epic in <code>.github</code> and seed its bookend tasks
-   (documentation first; documentation review and the retrospective last).</li>
-<li><strong>Spec → spec pushback rounds → human review</strong> — write the spec, critique
-   it adversarially in spec pushback rounds, and have a human review it.</li>
+<li><strong>Bootstrap</strong> — create the epic in <code>.github</code> and its documentation task
+   (the opening bookend), before any design work.</li>
+<li><strong>Brainstorm</strong> — explore intent, converge on an approved design, commit the
+   spec and write the epic body from it.</li>
+<li><strong>Spec pushback rounds → human review</strong> — critique the spec adversarially
+   in spec pushback rounds, then have a human review it.</li>
 <li><strong>Plan → plan pushback rounds → alignment rounds</strong> — write the
    implementation plan in one automated pass, critique it in plan pushback
    rounds, then reconcile the spec and the plan in alignment rounds, which may
    change both.</li>
-<li><strong>Docs PR</strong> — land the spec and plan as a single documentation PR (which
-   closes the documentation bookend).</li>
 <li><strong>File tasks</strong> — create the implementation tasks from the plan, each in the
-   repository where its PR will land.</li>
+   repository where its PR will land and each keyed <code>Plan task: &lt;id&gt;</code>, with
+   the closing bookends (the documentation review and the retrospective).</li>
+<li><strong>Docs PR</strong> — land the spec and plan as a single documentation PR (which
+   closes the documentation task).</li>
 </ol>
 <p>The review steps in stages 3 and 4 run in <strong>human-gated rounds</strong>, described
 below.</p>
+<p>The run is <strong>checkpointed</strong>. Its nine stages (<code>bootstrap</code>, <code>brainstorm</code>,
+<code>spec-pushback</code>, <code>spec-review</code>, <code>plan</code>, <code>plan-pushback</code>, <code>alignment</code>,
+<code>file-tasks</code> and <code>docs-pr</code>) are a checklist in the planning item's body,
+written only by
+<a href="https://vergil-project.github.io/vergil-tooling/latest/reference/cli-tools-overview/#vrg-checkpoint"><code>vrg-checkpoint</code></a>.
+Each stage makes its work durable, posts its progress comment and ticks its
+box, then pauses with the commands to reset the session ready to paste. A
+fresh session, after <code>/clear</code>, resumes at the first unticked stage, with no
+decision lost and nothing created twice. The stages and what re-entry does
+in each are in the plugin's
+<a href="https://github.com/vergil-project/vergil-claude-plugin/blob/develop/docs/site/docs/skills/index.md#epic-create"><code>epic-create</code> reference</a>.</p>
 <h2 id="the-interaction-doctrine">The interaction doctrine<a class="headerlink" href="#the-interaction-doctrine" title="Permanent link">&para;</a></h2>
 <p>The design and review steps are not hand-waving — each runs a concrete,
 reusable <strong>skill</strong>,

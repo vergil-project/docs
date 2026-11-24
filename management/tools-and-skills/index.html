@@ -1703,9 +1703,12 @@ reports the rest as metadata.</p>
 <h2 id="the-skills-by-role">The skills, by role<a class="headerlink" href="#the-skills-by-role" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><code>epic-create</code></strong> — the outer orchestrator of the <a href="../workflow/">workflow</a>:
-  brainstorm → epic → spec → spec pushback rounds → human spec review →
-  plan → plan pushback rounds → alignment rounds → docs PR → file tasks,
-  always worked through a planning item that records its progress. Its
+  epic and documentation task → brainstorm → spec → spec pushback rounds →
+  human spec review → plan → plan pushback rounds → alignment rounds → file
+  tasks → docs PR, always worked through a planning item that records its
+  progress. The run is nine checkpointed stages, tracked by <code>vrg-checkpoint</code>
+  in the planning item's body, so a fresh session resumes it after <code>/clear</code>
+  at the first unticked stage. Its
   design-review rounds need paad's unattended runner, <code>paad:paad-delegate</code>,
   which every box, Lima or cloud, gets by installing paad from the vergil
   fork through the ordinary plugin refresh. A session without it is on a
