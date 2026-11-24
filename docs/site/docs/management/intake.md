@@ -79,8 +79,10 @@ per-quarter archive buckets, so the live queues show only open work.
    chooses what to plan next and runs `epic-create` on it, picking only what
    will be implemented soon, since a plan left sitting goes stale. A
    planning item is the record of its own epic creation: `epic-create` always
-   works through one, and leaves progress comments so a session can pause and
-   resume days later. A planning item is *waiting*, *in progress*, or
+   works through one. Its body carries the run's stage checklist, written by
+   `vrg-checkpoint`, and its comments record each stage's progress, so a
+   session can pause and resume days later at the first unticked stage (see
+   [the pipeline](workflow.md#the-pipeline)). A planning item is *waiting*, *in progress*, or
    *completed* — closed as "planned as" the epic it became, or with the reason
    it is not worth doing.
 
