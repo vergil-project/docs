@@ -1487,7 +1487,7 @@ collects them across every ad-hoc epic with <code>vrg-queue adhoc</code> and pro
 strategy for the human to confirm; see
 <a href="../workflow/#working-the-ad-hoc-tasks">Working the ad-hoc tasks</a>.</p>
 <h2 id="standing-epics">Standing epics<a class="headerlink" href="#standing-epics" title="Permanent link">&para;</a></h2>
-<p>The ad-hoc epic is one of five <strong>standing epics</strong> — perpetual umbrellas that
+<p>The ad-hoc epic is one of six <strong>standing epics</strong> — perpetual umbrellas that
 are created once, reused, and never roll up:</p>
 <table>
 <thead>
@@ -1517,6 +1517,10 @@ are created once, reused, and never roll up:</p>
 <td><code>Epic (hoshin): &lt;org&gt;</code></td>
 <td>the <code>Logbook:</code> tasks that <code>/vergil:hoshin</code> files and works</td>
 </tr>
+<tr>
+<td><code>Epic (operations): &lt;org&gt;</code></td>
+<td>the ops issues of the org's unattended jobs, each in its job's own repository</td>
+</tr>
 </tbody>
 </table>
 <p>There is one ad-hoc epic per repository. The intake, planning and deferred
@@ -1529,6 +1533,23 @@ only <code>/vergil:hoshin</code> (the <a href="../hoshin-kanri/">hoshin kanri</a
 and works them, so no queue review or ad-hoc run picks them up, and no intake
 route moves an item into it. Its closed children drain into per-quarter
 archives like the other standing epics'.</p>
+<p>There is one <strong>operations epic</strong> per org, labelled <code>epic</code> + <code>operations</code>
+(and the <code>epic-management</code> <a href="#epic-categories">category label</a>). It is always
+homed in <code>&lt;org&gt;/.github</code>. It is not a queue either: it holds one open <strong>ops
+issue</strong> per failing unattended job and repository. Each ops issue is filed
+in the repository its job ran in and linked under the org's operations epic
+as a sub-issue: a failing <code>branch-sweep</code> run in <code>&lt;org&gt;/widget</code> is filed in
+<code>&lt;org&gt;/widget</code> as <code>ops: widget / branch-sweep failing</code>. An ops issue is never
+closed automatically: a person closes it by hand once the problem is dealt
+with, and the daily sweep's drift close never closes one that a merged PR
+names. It is not PR-workable: <code>vrg-pr-workflow report-ready</code> and
+<code>vrg-submit-pr</code> refuse it as they refuse a queue item, and a code fix found
+while working one is filed as a follow-up task in its own repository. No
+intake route moves an ops issue out of the operations epic, but an intake
+item can be routed <em>into</em> it as a one-off (<code>--epic operations</code>), so an
+operational problem captured by hand reaches the queue through intake
+review. Its closed children drain into per-quarter archives like the other
+standing epics'.</p>
 <h2 id="proxy-epics">Proxy epics<a class="headerlink" href="#proxy-epics" title="Permanent link">&para;</a></h2>
 <p>A development epic's work sometimes lands in a repository of another org. A
 <strong>proxy epic</strong> is the same-org umbrella for those tasks: titled
@@ -1566,7 +1587,7 @@ GitHub UI shows each category:</p>
 </tr>
 <tr>
 <td>Management</td>
-<td>the intake, planning, deferred and hoshin <a href="#standing-epics">standing epics</a></td>
+<td>the intake, planning, deferred, hoshin and operations <a href="#standing-epics">standing epics</a></td>
 <td><code>epic-management</code></td>
 </tr>
 <tr>
@@ -1591,7 +1612,7 @@ derives it from the epic's other labels, and refuses, creating nothing, a
 caller-given <code>epic-development</code> or <code>epic-management</code> label and labels that
 mark two categories at once (for example <code>ad-hoc</code> and <code>proxy</code>). The path that
 creates a standing epic on demand adds <code>epic-management</code> to a new intake,
-planning, deferred or hoshin epic.</p>
+planning, deferred, hoshin or operations epic.</p>
 <p>Epics created before the category labels existed are labelled once, by the
 one-off deployment
 <a href="https://github.com/vergil-project/.github/issues/1460">vergil-project/.github#1460</a>.

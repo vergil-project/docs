@@ -1157,6 +1157,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#failures-go-to-the-operations-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failures go to the operations queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#report-only-dependabot" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1359,6 +1370,17 @@
   
     <nav class="md-nav" aria-label="Nightly governance (ops.yml)">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#failures-go-to-the-operations-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failures go to the operations queue
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#report-only-dependabot" class="md-nav__link">
@@ -1609,6 +1631,15 @@ See vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/upstream-refresh-config/">upstream-refresh reference</a>
 and vergil-actions'
 <a href="https://vergil-project.github.io/vergil-actions/latest/workflows/ops-upstream-refresh/"><code>ops-upstream-refresh</code> workflow</a>.</p>
+<h3 id="failures-go-to-the-operations-queue">Failures go to the operations queue<a class="headerlink" href="#failures-go-to-the-operations-queue" title="Permanent link">&para;</a></h3>
+<p>The <strong>branch sweep</strong> and the <strong>upstream refresh</strong> report their failures to the
+org's <a href="../management/epics-and-tasks/#standing-epics">operations queue</a>: a
+failure opens one ops issue for that job in the repository it ran in, under
+the org's <code>Epic (operations): &lt;org&gt;</code>, or comments on the one already open, so
+a job failing night after night has one issue with a growing history. The
+<strong>config audit</strong>, the <strong>Dependabot audit</strong> and the <strong>trusted-authors check</strong>
+do not report there: their failures are security signals, and an ops issue
+is public. Their failures are read from the Actions run history instead.</p>
 <h3 id="report-only-dependabot">Report-only Dependabot<a class="headerlink" href="#report-only-dependabot" title="Permanent link">&para;</a></h3>
 <p>Dependabot alerts are on for every repo, and Dependabot never opens a pull
 request. The config audit enforces both settings: alerts on, Dependabot
