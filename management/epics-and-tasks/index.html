@@ -1618,14 +1618,17 @@ almost no real problem is 100% closed by a single initiative. So every epic
 carries <strong>bookend</strong> tasks:</p>
 <ul>
 <li><strong>It opens</strong> with a <strong>documentation task</strong> — the spec and plan, born from
-  planning.</li>
+  planning. <code>epic-create</code> creates it with the epic, before any design work.</li>
 <li><strong>It closes</strong> with two tasks, in order: a <strong>documentation review</strong> (confirm
   the change is reflected in the docs — especially this site) and then the
   <strong>retrospective</strong>, the terminal gate — a single backward-looking record that
   partners the spec and plan and records what comes next. Its docs PR closes
-  the epic.</li>
-<li>A <strong>follow-on brainstorm</strong> is seeded up front only when a known follow-on
-  already exists; otherwise its outcome is captured in the retrospective.</li>
+  the epic. Both are filed with the plan's tasks, in <code>epic-create</code>'s
+  <code>file-tasks</code> stage, since the design decides where the review's sweep lands.</li>
+<li>A <strong>follow-on brainstorm</strong> is a task only when a known enabling chain exists
+  when the epic is planned: it is then a plan task like any other, filed in the
+  <code>file-tasks</code> stage. Otherwise follow-on work accrues as specific tasks during
+  implementation, and its outcome is recorded in the retrospective.</li>
 </ul>
 <p>This rides the roll-up: because the epic cannot close until <em>all</em> its tasks
 close, the closing bookends <em>gate</em> completion. You cannot finish an epic without
