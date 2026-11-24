@@ -63,7 +63,10 @@ System.
 
 - **Nichijō kanri (daily)** runs on every invocation. `start` is the 朝礼
   chōrei: what ran unattended since the last review, what failed and why, and
-  what needs action today. It also shows two trust checks, in the terminal
+  what needs action today. It reads what failed and why from each org's
+  operations queue (the ops issues under `Epic (operations): <org>`; see
+  [Standing epics](epics-and-tasks.md#standing-epics)), with the Actions run
+  history as the backstop for runs that never reported. It also shows two trust checks, in the terminal
   only: the outsider report (`vrg-epic-audit --untrusted`), what accounts
   outside the [trusted roles](epics-and-tasks.md#trusted-content) did in
   each Vergil org since the last daily review, and the latest nightly
