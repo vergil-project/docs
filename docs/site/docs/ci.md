@@ -166,14 +166,20 @@ workflow `ops-github-config.yml` on a nightly schedule. A repo whose `ops.yml`
 is missing or has no schedule is treated as non-compliant. The nightly run has
 three jobs in every repo, and a fourth in the org's own `.github` repository:
 
-- **Config audit.** `vrg-github-repo-config audit` compares the repo's GitHub
-  configuration and its checked-in files against the canonical Vergil
-  configuration. It reports drift, such as branch protection that does not
-  match the derived required-check set or a required context that no workflow
-  can produce, and any drift fails the run. The nightly job only audits; it
-  never changes the configuration. Reconciling a repo (`apply`) is a human
-  action. See the
-  [GitHub Config Audit reference](https://vergil-project.github.io/vergil-tooling/latest/reference/config-audit/).
+- **Config sync.** The `github-config` job runs
+  `vrg-github-repo-config update` from `develop`, as the org automation App,
+  to bring the repo in line with the canonical Vergil configuration. It
+  converges the repo's GitHub settings and rulesets, then checks the managed
+  files committed on `develop`. When any has drifted, it opens one sync pull
+  request on an `automation/repo-config-sync/<run-id>` branch, and the pull
+  request merges itself once its required checks pass. Drift that `update`
+  cannot fix, such as a missing `vergil.toml` or an unwired `ops.yml`, is
+  left for a human and fails the run: the run's log names it, and so does
+  the sync pull request's body when the run opened one. See the
+  [GitHub Config Audit reference](https://vergil-project.github.io/vergil-tooling/latest/reference/config-audit/#the-update-command)
+  and vergil-actions'
+  [github-config](https://vergil-project.github.io/vergil-actions/latest/workflows/ops-github-config/#github-config)
+  job.
 - **Dependabot audit.** `vrg-dependabot-audit` fails the run when the repo has
   any open Dependabot alert, described below.
 - **Branch sweep.** `vrg-branch-sweep` deletes branches whose pull-request
@@ -202,8 +208,8 @@ instead. It never enables auto-merge: a person reviews and merges every
 lifecycle pull request.
 
 The nightly `ops.yml` in `vergil-containers` and `vergil-python` also runs the
-**upstream refresh**, the one nightly job whose pull request merges itself. It
-runs as two jobs. The `prepare` job runs the repo's `[upstream-refresh].hook`
+**upstream refresh**, whose pull request merges itself, as the config sync's
+does. It runs as two jobs. The `prepare` job runs the repo's `[upstream-refresh].hook`
 with no secrets and a read-only token. The `publish` job checks the resulting
 patch against the repo's path fence, the `[upstream-refresh].paths` allowlist,
 then opens a pull request on a new `automation/upstream-refresh/<run-id>`
@@ -221,18 +227,18 @@ org's [operations queue](management/epics-and-tasks.md#standing-epics): a
 failure opens one ops issue for that job in the repository it ran in, under
 the org's `Epic (operations): <org>`, or comments on the one already open, so
 a job failing night after night has one issue with a growing history. The
-**config audit**, the **Dependabot audit** and the **trusted-authors check**
+**config sync**, the **Dependabot audit** and the **trusted-authors check**
 do not report there: their failures are security signals, and an ops issue
 is public. Their failures are read from the Actions run history instead.
 
 ### Report-only Dependabot
 
 Dependabot alerts are on for every repo, and Dependabot never opens a pull
-request. The config audit enforces both settings: alerts on, Dependabot
+request. The config sync enforces both settings: alerts on, Dependabot
 security updates off. Every repo also carries a canonical
 `.github/dependabot.yml` in which every entry sets
 `open-pull-requests-limit: 0`. `vrg-validate` rejects an entry without that
-limit, and the config audit flags a missing or non-canonical file. The file
+limit, and the config sync replaces a missing or non-canonical file. The file
 exists so that the OpenSSF Scorecard Dependency-Update-Tool check passes.
 
 The nightly `dependabot-audit` job fails on any open alert, at any severity.
