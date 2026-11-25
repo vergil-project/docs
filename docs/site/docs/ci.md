@@ -231,6 +231,30 @@ a job failing night after night has one issue with a growing history. The
 do not report there: their failures are security signals, and an ops issue
 is public. Their failures are read from the Actions run history instead.
 
+### Bot identity
+
+Every unattended job in the fleet, the nightly `ops.yml` jobs and the
+scheduled, event-driven and push-triggered jobs nobody watches, makes its
+writes as the org automation App, with a token minted for that job. A step
+may use a weaker token only where the job's design needs one, such as the
+upstream refresh's read-only `prepare` token, which keeps the App key off
+the runner that runs the repo's hook, or where the App cannot do the
+operation. Five jobs keep the workflow's `GITHUB_TOKEN` for that second
+reason:
+
+| Job | Keeps `GITHUB_TOKEN` for | Why the App cannot do it |
+| --- | --- | --- |
+| `nightly-rebuild-dev` and `nightly-rebuild-prod` (`vergil-containers`' nightly image rebuilds) | The GHCR login, and the pushes, promotions, attestations and SARIF uploads of their build and publish jobs | GHCR rejects App installation tokens for registry pushes ([vergil-project/.github#1516](https://github.com/vergil-project/.github/issues/1516)) |
+| `image-publish` (`vergil-containers`' image publish on push) | The same steps | The same reason |
+| `publish-index` (the `packages` repo's index rebuild) | The `deploy` job's GitHub Pages deployment | The job runs in the `github-pages` environment it deploys to, and a job declares only one environment, so it cannot read the App keys, which live only in the `automation` environment |
+| `package-cleanup` (`vergil-containers`' weekly package cleanup) | Every GHCR call of its `cleanup`, `reap-aliases` and `verify-deletes` jobs | GitHub Packages does not accept App installation tokens for its deletes and untags, and `GITHUB_TOKEN` is the documented token for a workflow repository's own packages ([vergil-project/vergil-containers#1054](https://github.com/vergil-project/vergil-containers/issues/1054)) |
+
+A job that only reads packages, such as `vergil-containers`' weekly
+`package-cache-warm`, uses the App token. The rule and each exception are
+recorded in
+[§5.4 of the operations-queue epic's spec](https://github.com/vergil-project/.github/blob/develop/epics/1494-ops-issue-queue/spec.md#54-bot-identity),
+and its job inventory (§4.1) gives each job's trigger and token.
+
 ### Report-only Dependabot
 
 Dependabot alerts are on for every repo, and Dependabot never opens a pull
