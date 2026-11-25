@@ -1168,6 +1168,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#bot-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bot identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#report-only-dependabot" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1376,6 +1387,17 @@
     <span class="md-ellipsis">
       
         Failures go to the operations queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bot-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bot identity
       
     </span>
   </a>
@@ -1596,14 +1618,20 @@ workflow <code>ops-github-config.yml</code> on a nightly schedule. A repo whose 
 is missing or has no schedule is treated as non-compliant. The nightly run has
 three jobs in every repo, and a fourth in the org's own <code>.github</code> repository:</p>
 <ul>
-<li><strong>Config audit.</strong> <code>vrg-github-repo-config audit</code> compares the repo's GitHub
-  configuration and its checked-in files against the canonical Vergil
-  configuration. It reports drift, such as branch protection that does not
-  match the derived required-check set or a required context that no workflow
-  can produce, and any drift fails the run. The nightly job only audits; it
-  never changes the configuration. Reconciling a repo (<code>apply</code>) is a human
-  action. See the
-  <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/config-audit/">GitHub Config Audit reference</a>.</li>
+<li><strong>Config sync.</strong> The <code>github-config</code> job runs
+  <code>vrg-github-repo-config update</code> from <code>develop</code>, as the org automation App,
+  to bring the repo in line with the canonical Vergil configuration. It
+  converges the repo's GitHub settings and rulesets, then checks the managed
+  files committed on <code>develop</code>. When any has drifted, it opens one sync pull
+  request on an <code>automation/repo-config-sync/&lt;run-id&gt;</code> branch, and the pull
+  request merges itself once its required checks pass. Drift that <code>update</code>
+  cannot fix, such as a missing <code>vergil.toml</code> or an unwired <code>ops.yml</code>, is
+  left for a human and fails the run: the run's log names it, and so does
+  the sync pull request's body when the run opened one. See the
+  <a href="https://vergil-project.github.io/vergil-tooling/latest/reference/config-audit/#the-update-command">GitHub Config Audit reference</a>
+  and vergil-actions'
+  <a href="https://vergil-project.github.io/vergil-actions/latest/workflows/ops-github-config/#github-config">github-config</a>
+  job.</li>
 <li><strong>Dependabot audit.</strong> <code>vrg-dependabot-audit</code> fails the run when the repo has
   any open Dependabot alert, described below.</li>
 <li><strong>Branch sweep.</strong> <code>vrg-branch-sweep</code> deletes branches whose pull-request
@@ -1631,8 +1659,8 @@ request passes CI as opened. For the other languages it opens an issue
 instead. It never enables auto-merge: a person reviews and merges every
 lifecycle pull request.</p>
 <p>The nightly <code>ops.yml</code> in <code>vergil-containers</code> and <code>vergil-python</code> also runs the
-<strong>upstream refresh</strong>, the one nightly job whose pull request merges itself. It
-runs as two jobs. The <code>prepare</code> job runs the repo's <code>[upstream-refresh].hook</code>
+<strong>upstream refresh</strong>, whose pull request merges itself, as the config sync's
+does. It runs as two jobs. The <code>prepare</code> job runs the repo's <code>[upstream-refresh].hook</code>
 with no secrets and a read-only token. The <code>publish</code> job checks the resulting
 patch against the repo's path fence, the <code>[upstream-refresh].paths</code> allowlist,
 then opens a pull request on a new <code>automation/upstream-refresh/&lt;run-id&gt;</code>
@@ -1648,16 +1676,61 @@ org's <a href="../management/epics-and-tasks/#standing-epics">operations queue</
 failure opens one ops issue for that job in the repository it ran in, under
 the org's <code>Epic (operations): &lt;org&gt;</code>, or comments on the one already open, so
 a job failing night after night has one issue with a growing history. The
-<strong>config audit</strong>, the <strong>Dependabot audit</strong> and the <strong>trusted-authors check</strong>
+<strong>config sync</strong>, the <strong>Dependabot audit</strong> and the <strong>trusted-authors check</strong>
 do not report there: their failures are security signals, and an ops issue
 is public. Their failures are read from the Actions run history instead.</p>
+<h3 id="bot-identity">Bot identity<a class="headerlink" href="#bot-identity" title="Permanent link">&para;</a></h3>
+<p>Every unattended job in the fleet, the nightly <code>ops.yml</code> jobs and the
+scheduled, event-driven and push-triggered jobs nobody watches, makes its
+writes as the org automation App, with a token minted for that job. A step
+may use a weaker token only where the job's design needs one, such as the
+upstream refresh's read-only <code>prepare</code> token, which keeps the App key off
+the runner that runs the repo's hook, or where the App cannot do the
+operation. Five jobs keep the workflow's <code>GITHUB_TOKEN</code> for that second
+reason:</p>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Keeps <code>GITHUB_TOKEN</code> for</th>
+<th>Why the App cannot do it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nightly-rebuild-dev</code> and <code>nightly-rebuild-prod</code> (<code>vergil-containers</code>' nightly image rebuilds)</td>
+<td>The GHCR login, and the pushes, promotions, attestations and SARIF uploads of their build and publish jobs</td>
+<td>GHCR rejects App installation tokens for registry pushes (<a href="https://github.com/vergil-project/.github/issues/1516">vergil-project/.github#1516</a>)</td>
+</tr>
+<tr>
+<td><code>image-publish</code> (<code>vergil-containers</code>' image publish on push)</td>
+<td>The same steps</td>
+<td>The same reason</td>
+</tr>
+<tr>
+<td><code>publish-index</code> (the <code>packages</code> repo's index rebuild)</td>
+<td>The <code>deploy</code> job's GitHub Pages deployment</td>
+<td>The job runs in the <code>github-pages</code> environment it deploys to, and a job declares only one environment, so it cannot read the App keys, which live only in the <code>automation</code> environment</td>
+</tr>
+<tr>
+<td><code>package-cleanup</code> (<code>vergil-containers</code>' weekly package cleanup)</td>
+<td>Every GHCR call of its <code>cleanup</code>, <code>reap-aliases</code> and <code>verify-deletes</code> jobs</td>
+<td>GitHub Packages does not accept App installation tokens for its deletes and untags, and <code>GITHUB_TOKEN</code> is the documented token for a workflow repository's own packages (<a href="https://github.com/vergil-project/vergil-containers/issues/1054">vergil-project/vergil-containers#1054</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>A job that only reads packages, such as <code>vergil-containers</code>' weekly
+<code>package-cache-warm</code>, uses the App token. The rule and each exception are
+recorded in
+<a href="https://github.com/vergil-project/.github/blob/develop/epics/1494-ops-issue-queue/spec.md#54-bot-identity">§5.4 of the operations-queue epic's spec</a>,
+and its job inventory (§4.1) gives each job's trigger and token.</p>
 <h3 id="report-only-dependabot">Report-only Dependabot<a class="headerlink" href="#report-only-dependabot" title="Permanent link">&para;</a></h3>
 <p>Dependabot alerts are on for every repo, and Dependabot never opens a pull
-request. The config audit enforces both settings: alerts on, Dependabot
+request. The config sync enforces both settings: alerts on, Dependabot
 security updates off. Every repo also carries a canonical
 <code>.github/dependabot.yml</code> in which every entry sets
 <code>open-pull-requests-limit: 0</code>. <code>vrg-validate</code> rejects an entry without that
-limit, and the config audit flags a missing or non-canonical file. The file
+limit, and the config sync replaces a missing or non-canonical file. The file
 exists so that the OpenSSF Scorecard Dependency-Update-Tool check passes.</p>
 <p>The nightly <code>dependabot-audit</code> job fails on any open alert, at any severity.
 <code>vrg-dependabot-audit</code> exits 1 when the repo has open alerts and 2 when it
