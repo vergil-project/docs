@@ -1507,14 +1507,25 @@ jobs' image tag from the primary version (below).</p>
 <p>Because the matrix and the container tag are derived rather than written down,
 the same short workflow serves every repo, and a version change takes effect
 fleet-wide without touching a single <code>ci.yml</code>.</p>
-<p>One exception to "pass only <code>language:</code> and <code>container-suffix:</code>": a repo that
-publishes packages (see <a href="#release-packaging">Release packaging</a>) must call the
-release workflow with <code>secrets: inherit</code>. Its signing secrets are
-<strong>environment</strong> secrets, and an explicit <code>secrets:</code> map does not deliver
-environment secrets to a cross-repo reusable workflow — only <code>inherit</code> does.
-Semgrep flags <code>secrets: inherit</code>, so the line carries an inline suppression:</p>
-<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">secrets</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inherit</span><span class="w">  </span><span class="c1"># nosemgrep: yaml.github-actions.security.secrets-inherit.secrets-inherit</span>
-</code></pre></div>
+<p>A caller passes secrets as well when the workflow it calls reads them. A job
+that calls a reusable workflow cannot declare an environment, so the caller
+passes the secrets on, and the called workflow's jobs declare the environment
+that holds them. Two routes carry them:</p>
+<ul>
+<li><strong><code>secrets: inherit</code>, within vergil-project.</strong> A vergil-project caller passes
+  <code>secrets: inherit</code> to the vergil-actions workflows that read environment
+  secrets: the release workflow of a repo that publishes packages (see
+  <a href="#release-packaging">Release packaging</a>), and the workflows that read the
+  automation App's keys. A <code>vrg-validate</code> check refuses <code>secrets: inherit</code> to
+  any other <code>uses:</code>. Across orgs <code>inherit</code> passes nothing.</li>
+<li><strong>The App keys by name.</strong> A caller in another org, or a call job to a repo's
+  own local reusable workflow, passes <code>APP_CLIENT_ID</code> and <code>APP_PRIVATE_KEY</code> by
+  name. Keys passed by name reach the called workflow's jobs that declare the
+  environment.</li>
+</ul>
+<p>Signed packages from repos outside vergil-project, which would pass the signing
+secrets by name, are tracked in
+<a href="https://github.com/vergil-project/.github/issues/1592">vergil-project/.github#1592</a>.</p>
 <h2 id="version-agnostic-evidence-gates">Version-agnostic evidence gates<a class="headerlink" href="#version-agnostic-evidence-gates" title="Permanent link">&para;</a></h2>
 <p>Branch protection requires <strong>stable, version-agnostic aggregate checks</strong>, not
 per-version legs. For each matrixed kind — audit, quality, and tests — the
@@ -1572,7 +1583,7 @@ change.</p>
   <code>refs/heads/main</code></strong>, and every <code>.rpm</code>'s signature, then signs the metadata in
   the develop-only <code>index-signing</code> environment and deploys to GitHub Pages.</li>
 </ul>
-<p>The release caller needs <code>secrets: inherit</code> (see
+<p>The release caller passes <code>secrets: inherit</code> (see
 <a href="#thin-caller-ciyml">Thin-caller <code>ci.yml</code></a>). The full mechanics are in
 vergil-tooling's
 <a href="https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/">CI Architecture</a>
