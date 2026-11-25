@@ -65,16 +65,25 @@ Because the matrix and the container tag are derived rather than written down,
 the same short workflow serves every repo, and a version change takes effect
 fleet-wide without touching a single `ci.yml`.
 
-One exception to "pass only `language:` and `container-suffix:`": a repo that
-publishes packages (see [Release packaging](#release-packaging)) must call the
-release workflow with `secrets: inherit`. Its signing secrets are
-**environment** secrets, and an explicit `secrets:` map does not deliver
-environment secrets to a cross-repo reusable workflow — only `inherit` does.
-Semgrep flags `secrets: inherit`, so the line carries an inline suppression:
+A caller passes secrets as well when the workflow it calls reads them. A job
+that calls a reusable workflow cannot declare an environment, so the caller
+passes the secrets on, and the called workflow's jobs declare the environment
+that holds them. Two routes carry them:
 
-```yaml
-    secrets: inherit  # nosemgrep: yaml.github-actions.security.secrets-inherit.secrets-inherit
-```
+- **`secrets: inherit`, within vergil-project.** A vergil-project caller passes
+  `secrets: inherit` to the vergil-actions workflows that read environment
+  secrets: the release workflow of a repo that publishes packages (see
+  [Release packaging](#release-packaging)), and the workflows that read the
+  automation App's keys. A `vrg-validate` check refuses `secrets: inherit` to
+  any other `uses:`. Across orgs `inherit` passes nothing.
+- **The App keys by name.** A caller in another org, or a call job to a repo's
+  own local reusable workflow, passes `APP_CLIENT_ID` and `APP_PRIVATE_KEY` by
+  name. Keys passed by name reach the called workflow's jobs that declare the
+  environment.
+
+Signed packages from repos outside vergil-project, which would pass the signing
+secrets by name, are tracked in
+[vergil-project/.github#1592](https://github.com/vergil-project/.github/issues/1592).
 
 ## Version-agnostic evidence gates
 
@@ -142,7 +151,7 @@ change.
   `refs/heads/main`**, and every `.rpm`'s signature, then signs the metadata in
   the develop-only `index-signing` environment and deploys to GitHub Pages.
 
-The release caller needs `secrets: inherit` (see
+The release caller passes `secrets: inherit` (see
 [Thin-caller `ci.yml`](#thin-caller-ciyml)). The full mechanics are in
 vergil-tooling's
 [CI Architecture](https://vergil-project.github.io/vergil-tooling/latest/guides/ci-architecture/)
