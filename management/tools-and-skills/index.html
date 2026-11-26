@@ -1517,14 +1517,17 @@ hands off, and a human takes it across the line.</p>
 <h3 id="authoring-structure">Authoring &amp; structure<a class="headerlink" href="#authoring-structure" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>vrg-epic-create</code> (mint an epic in <code>.github</code>; with
-  <code>--proxy-for &lt;primary ref&gt; --repo &lt;owner&gt;/&lt;repo&gt;</code> it instead finds, reopens
-  or creates the <a href="../epics-and-tasks/#proxy-epics">proxy epic</a> for a primary in
+  <code>--proxy-for &lt;primary ref&gt; --repo &lt;owner&gt;/&lt;repo&gt;</code> it instead reuses or
+  creates the <a href="../epics-and-tasks/#proxy-epics">proxy epic</a> for a primary in
   another org, in the target's org <code>.github</code>, with its <code>Proxy:</code> comment on the
-  primary)</li>
+  primary; it refuses, never reopening it, when the only proxy is closed)</li>
 <li><code>vrg-adhoc-epic</code> (ensure a repo's ad-hoc epic exists)</li>
 <li><code>vrg-issue-create</code> (create a task, born linked under an epic)</li>
+<li><code>vrg-epic-link</code> / <code>vrg-epic-move</code> (manage the epic↔task relationship,
+  linking by first fit across the epic's <a href="../epics-and-tasks/#chained-epics">chain</a>)</li>
 <li>
-<p><code>vrg-epic-link</code> / <code>vrg-epic-move</code> (manage the epic↔task relationship)</p>
+<p><code>vrg-epic-parent</code> (print a task's epic and its kind, read through the
+  chain, so a task in a continuation reports the chain's head)</p>
 </li>
 <li>
 <p><code>vrg-issue-create --epic adhoc|intake|planning|hoshin</code> (target a

@@ -658,6 +658,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#chained-epics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chained epics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-bookend-convention" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1370,6 +1381,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#chained-epics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chained epics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#the-bookend-convention" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1559,8 +1581,11 @@ that org's <code>.github</code>. The development epic it serves is its <strong>p
 link runs both ways: the proxy's body carries one <code>Primary: &lt;owner&gt;/&lt;repo&gt;#&lt;N&gt;</code>
 line, and the primary records each proxy in a trusted comment carrying a
 <code>Proxy: &lt;owner&gt;/.github#&lt;N&gt;</code> line.
-<code>vrg-epic-create --proxy-for &lt;primary ref&gt; --repo &lt;owner&gt;/&lt;repo&gt;</code> finds,
-reopens or creates the proxy, with its <code>Proxy:</code> comment on the primary.</p>
+<code>vrg-epic-create --proxy-for &lt;primary ref&gt; --repo &lt;owner&gt;/&lt;repo&gt;</code> reuses an
+open proxy or creates one, with its <code>Proxy:</code> comment on the primary. It never
+reopens one: when the primary's only proxy is closed it refuses before any
+write, naming the proxy. A person may reopen it by hand, and a re-run then
+reuses it.</p>
 <p>A proxy is <strong>not a development epic</strong>. It has no spec, plan or bookends, since
 the primary carries them; the roll-up never closes it; and the roadmap does not
 list it. Its tasks are driven from the primary: <code>epic-implement</code> on the primary
@@ -1633,6 +1658,23 @@ linked, and an issue born outside them is <strong>healed, not rejected</strong> 
 sweep attaches it to its home's intake epic, unless an outsider opened it. An
 outsider's issue is never attached: it is reported, metadata only (see
 <a href="#trusted-content">Trusted content</a>).</p>
+<h2 id="chained-epics">Chained epics<a class="headerlink" href="#chained-epics" title="Permanent link">&para;</a></h2>
+<p>GitHub allows at most 100 sub-issues under one parent, so an epic of any kind
+grows past that as a <strong>chain</strong>: its <strong>head</strong> (the epic as created, the ref
+everything names) followed by <strong>continuations</strong>, issues labelled <code>epic</code> +
+<code>continuation</code>, each linked in the last slot of the container before it.
+Every reader sees one flat list of the chain's items, and a task's epic is
+always the head, whichever container holds it; a continuation's ref given to
+a command is resolved to its head. Writers link by first fit across the
+chain and create the next continuation only when every container is full. A
+development or proxy epic's rollover is loud (it comments on the head,
+suggesting a split), and a link that would pass GitHub's nesting limit of
+eight levels is refused before anything is created.</p>
+<p>The exact rules, including how the daily sweep heals a broken chain, are in
+vergil-tooling's
+<a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#chained-epics">Chained epics</a>
+and
+<a href="https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#the-chain-heals">The chain heals</a>.</p>
 <h2 id="the-bookend-convention">The bookend convention<a class="headerlink" href="#the-bookend-convention" title="Permanent link">&para;</a></h2>
 <p>An epic is never truly "done" the instant its implementation lands, because
 almost no real problem is 100% closed by a single initiative. So every epic
@@ -1690,8 +1732,12 @@ violations:</p>
   intake, planning and deferred queue items alike. Any other open issue there is a stray.</li>
 <li><strong>An epic is never closed while a child is open.</strong> Roll-up closes a finite
   epic only once <em>all</em> its children are closed; a closed epic with a still-open
-  child is a violation, remediated by reopening it. (Standing epics never roll
-  up; their closed children drain into archives instead.)</li>
+  child is a violation, reported for a human: neither the audit nor the sweep
+  reopens the epic. (Standing epics never roll up; their closed children drain
+  into archives instead.)</li>
+<li><strong>Closed is closed.</strong> No tool reopens a closed epic: linking or moving an
+  issue into one is refused, naming the epic, and a closed standing epic is
+  never reopened or replaced. A person may reopen a closed epic by hand.</li>
 <li><strong>Every issue has an epic parent.</strong> An <strong>orphan</strong> — an open issue that is
   neither a top-level kind nor linked under an epic — is reported, along with
   any issue still carrying the retired <code>triage</code> / <code>idea</code> / <code>research</code> labels.</li>
@@ -1699,8 +1745,14 @@ violations:</p>
 <p>The daily sweep (<code>vrg-epic-audit --close</code>) does more than report: its <strong>orphan
 pass</strong> auto-heals the model. It converts body-only parent links into native
 ones, strips the retired labels, and attaches every orphan to its home's intake
-epic, except one an outsider opened, which it reports instead. It never closes an item, and it stops loudly — never silently skipping —
-when a queue is too full to accept more.</p>
+epic, except one an outsider opened, which it reports instead. It never
+closes an item. Every link goes through the epic's
+<a href="#chained-epics">chain</a>, so a full queue rolls over rather than stopping the
+pass; an intake queue left holding 95 open items or more prints a nudge to
+run intake review, a report line, not a failure. A link into a closed epic is
+refused by name, the rest of the pass runs, and the run exits 1. Before the
+orphan pass, the sweep also closes finished chains whole and heals chain
+drift, listing what it could not heal for a human.</p>
 <p>The sweep does not run the <strong>security-records pass</strong>: <code>vrg-epic-audit --close</code>
 makes no security-advisory call. The pass is <code>vrg-security-record sync</code>, which
 the human or the user agent runs over the private draft advisories in the org's
