@@ -134,8 +134,11 @@ that org's `.github`. The development epic it serves is its **primary**. The
 link runs both ways: the proxy's body carries one `Primary: <owner>/<repo>#<N>`
 line, and the primary records each proxy in a trusted comment carrying a
 `Proxy: <owner>/.github#<N>` line.
-`vrg-epic-create --proxy-for <primary ref> --repo <owner>/<repo>` finds,
-reopens or creates the proxy, with its `Proxy:` comment on the primary.
+`vrg-epic-create --proxy-for <primary ref> --repo <owner>/<repo>` reuses an
+open proxy or creates one, with its `Proxy:` comment on the primary. It never
+reopens one: when the primary's only proxy is closed it refuses before any
+write, naming the proxy. A person may reopen it by hand, and a re-run then
+reuses it.
 
 A proxy is **not a development epic**. It has no spec, plan or bookends, since
 the primary carries them; the roll-up never closes it; and the roadmap does not
@@ -193,6 +196,26 @@ linked, and an issue born outside them is **healed, not rejected** — the daily
 sweep attaches it to its home's intake epic, unless an outsider opened it. An
 outsider's issue is never attached: it is reported, metadata only (see
 [Trusted content](#trusted-content)).
+
+## Chained epics
+
+GitHub allows at most 100 sub-issues under one parent, so an epic of any kind
+grows past that as a **chain**: its **head** (the epic as created, the ref
+everything names) followed by **continuations**, issues labelled `epic` +
+`continuation`, each linked in the last slot of the container before it.
+Every reader sees one flat list of the chain's items, and a task's epic is
+always the head, whichever container holds it; a continuation's ref given to
+a command is resolved to its head. Writers link by first fit across the
+chain and create the next continuation only when every container is full. A
+development or proxy epic's rollover is loud (it comments on the head,
+suggesting a split), and a link that would pass GitHub's nesting limit of
+eight levels is refused before anything is created.
+
+The exact rules, including how the daily sweep heals a broken chain, are in
+vergil-tooling's
+[Chained epics](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#chained-epics)
+and
+[The chain heals](https://vergil-project.github.io/vergil-tooling/latest/standards/github-issues/#the-chain-heals).
 
 ## The bookend convention
 
@@ -258,8 +281,12 @@ violations:
   intake, planning and deferred queue items alike. Any other open issue there is a stray.
 - **An epic is never closed while a child is open.** Roll-up closes a finite
   epic only once *all* its children are closed; a closed epic with a still-open
-  child is a violation, remediated by reopening it. (Standing epics never roll
-  up; their closed children drain into archives instead.)
+  child is a violation, reported for a human: neither the audit nor the sweep
+  reopens the epic. (Standing epics never roll up; their closed children drain
+  into archives instead.)
+- **Closed is closed.** No tool reopens a closed epic: linking or moving an
+  issue into one is refused, naming the epic, and a closed standing epic is
+  never reopened or replaced. A person may reopen a closed epic by hand.
 - **Every issue has an epic parent.** An **orphan** — an open issue that is
   neither a top-level kind nor linked under an epic — is reported, along with
   any issue still carrying the retired `triage` / `idea` / `research` labels.
@@ -267,8 +294,14 @@ violations:
 The daily sweep (`vrg-epic-audit --close`) does more than report: its **orphan
 pass** auto-heals the model. It converts body-only parent links into native
 ones, strips the retired labels, and attaches every orphan to its home's intake
-epic, except one an outsider opened, which it reports instead. It never closes an item, and it stops loudly — never silently skipping —
-when a queue is too full to accept more.
+epic, except one an outsider opened, which it reports instead. It never
+closes an item. Every link goes through the epic's
+[chain](#chained-epics), so a full queue rolls over rather than stopping the
+pass; an intake queue left holding 95 open items or more prints a nudge to
+run intake review, a report line, not a failure. A link into a closed epic is
+refused by name, the rest of the pass runs, and the run exits 1. Before the
+orphan pass, the sweep also closes finished chains whole and heals chain
+drift, listing what it could not heal for a human.
 
 The sweep does not run the **security-records pass**: `vrg-epic-audit --close`
 makes no security-advisory call. The pass is `vrg-security-record sync`, which

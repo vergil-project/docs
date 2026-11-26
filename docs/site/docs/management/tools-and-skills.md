@@ -40,13 +40,16 @@ hands off, and a human takes it across the line.
 ### Authoring & structure
 
 - `vrg-epic-create` (mint an epic in `.github`; with
-  `--proxy-for <primary ref> --repo <owner>/<repo>` it instead finds, reopens
-  or creates the [proxy epic](epics-and-tasks.md#proxy-epics) for a primary in
+  `--proxy-for <primary ref> --repo <owner>/<repo>` it instead reuses or
+  creates the [proxy epic](epics-and-tasks.md#proxy-epics) for a primary in
   another org, in the target's org `.github`, with its `Proxy:` comment on the
-  primary)
+  primary; it refuses, never reopening it, when the only proxy is closed)
 - `vrg-adhoc-epic` (ensure a repo's ad-hoc epic exists)
 - `vrg-issue-create` (create a task, born linked under an epic)
-- `vrg-epic-link` / `vrg-epic-move` (manage the epic↔task relationship)
+- `vrg-epic-link` / `vrg-epic-move` (manage the epic↔task relationship,
+  linking by first fit across the epic's [chain](epics-and-tasks.md#chained-epics))
+- `vrg-epic-parent` (print a task's epic and its kind, read through the
+  chain, so a task in a continuation reports the chain's head)
 
 - `vrg-issue-create --epic adhoc|intake|planning|hoshin` (target a
   repository's standing epic by name rather than by number; `hoshin` is the
