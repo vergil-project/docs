@@ -2,6 +2,7 @@
 
 The daily review is 日常管理 nichijō kanri, run on every invocation: `start` is the 朝礼 chōrei (morning assembly) and `end` the 終礼 shūrei (closing assembly).
 
+- [2026-11-27 end](2026-11-27-end.md)
 - [2026-11-27 start](2026-11-27-start.md)
 - [2026-11-25 end](2026-11-25-end.md)
 - [2026-11-25 start](2026-11-25-start.md)
